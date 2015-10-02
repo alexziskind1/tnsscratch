@@ -1,0 +1,19 @@
+body {
+ background-color: #f8f9f6;   
+}
+
+.title {
+    font-size: 10;
+    color:red;
+}
+
+button {
+    font-size: 42;
+    horizontal-align: center;
+}
+
+.message {
+    font-size: 20;
+    color: #284848;
+    horizontal-align: center;
+}
