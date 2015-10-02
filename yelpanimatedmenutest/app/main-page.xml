@@ -1,0 +1,35 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="pageLoaded">
+    <AbsoluteLayout>
+        <ScrollView id="vScroll" verticalAlignment="top">
+            <AbsoluteLayout id="wrapper" horizontalAlignment="center" borderColor="#cccccc" borderWidth="1">
+                <Image id="imgNearby" src="~/res/yelp_back.png"></Image>
+                <Image id="imgBlur" src="~/res/yelp_overlay.png"></Image>
+            </AbsoluteLayout>
+        </ScrollView>
+
+        <AbsoluteLayout id="brBar" height="50" borderColor="#cccccc" backgroundColor="#f8f9f6">
+            <AbsoluteLayout id="vBtnWrapper" width="60" height="60" left="140" top="-5" clipToBounds="true" backgroundColor="#f8f9f6" borderRadius="5" borderColor="#cccccc" borderWidth="0.4">
+
+                <Image id="vBtnClose" width="20" height="20" src="~/res/iconclose.png" left="20" top="20" />
+                <Image id="vBtnOpen" width="50" height="50" src="~/res/iconopen.png" left="5" top="5" />
+                
+                <StackLayout id="vReview" left="5">
+                    <Image width="50" height="50" src="~/res/iconreview.png" left="5" top="5" />
+                    <Label text="Review" style.textAlignment="center" style="color:#999999;font-size:10;"></Label>
+                </StackLayout>
+
+                <StackLayout id="vCheckIn">
+                    <Image width="40" height="40" src="~/res/iconcheckin.png" left="5" top="5" />
+                    <Label text="Check In" style.textAlignment="center" style="color:#999999;font-size:10;"></Label>
+                </StackLayout>
+
+                <StackLayout id="vPhoto"> 
+                    <Image id="imgPhoto" width="40" height="40" src="~/res/iconphoto.png" left="5" top="5" />
+                    <Label text="Photo" style.textAlignment="center" style="color:#999999;font-size:10;"></Label>
+                </StackLayout>
+
+            </AbsoluteLayout>
+        </AbsoluteLayout> 
+
+    </AbsoluteLayout>
+</Page>
