@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "tns-core-modules": "1.3.0",
-    "nativescript-animation-spring": "~0.0.2",
+    "nativescript-animation-spring": "~0.0.2"
   }
 }
