@@ -1,0 +1,12 @@
+*/bin
+*/obj
+
+*.dat
+*.suo
+
+
+/lib/
+/.metadata/
+/.tscache
+/node_modules
+/platforms
