@@ -57,6 +57,7 @@ function setupHandlers() {
     //Open button tap handler
     vBtnOpen.on(gestures.GestureTypes.tap, function (args) {
 
+
         vReview.animate({
             translate: {
                 x: 0,
@@ -132,6 +133,7 @@ function setupHandlers() {
             .catch(function (e) {
                 console.log(e.message);
             });
+            
     });
     
     //Close button tap handler
