@@ -1,10 +1,7 @@
 {
 	"nativescript": {
-		"id": "org.nativescript.test512",
+		"id": "org.nativescript.hellotest",
 		"tns-ios": {
-			"version": "1.5.1"
-		},
-		"tns-android": {
 			"version": "1.5.1"
 		}
 	},

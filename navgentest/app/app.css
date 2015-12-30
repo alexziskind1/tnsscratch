@@ -5,7 +5,7 @@
 }
 
 button {
-    font-size: 60;
+    font-size: 42;
     horizontal-align: center;
 }
 
@@ -13,4 +13,10 @@ button {
     font-size: 20;
     color: #284848;
     horizontal-align: center;
+}
+
+.wrapper {
+    border-width: 5;
+    border-color: #ff4848;
+    border-radius: 5;
 }

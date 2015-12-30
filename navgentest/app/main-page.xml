@@ -1,0 +1,10 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+  <AbsoluteLayout id="layoutBase" class="wrapper">
+
+    <Label id="lblMyLabel" text="Hi d dfd" class="message wrapper" textWrap="true"/>
+    <Image id="imgMy" />
+
+    <Button text="TAP" tap="buttonTap" />
+
+  </AbsoluteLayout>
+</Page>
