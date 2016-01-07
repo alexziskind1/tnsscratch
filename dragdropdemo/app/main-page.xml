@@ -1,5 +1,5 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
-  <AbsoluteLayout id="layoutBase">
+  <WrapLayout id="layoutBase">
     <Label id="lblDrag" text="Drag Me" class="title"/>
-  </AbsoluteLayout>
+  </WrapLayout>
 </Page>

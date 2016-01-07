@@ -1,5 +1,7 @@
 var gesturesModule = require("ui/gestures");
+//import {PanStateEnum} from "./panStateEnum";
 var point_1 = require("./point");
+var myLabel_1 = require("./myLabel");
 var MainPageController = (function () {
     function MainPageController() {
         this.lastLocation = new point_1.Point(0, 0);
@@ -18,18 +20,27 @@ var MainPageController = (function () {
     MainPageController.prototype.pageLoaded = function (args) {
         this.page = args.object;
         this.getViewRefs();
-        this.attachEventListeners();
+        //this.attachEventListeners();
+        //var newView = new MyView();
+        //this.layoutBase.addChild(newView);
+        //var newAbsLay = new absoluteLayoutModule.AbsoluteLayout();
+        //newAbsLay.backgroundColor = new colorModule.Color(1, 200,0,78);
+        //this.layoutBase.addChild(newAbsLay);
+        var myLabel = new myLabel_1.MyLabel();
+        myLabel.text = "My Label";
+        this.layoutBase.addChild(myLabel);
     };
     MainPageController.prototype.getViewRefs = function () {
         this.layoutBase = this.page.getViewById("layoutBase");
         this.lblDrag = this.page.getViewById("lblDrag");
     };
     MainPageController.prototype.attachEventListeners = function () {
+        var _this = this;
         this.layoutBase.on(gesturesModule.GestureTypes.pan, function (args) {
             switch (args.state) {
                 case gesturesModule.GestureStateTypes.began: {
-                    this.lastLocation.x = this.lblDrag.ios.center.x;
-                    this.lastLocation.y = this.lblDrag.ios.center.y;
+                    _this.lastLocation.x = _this.lblDrag.ios.center.x;
+                    _this.lastLocation.y = _this.lblDrag.ios.center.y;
                 }
                 case gesturesModule.GestureStateTypes.changed:
                 case gesturesModule.GestureStateTypes.ended: {
@@ -39,8 +50,8 @@ var MainPageController = (function () {
                     if (change != 0) {
                     }
                     var center = {
-                        x: this.lastLocation.x + translationX,
-                        y: this.lastLocation.y + translationY
+                        x: _this.lastLocation.x + translationX,
+                        y: _this.lastLocation.y + translationY
                     };
                     break;
                 }
@@ -50,4 +61,4 @@ var MainPageController = (function () {
     return MainPageController;
 })();
 var mpc = new MainPageController();
-exports.pageLoaded = mpc.pageLoaded;
+exports.pageLoaded = function (args) { return mpc.pageLoaded(args); };
