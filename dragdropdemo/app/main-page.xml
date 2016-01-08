@@ -1,9 +1,7 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
   <WrapLayout id="layoutBase">
-  
-    <AbsoluteLayout id="layoutAbs" height="60" width="70" style.backgroundColor="red"></AbsoluteLayout>
-    
-    <Label id="lblDrag" text="Drag Me" class="title"/>
-    <Button text="TAP" tap="{{ tapAction }}" />
+    <Button text="Add View" tap="{{ addView }}" />
+    <Button text="Add Label" tap="{{ addLabel }}" />
+    <AbsoluteLayout id="layoutAbs" width="45" height="60" style.backgroundColor="blue"></AbsoluteLayout>
   </WrapLayout>
 </Page>

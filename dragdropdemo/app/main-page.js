@@ -1,17 +1,15 @@
 var gesturesModule = require("ui/gestures");
 var colorModule = require("color");
 var absoluteLayoutModule = require("ui/layouts/absolute-layout");
-//import {PanStateEnum} from "./panStateEnum";
-var point_1 = require("./point");
-var myview_1 = require("./myview");
 var myLabel_1 = require("./myLabel");
 var myOptions_1 = require("./myOptions");
+var point_1 = require("./point");
 var UIColor;
 var MainPageController = (function () {
     function MainPageController() {
         this.lastLocation = new point_1.Point(0, 0);
         this._level = 25;
-        this.counter = 1;
+        this.counter = 0;
     }
     Object.defineProperty(MainPageController.prototype, "level", {
         get: function () {
@@ -27,21 +25,21 @@ var MainPageController = (function () {
         this.page = args.object;
         this.page.bindingContext = this;
         this.getViewRefs();
-        //this.attachEventListeners();
-        //var newView = new MyView();
-        //this.layoutBase.addChild(newView);
-        /*
-                var myLabel = new MyLabel();
-                myLabel.text = "My Label";
-                this.layoutBase.addChild(myLabel);
-                */
+        this.attachEventListeners();
     };
     MainPageController.prototype.getViewRefs = function () {
         this.layoutBase = this.page.getViewById("layoutBase");
         this.layoutAbs = this.page.getViewById("layoutAbs");
         this.lblDrag = this.page.getViewById("lblDrag");
     };
-    MainPageController.prototype.tapAction = function () {
+    MainPageController.prototype.addLabel = function () {
+        this.counter++;
+        var myLabel = new myLabel_1.MyLabel();
+        myLabel.text = "My Label " + this.counter;
+        this.layoutBase.addChild(myLabel);
+    };
+    MainPageController.prototype.addView = function () {
+        var _this = this;
         var options = new myOptions_1.MyOptions;
         options.height = 50;
         options.width = 50;
@@ -50,11 +48,17 @@ var MainPageController = (function () {
         options.marginTop = 2;
         options.marginBottom = 70;
         options.className = 'myview';
-        var newView = new myview_1.MyView(options);
-        newView.className = "myview";
-        newView.backgroundColor = new colorModule.Color(1, 200, 0, 78);
-        newView.style.backgroundColor = new colorModule.Color(1, 200, 0, 78);
-        this.layoutBase.addChild(newView);
+        /*
+        var myCustView = new MyCustomView(options);
+        this.layoutBase.addChild(myCustView);
+        */
+        /*
+        var image = new MyImage();
+        image.stretch = enums.Stretch.none;
+        var imageSource = imageSourceModule.fromResource("icon-72");
+        image.imageSource = imageSource;
+        this.layoutBase.addChild(image);
+        */
         var newAbsLay = new absoluteLayoutModule.AbsoluteLayout(options);
         newAbsLay.backgroundColor = new colorModule.Color(1, 200, 0, 78);
         this.layoutBase.addChild(newAbsLay);
@@ -70,29 +74,45 @@ var MainPageController = (function () {
         //newAbsLay.ios.layer.setShadowColor(UIColor.lightGrayColor.CGColor);
         //newAbsLay.ios.layer.setShadowOpacity(0.5);
         var myLabel = new myLabel_1.MyLabel();
-        myLabel.text = "My Label " + this.counter;
+        myLabel.text = "Abs Label " + this.counter;
         newAbsLay.addChild(myLabel);
         this.counter++;
-    };
-    MainPageController.prototype.attachEventListeners = function () {
-        var _this = this;
-        this.layoutBase.on(gesturesModule.GestureTypes.pan, function (args) {
+        newAbsLay.on(gesturesModule.GestureTypes.pan, function (args) {
+            alert('abs pan');
             switch (args.state) {
                 case gesturesModule.GestureStateTypes.began: {
-                    _this.lastLocation.x = _this.lblDrag.ios.center.x;
-                    _this.lastLocation.y = _this.lblDrag.ios.center.y;
+                    _this.lastLocation.x = newAbsLay.ios.center.x;
+                    _this.lastLocation.y = newAbsLay.ios.center.y;
+                    break;
                 }
                 case gesturesModule.GestureStateTypes.changed:
                 case gesturesModule.GestureStateTypes.ended: {
-                    var translationX = args.deltaX;
-                    var translationY = args.deltaY;
-                    var change = translationY * -1;
-                    if (change != 0) {
-                    }
-                    var center = {
-                        x: _this.lastLocation.x + translationX,
-                        y: _this.lastLocation.y + translationY
+                    var newCenter = {
+                        x: _this.lastLocation.x + args.deltaX,
+                        y: _this.lastLocation.y + args.deltaY
                     };
+                    newAbsLay.ios.center = newCenter;
+                    break;
+                }
+            }
+        });
+    };
+    MainPageController.prototype.attachEventListeners = function () {
+        var _this = this;
+        this.layoutAbs.on(gesturesModule.GestureTypes.pan, function (args) {
+            switch (args.state) {
+                case gesturesModule.GestureStateTypes.began: {
+                    _this.lastLocation.x = _this.layoutAbs.ios.center.x;
+                    _this.lastLocation.y = _this.layoutAbs.ios.center.y;
+                    break;
+                }
+                case gesturesModule.GestureStateTypes.changed:
+                case gesturesModule.GestureStateTypes.ended: {
+                    var newCenter = {
+                        x: _this.lastLocation.x + args.deltaX,
+                        y: _this.lastLocation.y + args.deltaY
+                    };
+                    _this.layoutAbs.ios.center = newCenter;
                     break;
                 }
             }
