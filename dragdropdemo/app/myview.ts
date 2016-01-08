@@ -3,21 +3,21 @@ import gesturesModule = require("ui/gestures");
 
 export class MyView extends viewModule.View {
 
+    private _height: number;
+    private _width: number;
 
-    constructor() {
-
-        var options: viewModule.Options = {
-            height:50,
-            width :50,
-            marginLeft: 0,
-            marginRight: 60,
-             marginTop: 2,
-             marginBottom: 70,
-             className: 'myview'
-        };
-
+    constructor(options?: viewModule.Options) {
         super(options);
+        this._height = options.height;
+        this._width = options.width;
+    }
 
+    public onMeasure(widthMeasureSpec: number, heightMeasureSpec: number): void {
+        this.setMeasuredDimension(this._width, this._height);
+    }
+    
+    public onLoaded(): void {
+        console.log("myView loaded");
     }
 
 }
