@@ -20,7 +20,8 @@ var UIColor: any;
 class MainPageController {
 
     public page: pageModule.Page;
-    public layoutBase: wrapLayoutModule.WrapLayout;
+    //public layoutBase: wrapLayoutModule.WrapLayout;
+    public layoutBase: absoluteLayoutModule.AbsoluteLayout;
     public layoutAbs: absoluteLayoutModule.AbsoluteLayout;
     public lblDrag: labelModule.Label;
     private lastLocation: Point = new Point(0,0);
@@ -38,22 +39,56 @@ class MainPageController {
         this.page = <pageModule.Page>args.object;
         this.page.bindingContext = this;
         this.getViewRefs();
-        this.attachEventListeners();
+        //this.attachEventListeners();
     }
 
     public getViewRefs() {
-        this.layoutBase = <wrapLayoutModule.WrapLayout>this.page.getViewById("layoutBase");
-        this.layoutAbs = <absoluteLayoutModule.AbsoluteLayout>this.page.getViewById("layoutAbs");
-        this.lblDrag = <labelModule.Label>this.page.getViewById("lblDrag");
+        //this.layoutBase = <wrapLayoutModule.WrapLayout>this.page.getViewById("layoutBase");
+        this.layoutBase = <absoluteLayoutModule.AbsoluteLayout>this.page.getViewById("layoutBase");
+       
+        //this.layoutAbs = <absoluteLayoutModule.AbsoluteLayout>this.page.getViewById("layoutAbs");
+        //this.lblDrag = <labelModule.Label>this.page.getViewById("lblDrag");
     }
 
     private counter: number = 0;
 
     public addLabel() {
         this.counter++;
-        var myLabel = new MyLabel();
-        myLabel.text = "My Label " + this.counter;
-        this.layoutBase.addChild(myLabel);
+        
+        let halfSizeOfView = 25.0;
+        let maxViews = 25;
+        //let insetSize = CGRectInset(self.view.bounds, CGFloat(Int(2 * halfSizeOfView)), CGFloat(Int(2 * halfSizeOfView))).size
+        
+        
+                var options: MyOptions = new MyOptions;
+            options.height = 50;
+            options.width=50;
+            options.marginLeft= 0;
+            options.marginRight= 60;
+             options.marginTop= 2;
+             options.marginBottom= 70;
+             options.className= 'myview';
+        
+        
+        // Add the Views
+        for (var i = 0; i < maxViews; i++) {
+            
+            let pointX = Math.floor(Math.random() * 200) + 1;
+            let pointY = Math.floor(Math.random() * 200) + 1;
+            
+            options.marginLeft = pointX;
+            options.marginTop = pointY;
+            
+            var myLabel = new MyLabel(options);
+            //myLabel.text = "My Label " + this.counter;
+            this.layoutBase.addChild(myLabel);
+            
+            
+            //let newView = MyView(frame: CGRectMake(pointX, pointY, 50, 50))
+            //self.view.addSubview(newView)
+        }
+        
+
     }
 
     public addView() {
@@ -66,10 +101,10 @@ class MainPageController {
              options.marginBottom= 70;
              options.className= 'myview';
 
-        /*
+        
         var myCustView = new MyCustomView(options);
         this.layoutBase.addChild(myCustView);
-        */
+        
 
         /*
         var image = new MyImage();
@@ -80,7 +115,7 @@ class MainPageController {
         */
 
 
-
+        /*
         var newAbsLay = new absoluteLayoutModule.AbsoluteLayout(options);
         newAbsLay.backgroundColor = new colorModule.Color(1, 200,0,78);
         this.layoutBase.addChild(newAbsLay);
@@ -96,13 +131,16 @@ class MainPageController {
         //newAbsLay.ios.layer.setShadowOffset(CGSizeMake(-2, -2));
         //newAbsLay.ios.layer.setShadowColor(UIColor.lightGrayColor.CGColor);
         //newAbsLay.ios.layer.setShadowOpacity(0.5);
-
+        */
+        
+        /*
         var myLabel = new MyLabel();
         myLabel.text = "Abs Label " + this.counter;
         newAbsLay.addChild(myLabel);
         this.counter++;
+        */
 
-
+        /*
         newAbsLay.on(gesturesModule.GestureTypes.pan, (args: gesturesModule.PanGestureEventData) => {
             alert('abs pan');
             switch (args.state) {
@@ -122,10 +160,11 @@ class MainPageController {
                 }
             }
         });
+        */
 
     }
 
-
+/*
     public attachEventListeners() {
         this.layoutAbs.on(gesturesModule.GestureTypes.pan, (args: gesturesModule.PanGestureEventData) => {
             switch (args.state) {
@@ -146,6 +185,7 @@ class MainPageController {
             }
         });
     }
+    */
 
 }
 

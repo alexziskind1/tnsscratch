@@ -1,9 +1,15 @@
 import {Label} from "ui/label";
 import {Point} from "./point";
+import {MyOptions} from "./myOptions";
 import gesturesModule = require("ui/gestures");
+import colorModule = require("color");
 
 export class MyLabel extends Label {
 
+    private _width: number = 70;
+    private _height: number = 40;
+    private _pointX: number = 0;
+    private _pointY: number = 0;
    public lastLocation: Point = new Point(0,0);
    private scaleDamper: number = .1;
 
@@ -16,9 +22,31 @@ export class MyLabel extends Label {
         this.ios.setNeedsDisplay();
    }
 
+    public onMeasure(widthMeasureSpec: number, heightMeasureSpec: number): void {
+        //randomize color
+        let blueValue = Math.floor(Math.random() * 255) + 1;
+        let greenValue = Math.floor(Math.random() * 255) + 1;
+        let redValue = Math.floor(Math.random() * 255) + 1;
+        
+        this.setMeasuredDimension(this._width, this._height);
+        this.backgroundColor = new colorModule.Color(255, redValue,greenValue,blueValue);
+        this.color = new colorModule.Color(255, redValue,greenValue,blueValue);
+        
+        
+        let pointX = Math.floor(Math.random() * this.parent.getMeasuredWidth()) + 1;
+        let pointY = Math.floor(Math.random() * this.parent.getMeasuredHeight()) + 1
+        //this.parent.getMeasuredHeight();
+        //this.parent.getMeasuredWidth();
+        this.translateX = pointX;
+        this.translateY = pointY;
+    }
+ 
 
-    constructor(){
-        super();
+    constructor(options: MyOptions){
+        super(options);
+
+        this._pointX = options.marginLeft;
+        this._pointY = options.marginTop;
 
         this.on(gesturesModule.GestureTypes.pan, (args: gesturesModule.PanGestureEventData) => {
 

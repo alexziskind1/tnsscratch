@@ -1,14 +1,21 @@
 var label_1 = require("ui/label");
 var point_1 = require("./point");
 var gesturesModule = require("ui/gestures");
+var colorModule = require("color");
 var MyLabel = (function (_super) {
     __extends(MyLabel, _super);
-    function MyLabel() {
+    function MyLabel(options) {
         var _this = this;
-        _super.call(this);
+        _super.call(this, options);
+        this._width = 70;
+        this._height = 40;
+        this._pointX = 0;
+        this._pointY = 0;
         this.lastLocation = new point_1.Point(0, 0);
         this.scaleDamper = .1;
         this._scale = 1;
+        this._pointX = options.marginLeft;
+        this._pointY = options.marginTop;
         this.on(gesturesModule.GestureTypes.pan, function (args) {
             switch (args.state) {
                 case gesturesModule.GestureStateTypes.began: {
@@ -58,6 +65,21 @@ var MyLabel = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    MyLabel.prototype.onMeasure = function (widthMeasureSpec, heightMeasureSpec) {
+        //randomize color
+        var blueValue = Math.floor(Math.random() * 255) + 1;
+        var greenValue = Math.floor(Math.random() * 255) + 1;
+        var redValue = Math.floor(Math.random() * 255) + 1;
+        this.setMeasuredDimension(this._width, this._height);
+        this.backgroundColor = new colorModule.Color(255, redValue, greenValue, blueValue);
+        this.color = new colorModule.Color(255, redValue, greenValue, blueValue);
+        var pointX = Math.floor(Math.random() * this.parent.getMeasuredWidth()) + 1;
+        var pointY = Math.floor(Math.random() * this.parent.getMeasuredHeight()) + 1;
+        //this.parent.getMeasuredHeight();
+        //this.parent.getMeasuredWidth();
+        this.translateX = pointX;
+        this.translateY = pointY;
+    };
     return MyLabel;
 })(label_1.Label);
 exports.MyLabel = MyLabel;

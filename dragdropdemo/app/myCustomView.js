@@ -1,4 +1,4 @@
-var absoluteLayoutModule = require("ui/layouts/absolute-layout");
+var viewModule = require("ui/core/view");
 var gesturesModule = require("ui/gestures");
 var colorModule = require("color");
 var point_1 = require("./point");
@@ -18,11 +18,13 @@ var MyCustomView = (function (_super) {
     };
     MyCustomView.prototype.onMeasure = function (widthMeasureSpec, heightMeasureSpec) {
         this.setMeasuredDimension(this._width, this._height);
-        this.backgroundColor = new colorModule.Color("red");
-        this.color = new colorModule.Color("red");
+        this.style.backgroundColor = new colorModule.Color("red");
+        this.style.color = new colorModule.Color("red");
     };
     MyCustomView.prototype.onLayout = function (left, top, right, bottom) {
         var _this = this;
+        this.backgroundColor = new colorModule.Color("red");
+        this.color = new colorModule.Color("red");
         this.on(gesturesModule.GestureTypes.pan, function (args) {
             switch (args.state) {
                 case gesturesModule.GestureStateTypes.began: {
@@ -43,5 +45,5 @@ var MyCustomView = (function (_super) {
         }, this);
     };
     return MyCustomView;
-})(absoluteLayoutModule.AbsoluteLayout);
+})(viewModule.View);
 exports.MyCustomView = MyCustomView;

@@ -1,7 +1,5 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
-  <WrapLayout id="layoutBase">
-    <Button text="Add View" tap="{{ addView }}" />
+  <AbsoluteLayout id="layoutBase">
     <Button text="Add Label" tap="{{ addLabel }}" />
-    <AbsoluteLayout id="layoutAbs" width="45" height="60" style.backgroundColor="blue"></AbsoluteLayout>
-  </WrapLayout>
+   </AbsoluteLayout>
 </Page>

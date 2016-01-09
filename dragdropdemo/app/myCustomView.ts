@@ -5,7 +5,7 @@ import colorModule = require("color");
 import {Point} from "./point";
 
 
-export class MyCustomView extends absoluteLayoutModule.AbsoluteLayout {
+export class MyCustomView extends viewModule.View {
 
     private _height: number;
     private _width: number;
@@ -31,11 +31,14 @@ export class MyCustomView extends absoluteLayoutModule.AbsoluteLayout {
 
     public onMeasure(widthMeasureSpec: number, heightMeasureSpec: number): void {
         this.setMeasuredDimension(this._width, this._height);
-        this.backgroundColor = new colorModule.Color("red");
-        this.color = new colorModule.Color("red");
+        this.style.backgroundColor = new colorModule.Color("red");
+        this.style.color = new colorModule.Color("red");
     }
 
     public onLayout(left: number, top: number, right: number, bottom: number): void {
+        
+        this.backgroundColor = new colorModule.Color("red");
+        this.color = new colorModule.Color("red");
          this.on(gesturesModule.GestureTypes.pan, (args: gesturesModule.PanGestureEventData) => {
             switch (args.state) {
                 case gesturesModule.GestureStateTypes.began: {
