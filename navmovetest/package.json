@@ -1,0 +1,14 @@
+{
+  "nativescript": {
+    "id": "org.nativescript.navmovetest",
+    "tns-ios": {
+      "version": "1.5.1"
+    }
+  },
+  "dependencies": {
+    "tns-core-modules": "1.5.1"
+  },
+  "devDependencies": {
+    "nativescript-dev-typescript": "^0.2.2"
+  }
+}
