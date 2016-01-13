@@ -1,8 +1,8 @@
-import pageModule = require("ui/page");
-import absoluteLayoutModule = require("ui/layouts/absolute-layout");
-
+import {Page} from "ui/page";
+import {AbsoluteLayout} from "ui/layouts/absolute-layout";
 import {MySquare} from "./mySquare";
 import {MyViewOptions} from "./myViewOptions";
+
 
 let Constants = {
     squareSize: 50,
@@ -11,13 +11,13 @@ let Constants = {
 
 class MainPageController {
 
-    public page: pageModule.Page;
-    public layoutBase: absoluteLayoutModule.AbsoluteLayout;
+    public page: Page;
+    public layoutBase: AbsoluteLayout;
     private _pageWidth: number;
     private _pageHeight: number;
 
     public pageLoaded(args) {
-        this.page = <pageModule.Page>args.object;
+        this.page = <Page>args.object;
         this.page.bindingContext = this;
         this.getViewRefs();
         
@@ -28,7 +28,7 @@ class MainPageController {
     }
 
     public getViewRefs() {
-        this.layoutBase = <absoluteLayoutModule.AbsoluteLayout>this.page.getViewById("layoutBase");
+        this.layoutBase = <AbsoluteLayout>this.page.getViewById("layoutBase");
     }
 
     private generateSquares(numSquares: number) {
