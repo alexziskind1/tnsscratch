@@ -9,19 +9,21 @@ var RootPageController = (function (_super) {
         _super.apply(this, arguments);
     }
     RootPageController.prototype.pageLoaded = function (args) {
-        var _this = this;
+        //var page = <Page>args.object;
+        //page.bindingContext = this;
+        //this.pageImg = <Image>page.getViewById("pageImg");
+    };
+    RootPageController.prototype.navigatingTo = function (args) {
         var page = args.object;
         page.bindingContext = this;
         this.pageImg = page.getViewById("pageImg");
-        page.on("navigatedTo", function (args) {
-            if (args.context != null) {
-                _this.currentNavPage = args.context;
-            }
-            else {
-                _this.currentNavPage = navigationModule.navigation.startPage();
-            }
-            _this.setImage(_this.currentNavPage.name);
-        });
+        if (args.context != null) {
+            this.currentNavPage = args.context;
+        }
+        else {
+            this.currentNavPage = navigationModule.navigation.startPage();
+        }
+        this.setImage(this.currentNavPage.name);
     };
     RootPageController.prototype.tapPage = function (arg1) {
         var x = arg1.ios.locationInView(arg1.ios.view).x;
@@ -34,7 +36,6 @@ var RootPageController = (function (_super) {
             }
         });
         if (matchedLink != null) {
-            //alert('link hit: ' + matchedLink.name);
             if (matchedLink.isBack) {
                 navigationModule.navigation.goBack();
             }
@@ -52,3 +53,4 @@ var RootPageController = (function (_super) {
 })(observable_1.Observable);
 var pc = new RootPageController();
 exports.pageLoaded = function (args) { return pc.pageLoaded(args); };
+exports.navigatingTo = function (args) { return pc.navigatingTo(args); };

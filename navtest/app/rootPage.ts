@@ -15,22 +15,25 @@ class RootPageController extends Observable {
     private pageImg: Image;
 
     public pageLoaded(args) {
+        //var page = <Page>args.object;
+        //page.bindingContext = this;
+
+        //this.pageImg = <Image>page.getViewById("pageImg");
+    }
+    
+    public navigatingTo(args) {
         var page = <Page>args.object;
         page.bindingContext = this;
 
         this.pageImg = <Image>page.getViewById("pageImg");
-
-        page.on("navigatedTo", args => {
-            if (args.context != null) {
-                this.currentNavPage = args.context;
-            }
-            else {
-                this.currentNavPage = navigationModule.navigation.startPage();
-            }
-            this.setImage(this.currentNavPage.name);
-        });
-
-
+        
+        if (args.context != null) {
+            this.currentNavPage = args.context;
+        }
+        else {
+            this.currentNavPage = navigationModule.navigation.startPage();
+        }
+        this.setImage(this.currentNavPage.name);
     }
 
     public tapPage(arg1: GestureEventData) {
@@ -47,7 +50,6 @@ class RootPageController extends Observable {
         });
 
         if (matchedLink != null) {
-            //alert('link hit: ' + matchedLink.name);
             if (matchedLink.isBack) {
                 navigationModule.navigation.goBack();
             }
@@ -66,3 +68,4 @@ class RootPageController extends Observable {
 
 var pc = new RootPageController();
 exports.pageLoaded = (args) => pc.pageLoaded(args);
+exports.navigatingTo = (args) => pc.navigatingTo(args);
