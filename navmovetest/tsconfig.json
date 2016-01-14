@@ -6,5 +6,9 @@
     },
     "filesGlob": [
         "app/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "platforms"
     ]
 }

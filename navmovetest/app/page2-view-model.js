@@ -4,14 +4,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var observable_1 = require("data/observable");
-var HelloWorldModel = (function (_super) {
-    __extends(HelloWorldModel, _super);
-    function HelloWorldModel() {
+var Page2Model = (function (_super) {
+    __extends(Page2Model, _super);
+    function Page2Model() {
         _super.call(this);
         this.counter = 5;
         this.set("message", this.counter + " taps left");
     }
-    HelloWorldModel.prototype.tapAction = function () {
+    Page2Model.prototype.tapAction = function () {
         this.counter--;
         if (this.counter <= 0) {
             this.set("message", "Hoorraaay! Clicker achievement unlocked!");
@@ -21,7 +21,7 @@ var HelloWorldModel = (function (_super) {
         }
     };
     ;
-    return HelloWorldModel;
+    return Page2Model;
 })(observable_1.Observable);
-exports.HelloWorldModel = HelloWorldModel;
+exports.Page2Model = Page2Model;
 ;
