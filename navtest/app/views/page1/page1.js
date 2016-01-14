@@ -24,7 +24,6 @@ var Page1Controller = (function (_super) {
         */
     };
     Page1Controller.prototype.tapPage = function (arg1) {
-        alert('page tap');
         var x = arg1.ios.locationInView(arg1.ios.view).x;
         var y = arg1.ios.locationInView(arg1.ios.view).y;
     };

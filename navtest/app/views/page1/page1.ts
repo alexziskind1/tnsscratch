@@ -5,12 +5,12 @@ import navigationModule = require("../../shared/navigation");
 
 class Page1Controller extends Observable {
     private page: Page;
-    
+
     public pageLoaded(args) {
         var page = <Page>args.object;
         page.bindingContext = this;
-        
-        
+
+
         /*
         page.on("navigatingTo", (args) => {
             alert('page 1 navigatingTo');
@@ -25,19 +25,20 @@ class Page1Controller extends Observable {
             alert('page 1 navigatedFrom');
         });
         */
-        
+
     }
-    
+
     public tapPage(arg1: GestureEventData) {
-        alert('page tap');
         var x = arg1.ios.locationInView(arg1.ios.view).x;
         var y = arg1.ios.locationInView(arg1.ios.view).y;
+
+
     }
-    
+
     public tapAction() {
         navigationModule.navigation.goToPage2();
     }
-    
+
 }
 
 var pc = new Page1Controller();

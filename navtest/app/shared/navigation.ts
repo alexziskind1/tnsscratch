@@ -1,14 +1,32 @@
 import frameModule = require("ui/frame");
 import {NavigationBarVisibility} from "ui/enums";
+import {NavPage} from "../navPageObj";
+
 
 var token = true;
+export var navPages: Array<NavPage> = [];
 
 export var navigation =  {
+    goToRoot: function(newPage: NavPage) {
+        var topFrame = frameModule.topmost();
+
+        topFrame.ios.navBarVisibility = NavigationBarVisibility.never;
+
+		topFrame.navigate({
+            moduleName: "rootPage",
+            context: newPage,
+            clearHistory: false
+        });
+    },
+    goBack: function() {
+        var topFrame = frameModule.topmost();
+        topFrame.goBack();
+    },
 	goToPage1: function() {
         var topFrame = frameModule.topmost();
-        
+
         topFrame.ios.navBarVisibility = NavigationBarVisibility.never;
-        
+
 		topFrame.navigate({
             moduleName: "views/page1/page1",
             clearHistory: false
@@ -42,7 +60,14 @@ export var navigation =  {
 			clearHistory: true
 		});
 	},
-	startingPage: function() {
-		return token ? "views/page1/page1" : "views/login/login";
-	}
+	rootPage: function() {
+		//return token ? "views/page1/page1" : "views/login/login";
+        return "rootPage";
+	},
+    startPage: function() {
+        return navPages[0];
+    },
+    getPageByName: function(name:string): NavPage {
+        return navPages.filter( p => p.name == name ).pop();
+    }
 };

@@ -1,7 +1,21 @@
 var frameModule = require("ui/frame");
 var enums_1 = require("ui/enums");
 var token = true;
+exports.navPages = [];
 exports.navigation = {
+    goToRoot: function (newPage) {
+        var topFrame = frameModule.topmost();
+        topFrame.ios.navBarVisibility = enums_1.NavigationBarVisibility.never;
+        topFrame.navigate({
+            moduleName: "rootPage",
+            context: newPage,
+            clearHistory: false
+        });
+    },
+    goBack: function () {
+        var topFrame = frameModule.topmost();
+        topFrame.goBack();
+    },
     goToPage1: function () {
         var topFrame = frameModule.topmost();
         topFrame.ios.navBarVisibility = enums_1.NavigationBarVisibility.never;
@@ -38,7 +52,14 @@ exports.navigation = {
             clearHistory: true
         });
     },
-    startingPage: function () {
-        return token ? "views/page1/page1" : "views/login/login";
+    rootPage: function () {
+        //return token ? "views/page1/page1" : "views/login/login";
+        return "rootPage";
+    },
+    startPage: function () {
+        return exports.navPages[0];
+    },
+    getPageByName: function (name) {
+        return exports.navPages.filter(function (p) { return p.name == name; }).pop();
     }
 };
