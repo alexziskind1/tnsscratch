@@ -1,5 +1,4 @@
 var observableModule = require("data/observable");
-//import vmModule = require("./main-view-model");
 var MainPageController = (function (_super) {
     __extends(MainPageController, _super);
     function MainPageController() {
@@ -22,11 +21,5 @@ var MainPageController = (function (_super) {
     };
     return MainPageController;
 })(observableModule.Observable);
-/*
-function pageLoad(args) {
-    var mpc = new MainPageController();
-    mpc.pageLoaded(args);
-}
-*/
 var mpc = new MainPageController();
 exports.pageLoaded = function (args) { return mpc.pageLoaded(args); };
