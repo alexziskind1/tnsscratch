@@ -1,4 +1,4 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" loaded="pageLoaded" tap="{{ tapPage }}">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" loaded="pageLoaded" tap="{{ tapPage }}" doubleTap="{{ doubleTap }}" longPress="{{ longPress }}">
     <AbsoluteLayout id="layoutBase" class="wrapper">
         <Image id="pageImg" />
     </AbsoluteLayout>
