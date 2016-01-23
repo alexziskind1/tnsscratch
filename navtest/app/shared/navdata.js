@@ -1,3 +1,4 @@
+//iPhone 6s based rectangle data
 exports.pageNavData = [
     {
         pageName: "page1",

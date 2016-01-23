@@ -5,30 +5,33 @@ var point_1 = require("./point");
 //import {LinkViewOptions} from "./views/linkViewOptions";
 var linkView_1 = require("./views/linkView");
 var imageSourceModule = require("image-source");
-var enumsModule = require("ui/enums");
 var RootPageController = (function (_super) {
     __extends(RootPageController, _super);
     function RootPageController() {
         _super.apply(this, arguments);
         this.isInEditMode = false;
         this.linkViews = [];
+        this.message = "hi there";
     }
     RootPageController.prototype.pageLoaded = function (args) {
-        //var page = <Page>args.object;
-        //page.bindingContext = this;
-        //this.pageImg = <Image>page.getViewById("pageImg");
+        var height = this.page.getMeasuredHeight();
+        var width = this.page.getMeasuredWidth();
+        this.set("message", "height: " + height + ", width: " + width);
     };
     RootPageController.prototype.navigatingTo = function (args) {
-        var page = args.object;
-        page.bindingContext = this;
-        this.pageImg = page.getViewById("pageImg");
-        this.layoutBase = page.getViewById("layoutBase");
+        this.page = args.object;
+        this.page.bindingContext = this;
+        this.pageImg = this.page.getViewById("pageImg");
+        this.layout = this.page.getViewById("layoutBase");
         if (args.context != null) {
             this.currentNavPage = args.context;
         }
         else {
             this.currentNavPage = navigationModule.navigation.startPage();
         }
+        this.setImage(this.currentNavPage.name);
+    };
+    RootPageController.prototype.tapAction = function (args) {
         this.setImage(this.currentNavPage.name);
     };
     RootPageController.prototype.tapPage = function (arg1) {
@@ -85,7 +88,7 @@ var RootPageController = (function (_super) {
         this.isInEditMode = true;
         for (var i = 0; i < this.linkViews.length; i++) {
             var lv = this.linkViews[i];
-            this.layoutBase.removeChild(lv);
+            this.layout.removeChild(lv);
         }
     };
     RootPageController.prototype.drawLinks = function (linkItems) {
@@ -93,12 +96,16 @@ var RootPageController = (function (_super) {
             var li = linkItems[i];
             var lv = new linkView_1.LinkView(li.rect);
             this.linkViews.push(lv);
-            this.layoutBase.addChild(lv);
+            this.layout.addChild(lv);
         }
     };
     RootPageController.prototype.setImage = function (name) {
+        //var image = new Image();
+        //image.src = "~/images/" + name + ".png";
+        //image.stretch = enumsModule.Stretch.aspectFit;
+        //this.layout.addChild(image);
         this.pageImg.imageSource = imageSourceModule.fromResource(name + ".png");
-        this.pageImg.stretch = enumsModule.Stretch.aspectFill;
+        //this.pageImg.stretch = enumsModule.Stretch.aspectFit;
     };
     return RootPageController;
 })(observable_1.Observable);

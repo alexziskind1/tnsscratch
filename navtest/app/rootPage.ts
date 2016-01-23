@@ -5,6 +5,7 @@ import {NavPage} from "./navPageObj";
 import navigationModule = require("./shared/navigation");
 import {Image} from "ui/image";
 import {AbsoluteLayout} from "ui/layouts/absolute-layout";
+import {StackLayout} from "ui/layouts/stack-layout";
 import {Point} from "./point";
 import {LinkItem} from "./linkItem";
 //import {LinkViewOptions} from "./views/linkViewOptions";
@@ -17,23 +18,23 @@ class RootPageController extends Observable {
     private page: Page;
     private currentNavPage: NavPage;
     private pageImg: Image;
-    private layoutBase: AbsoluteLayout;
+    private layout: StackLayout;
     private isInEditMode: boolean = false;
     private linkViews: Array<LinkView> = [];
+    public message: string = "hi there";
 
     public pageLoaded(args) {
-        //var page = <Page>args.object;
-        //page.bindingContext = this;
-
-        //this.pageImg = <Image>page.getViewById("pageImg");
+        var height = this.page.getMeasuredHeight();
+        var width = this.page.getMeasuredWidth();
+        this.set("message", "height: " + height + ", width: " + width);
     }
 
     public navigatingTo(args) {
-        var page = <Page>args.object;
-        page.bindingContext = this;
+        this.page = <Page>args.object;
+        this.page.bindingContext = this;
 
-        this.pageImg = <Image>page.getViewById("pageImg");
-        this.layoutBase = <AbsoluteLayout>page.getViewById("layoutBase");
+        this.pageImg = <Image>this.page.getViewById("pageImg");
+        this.layout = <StackLayout>this.page.getViewById("layoutBase");
 
         if (args.context != null) {
             this.currentNavPage = args.context;
@@ -41,6 +42,10 @@ class RootPageController extends Observable {
         else {
             this.currentNavPage = navigationModule.navigation.startPage();
         }
+        this.setImage(this.currentNavPage.name);
+    }
+
+    public tapAction(args) {
         this.setImage(this.currentNavPage.name);
     }
 
@@ -111,7 +116,7 @@ class RootPageController extends Observable {
         this.isInEditMode = true;
         for (var i = 0; i < this.linkViews.length; i++){
             var lv = this.linkViews[i];
-            this.layoutBase.removeChild(lv);
+            this.layout.removeChild(lv);
         }
     }
 
@@ -120,14 +125,19 @@ class RootPageController extends Observable {
             var li = linkItems[i];
             var lv = new LinkView(li.rect);
             this.linkViews.push(lv);
-            this.layoutBase.addChild(lv);
+            this.layout.addChild(lv);
         }
     }
 
 
     private setImage(name: string) {
+        //var image = new Image();
+        //image.src = "~/images/" + name + ".png";
+        //image.stretch = enumsModule.Stretch.aspectFit;
+        //this.layout.addChild(image);
+        
         this.pageImg.imageSource = imageSourceModule.fromResource(name + ".png");
-        this.pageImg.stretch = enumsModule.Stretch.aspectFill;
+        //this.pageImg.stretch = enumsModule.Stretch.aspectFit;
     }
 }
 
