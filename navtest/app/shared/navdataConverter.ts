@@ -2,6 +2,7 @@ import {pageNavData} from "./navdata";
 import {NavPage} from "../navPageObj";
 import {LinkItem} from "../linkItem";
 import {Rect} from "../rect";
+import {Size} from "../size";
 import navigationModule = require("./navigation");
 
 export function convertNavDataToObjects() {
@@ -14,7 +15,10 @@ export function convertNavDataToObjects() {
             var height = l.rect.size.height;
             var linkRect = new Rect(x,y,width,height);
             
-            return new LinkItem(l.name, linkRect, l.isBack);
+            var parentSize = new Size(l.parent.size.width, l.parent.size.height);
+            
+            return new LinkItem(l.name, linkRect, parentSize, l.isBack);
+
         });
         
         return new NavPage(i.pageName, linkItems);

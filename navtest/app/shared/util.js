@@ -1,3 +1,4 @@
+var rect_1 = require("../rect");
 function inside(point, vs) {
     // ray-casting algorithm based on
     // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
@@ -42,3 +43,14 @@ function rectToPolygon(rect) {
     return rect.toPoints();
 }
 exports.rectToPolygon = rectToPolygon;
+function changeRectangleRatio(rect, fromSize, toSize) {
+    var yRatio = toSize.height / fromSize.height;
+    var xRatio = toSize.width / fromSize.width;
+    var relY = rect.origin.y * yRatio;
+    var relX = rect.origin.x * xRatio;
+    var relWidth = rect.size.width * xRatio;
+    var relHeight = rect.size.height * yRatio;
+    var relRect = new rect_1.Rect(relX, relY, relWidth, relHeight);
+    return relRect;
+}
+exports.changeRectangleRatio = changeRectangleRatio;

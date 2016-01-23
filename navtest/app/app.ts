@@ -15,7 +15,7 @@ applicationModule.on(applicationModule.launchEvent, function (args) {
         console.log("Launched iOS application with options: " + args.ios);
 
         var navPages = navDataConverter.convertNavDataToObjects();
-
+        
     }
 });
 

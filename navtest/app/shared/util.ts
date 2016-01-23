@@ -1,5 +1,6 @@
 import {Point} from "../point";
 import {Rect} from "../rect";
+import {Size} from "../size";
 
 export function inside(point: Point, vs) {
     // ray-casting algorithm based on
@@ -45,3 +46,16 @@ export function isInsideRect(point: Point, rect: Rect) {
 export function rectToPolygon(rect: Rect) : Array<Point> {
     return rect.toPoints();
 }
+
+export function changeRectangleRatio(rect: Rect, fromSize: Size, toSize: Size) : Rect {
+        var yRatio = toSize.height/fromSize.height;
+        var xRatio = toSize.width/fromSize.width;
+        
+        var relY = rect.origin.y * yRatio;
+        var relX = rect.origin.x * xRatio;
+        var relWidth = rect.size.width * xRatio;
+        var relHeight = rect.size.height * yRatio;
+        
+        var relRect = new Rect(relX, relY, relWidth, relHeight);
+        return relRect; 
+    }

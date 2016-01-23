@@ -1,10 +1,12 @@
 var observable_1 = require("data/observable");
 var gestures_1 = require("ui/gestures");
 var navigationModule = require("./shared/navigation");
+var myglobalModule = require("./shared/myglobal");
 var point_1 = require("./point");
-//import {LinkViewOptions} from "./views/linkViewOptions";
+var size_1 = require("./size");
 var linkView_1 = require("./views/linkView");
-var imageSourceModule = require("image-source");
+var imageView_1 = require("./views/imageView");
+var utilModule = require("./shared/util");
 var RootPageController = (function (_super) {
     __extends(RootPageController, _super);
     function RootPageController() {
@@ -16,12 +18,19 @@ var RootPageController = (function (_super) {
     RootPageController.prototype.pageLoaded = function (args) {
         var height = this.page.getMeasuredHeight();
         var width = this.page.getMeasuredWidth();
+        this.pageSize = new size_1.Size(width, height);
         this.set("message", "height: " + height + ", width: " + width);
+        if (myglobalModule.firstLoad) {
+            this.imageView.requestLayout();
+            //this.pageImg.requestLayout();
+            myglobalModule.firstLoad = false;
+        }
+        myglobalModule.pageSize = this.pageSize;
     };
     RootPageController.prototype.navigatingTo = function (args) {
         this.page = args.object;
         this.page.bindingContext = this;
-        this.pageImg = this.page.getViewById("pageImg");
+        //this.pageImg = <Image>this.page.getViewById("pageImg");
         this.layout = this.page.getViewById("layoutBase");
         if (args.context != null) {
             this.currentNavPage = args.context;
@@ -35,6 +44,7 @@ var RootPageController = (function (_super) {
         this.setImage(this.currentNavPage.name);
     };
     RootPageController.prototype.tapPage = function (arg1) {
+        var _this = this;
         if (this.isInEditMode) {
             return;
         }
@@ -43,7 +53,7 @@ var RootPageController = (function (_super) {
         var hitPoint = new point_1.Point(x, y);
         var matchedLink;
         this.currentNavPage.linkItems.forEach(function (l) {
-            if (l.isHitTestPositive(hitPoint)) {
+            if (l.isHitTestPositive(hitPoint, _this.pageSize)) {
                 matchedLink = l;
             }
         });
@@ -94,17 +104,23 @@ var RootPageController = (function (_super) {
     RootPageController.prototype.drawLinks = function (linkItems) {
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
-            var lv = new linkView_1.LinkView(li.rect);
+            var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
+            //var lv = new LinkView(li.rect);
+            var lv = new linkView_1.LinkView(relRect);
             this.linkViews.push(lv);
             this.layout.addChild(lv);
         }
     };
     RootPageController.prototype.setImage = function (name) {
-        //var image = new Image();
-        //image.src = "~/images/" + name + ".png";
-        //image.stretch = enumsModule.Stretch.aspectFit;
-        //this.layout.addChild(image);
-        this.pageImg.imageSource = imageSourceModule.fromResource(name + ".png");
+        this.imageView = new imageView_1.ImageView();
+        this.imageView.src = "~/images/" + name + ".png";
+        this.layout.addChild(this.imageView);
+        /*
+        this.pageImg = new Image();
+        this.pageImg.src = "~/images/" + name + ".png";
+        this.layout.addChild(this.pageImg);
+        */
+        //this.pageImg.imageSource = imageSourceModule.fromResource(name + ".png");
         //this.pageImg.stretch = enumsModule.Stretch.aspectFit;
     };
     return RootPageController;

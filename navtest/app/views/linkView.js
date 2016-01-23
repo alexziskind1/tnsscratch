@@ -44,14 +44,14 @@ var LinkView = (function (_super) {
         var greenValue = Math.floor(Math.random() * 255) + 1;
         var redValue = Math.floor(Math.random() * 255) + 1;
         this.setMeasuredDimension(this.rect.size.width, this.rect.size.height);
-        this.backgroundColor = new color_1.Color(50, redValue, greenValue, blueValue);
-        this.color = new color_1.Color(50, redValue, greenValue, blueValue);
+        this.backgroundColor = new color_1.Color(255, redValue, greenValue, blueValue);
+        this.color = new color_1.Color(255, redValue, greenValue, blueValue);
         //randomize location
         //let pointX = Math.floor(Math.random() * (this.parent.getMeasuredWidth() - this.rect.size.width)) + 1;
         //let pointY = Math.floor(Math.random() * (this.parent.getMeasuredHeight() - this.rect.size.height)) + 1
         this.translateX = this.rect.origin.x;
         this.translateY = this.rect.origin.y;
-        this.applyStationaryShadow();
+        //this.applyStationaryShadow();
     };
     //Private methods
     LinkView.prototype.dragged = function (args) {

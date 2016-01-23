@@ -52,8 +52,8 @@ export class LinkView extends Label {
         let redValue = Math.floor(Math.random() * 255) + 1;
 
         this.setMeasuredDimension(this.rect.size.width, this.rect.size.height);
-        this.backgroundColor = new Color(50, redValue,greenValue,blueValue);
-        this.color = new Color(50, redValue,greenValue,blueValue);
+        this.backgroundColor = new Color(255, redValue,greenValue,blueValue);
+        this.color = new Color(255, redValue,greenValue,blueValue);
 
         //randomize location
         //let pointX = Math.floor(Math.random() * (this.parent.getMeasuredWidth() - this.rect.size.width)) + 1;
@@ -63,7 +63,7 @@ export class LinkView extends Label {
 
         this.translateX = this.rect.origin.x;
         this.translateY = this.rect.origin.y;
-        this.applyStationaryShadow();
+        //this.applyStationaryShadow();
     }
 
 

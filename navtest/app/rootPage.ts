@@ -3,37 +3,53 @@ import {Observable} from "data/observable";
 import {GestureEventData, GestureTypes, GestureStateTypes} from "ui/gestures";
 import {NavPage} from "./navPageObj";
 import navigationModule = require("./shared/navigation");
+import myglobalModule = require("./shared/myglobal");
 import {Image} from "ui/image";
 import {AbsoluteLayout} from "ui/layouts/absolute-layout";
 import {StackLayout} from "ui/layouts/stack-layout";
 import {Point} from "./point";
+import {Size} from "./size";
 import {LinkItem} from "./linkItem";
-//import {LinkViewOptions} from "./views/linkViewOptions";
 import {LinkView} from "./views/linkView";
+import {ImageView} from "./views/imageView";
 import imageSourceModule = require("image-source");
 import enumsModule = require("ui/enums");
 import dialogs = require("ui/dialogs");
+import utilModule = require("./shared/util");
+
 
 class RootPageController extends Observable {
     private page: Page;
     private currentNavPage: NavPage;
-    private pageImg: Image;
+    //private pageImg: Image;
+    private imageView: ImageView;
     private layout: StackLayout;
     private isInEditMode: boolean = false;
     private linkViews: Array<LinkView> = [];
+    private pageSize: Size;
     public message: string = "hi there";
 
     public pageLoaded(args) {
         var height = this.page.getMeasuredHeight();
         var width = this.page.getMeasuredWidth();
+        this.pageSize = new Size(width, height);
         this.set("message", "height: " + height + ", width: " + width);
+        if (myglobalModule.firstLoad) {
+            this.imageView.requestLayout();
+            //this.pageImg.requestLayout();
+            myglobalModule.firstLoad = false;
+        }
+
+        myglobalModule.pageSize = this.pageSize;
     }
 
     public navigatingTo(args) {
         this.page = <Page>args.object;
         this.page.bindingContext = this;
 
-        this.pageImg = <Image>this.page.getViewById("pageImg");
+        
+
+        //this.pageImg = <Image>this.page.getViewById("pageImg");
         this.layout = <StackLayout>this.page.getViewById("layoutBase");
 
         if (args.context != null) {
@@ -59,9 +75,9 @@ class RootPageController extends Observable {
 
         var hitPoint: Point = new Point(x,y);
         var matchedLink: LinkItem;
-
+        
         this.currentNavPage.linkItems.forEach(l=> {
-            if (l.isHitTestPositive(hitPoint)) {
+            if (l.isHitTestPositive(hitPoint, this.pageSize)) {
                 matchedLink = l;
             }
         });
@@ -123,7 +139,9 @@ class RootPageController extends Observable {
     private drawLinks(linkItems: Array<LinkItem>) {
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
-            var lv = new LinkView(li.rect);
+            var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
+            //var lv = new LinkView(li.rect);
+            var lv = new LinkView(relRect);
             this.linkViews.push(lv);
             this.layout.addChild(lv);
         }
@@ -131,12 +149,17 @@ class RootPageController extends Observable {
 
 
     private setImage(name: string) {
-        //var image = new Image();
-        //image.src = "~/images/" + name + ".png";
-        //image.stretch = enumsModule.Stretch.aspectFit;
-        //this.layout.addChild(image);
         
-        this.pageImg.imageSource = imageSourceModule.fromResource(name + ".png");
+        this.imageView = new ImageView();
+        this.imageView.src = "~/images/" + name + ".png";
+        this.layout.addChild(this.imageView);
+        
+        /*
+        this.pageImg = new Image();
+        this.pageImg.src = "~/images/" + name + ".png";
+        this.layout.addChild(this.pageImg);
+        */
+        //this.pageImg.imageSource = imageSourceModule.fromResource(name + ".png");
         //this.pageImg.stretch = enumsModule.Stretch.aspectFit;
     }
 }

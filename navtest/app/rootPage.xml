@@ -1,6 +1,6 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" loaded="pageLoaded" tap="{{ tapPage }}" doubleTap="{{ doubleTap }}" longPress="{{ longPress }}">
-    <StackLayout id="layoutBase" class="wrapper">
-        <Label text="{{ message }}" class="message" textWrap="true"/>
-        <Image id="pageImg" />
-    </StackLayout>
+
+    <AbsoluteLayout id="layoutBase" class="wrapper">
+    </AbsoluteLayout>
+
 </Page>
