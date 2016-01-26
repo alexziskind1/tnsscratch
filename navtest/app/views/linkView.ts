@@ -3,6 +3,8 @@ import {GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} 
 import {Label} from "ui/label";
 import {Point} from "../point";
 import {Rect} from "../rect";
+import {Page} from "ui/page";
+import {LinkItem} from "../linkItem";
 //import {LinkViewOptions} from "./linkViewOptions";
 
 
@@ -11,11 +13,15 @@ export class LinkView extends Label {
     //private _width: number = 50;
     //private _height: number = 50;
     private lastLocation: Point = new Point(0,0);
+    private linkItem: LinkItem;
+    private showLinkPickerCallback: Function;
 
-    constructor(private rect: Rect){
+    constructor(li: LinkItem, private rect: Rect, showLPCallback: Function){
         super();
         //this._width = options.width;
         //this._height = options.height;
+        this.linkItem = li;
+        this.showLinkPickerCallback = showLPCallback;
 
         this.on(GestureTypes.pan, (args: PanGestureEventData) => {
             switch (args.state) {
@@ -40,8 +46,25 @@ export class LinkView extends Label {
 
         this.on(GestureTypes.tap, (args: GestureEventData) => {
             console.log('link view tap');
+            this.showLinkPickerCallback.call(this, this.linkItem);
+
+            //this.showLinkPicker();
         });
+
+
     }
+
+/*
+    public showLinkPicker() {
+        var p: Page = <Page>this.page;
+        var fullscreen: boolean = true;
+
+        p.showModal("../linkPicker", "Context from showModal", function (username: string, password: string) {
+            console.log(username + "/" + password);
+            //label.text = username + "/" + password;
+        }, fullscreen);
+    }
+    */
 
     //View lifecycle
 

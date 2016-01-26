@@ -47,7 +47,7 @@ class RootPageController extends Observable {
         this.page = <Page>args.object;
         this.page.bindingContext = this;
 
-        
+
 
         //this.pageImg = <Image>this.page.getViewById("pageImg");
         this.layout = <StackLayout>this.page.getViewById("layoutBase");
@@ -75,12 +75,22 @@ class RootPageController extends Observable {
 
         var hitPoint: Point = new Point(x,y);
         var matchedLink: LinkItem;
-        
+
+        for (var i = 0; i < this.currentNavPage.linkItems.length; i++) {
+            var li = this.currentNavPage.linkItems[i];
+            if (li.isHitTestPositive(hitPoint, this.pageSize)) {
+                matchedLink = li;
+                break;
+            }
+        }
+
+/*
         this.currentNavPage.linkItems.forEach(l=> {
             if (l.isHitTestPositive(hitPoint, this.pageSize)) {
                 matchedLink = l;
             }
         });
+        */
 
         if (matchedLink != null) {
             if (matchedLink.isBack) {
@@ -129,31 +139,44 @@ class RootPageController extends Observable {
     }
 
     private exitEditMode() {
-        this.isInEditMode = true;
+        this.isInEditMode = false;
         for (var i = 0; i < this.linkViews.length; i++){
             var lv = this.linkViews[i];
-            this.layout.removeChild(lv);
+            try {
+                this.layout.removeChild(lv);
+            }
+            catch (ex) { }
         }
+        this.linkViews = [];
     }
 
     private drawLinks(linkItems: Array<LinkItem>) {
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
             var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
-            //var lv = new LinkView(li.rect);
-            var lv = new LinkView(relRect);
+            var lv = new LinkView(li, relRect, this.showLinkPicker);
             this.linkViews.push(lv);
             this.layout.addChild(lv);
         }
     }
 
+    public showLinkPicker(li: LinkItem) {
+        var fullscreen: boolean = true;
+
+        this.page.showModal("./linkPicker", li.name,  (selectedScreenName: string) => {
+            console.log("rootPage received selectedScreenName: " + selectedScreenName);
+            li.name = selectedScreenName;
+
+        }, fullscreen);
+    }
+
 
     private setImage(name: string) {
-        
+
         this.imageView = new ImageView();
         this.imageView.src = "~/images/" + name + ".png";
         this.layout.addChild(this.imageView);
-        
+
         /*
         this.pageImg = new Image();
         this.pageImg.src = "~/images/" + name + ".png";

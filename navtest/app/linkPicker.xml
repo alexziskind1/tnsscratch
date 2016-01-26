@@ -1,0 +1,18 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+      shownModally="onShownModally"
+      loaded="onLoaded">
+
+  <StackLayout backgroundColor="PaleGreen">
+
+    <Label text="{{ selectedScreenName }}" textWrap="true" class="title" />
+
+
+    <ListView items="{{ screens }}" itemTap=" {{ listViewItemTap }}">
+        <ListView.itemTemplate>
+            <Label text="{{ name || 'Downloading...' }}" textWrap="true" class="title" />
+        </ListView.itemTemplate>
+    </ListView>
+
+    <Button text="Done" tap="{{ doneTap }}"/>
+  </StackLayout>
+</Page>

@@ -44,7 +44,6 @@ var RootPageController = (function (_super) {
         this.setImage(this.currentNavPage.name);
     };
     RootPageController.prototype.tapPage = function (arg1) {
-        var _this = this;
         if (this.isInEditMode) {
             return;
         }
@@ -52,11 +51,20 @@ var RootPageController = (function (_super) {
         var y = arg1.ios.locationInView(arg1.ios.view).y;
         var hitPoint = new point_1.Point(x, y);
         var matchedLink;
-        this.currentNavPage.linkItems.forEach(function (l) {
-            if (l.isHitTestPositive(hitPoint, _this.pageSize)) {
-                matchedLink = l;
+        for (var i = 0; i < this.currentNavPage.linkItems.length; i++) {
+            var li = this.currentNavPage.linkItems[i];
+            if (li.isHitTestPositive(hitPoint, this.pageSize)) {
+                matchedLink = li;
+                break;
             }
-        });
+        }
+        /*
+                this.currentNavPage.linkItems.forEach(l=> {
+                    if (l.isHitTestPositive(hitPoint, this.pageSize)) {
+                        matchedLink = l;
+                    }
+                });
+                */
         if (matchedLink != null) {
             if (matchedLink.isBack) {
                 navigationModule.navigation.goBack();
@@ -95,21 +103,31 @@ var RootPageController = (function (_super) {
         this.drawLinks(this.currentNavPage.linkItems);
     };
     RootPageController.prototype.exitEditMode = function () {
-        this.isInEditMode = true;
+        this.isInEditMode = false;
         for (var i = 0; i < this.linkViews.length; i++) {
             var lv = this.linkViews[i];
-            this.layout.removeChild(lv);
+            try {
+                this.layout.removeChild(lv);
+            }
+            catch (ex) { }
         }
+        this.linkViews = [];
     };
     RootPageController.prototype.drawLinks = function (linkItems) {
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
             var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
-            //var lv = new LinkView(li.rect);
-            var lv = new linkView_1.LinkView(relRect);
+            var lv = new linkView_1.LinkView(li, relRect, this.showLinkPicker);
             this.linkViews.push(lv);
             this.layout.addChild(lv);
         }
+    };
+    RootPageController.prototype.showLinkPicker = function (li) {
+        var fullscreen = true;
+        this.page.showModal("./linkPicker", li.name, function (selectedScreenName) {
+            console.log("rootPage received selectedScreenName: " + selectedScreenName);
+            li.name = selectedScreenName;
+        }, fullscreen);
     };
     RootPageController.prototype.setImage = function (name) {
         this.imageView = new imageView_1.ImageView();

@@ -5,7 +5,7 @@ var point_1 = require("../point");
 //import {LinkViewOptions} from "./linkViewOptions";
 var LinkView = (function (_super) {
     __extends(LinkView, _super);
-    function LinkView(rect) {
+    function LinkView(li, rect, showLPCallback) {
         var _this = this;
         _super.call(this);
         this.rect = rect;
@@ -14,6 +14,8 @@ var LinkView = (function (_super) {
         this.lastLocation = new point_1.Point(0, 0);
         //this._width = options.width;
         //this._height = options.height;
+        this.linkItem = li;
+        this.showLinkPickerCallback = showLPCallback;
         this.on(gestures_1.GestureTypes.pan, function (args) {
             switch (args.state) {
                 case gestures_1.GestureStateTypes.began: {
@@ -35,8 +37,21 @@ var LinkView = (function (_super) {
         });
         this.on(gestures_1.GestureTypes.tap, function (args) {
             console.log('link view tap');
+            _this.showLinkPickerCallback.call(_this, _this.linkItem);
+            //this.showLinkPicker();
         });
     }
+    /*
+        public showLinkPicker() {
+            var p: Page = <Page>this.page;
+            var fullscreen: boolean = true;
+    
+            p.showModal("../linkPicker", "Context from showModal", function (username: string, password: string) {
+                console.log(username + "/" + password);
+                //label.text = username + "/" + password;
+            }, fullscreen);
+        }
+        */
     //View lifecycle
     LinkView.prototype.onMeasure = function (widthMeasureSpec, heightMeasureSpec) {
         //randomize color
