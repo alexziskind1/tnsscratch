@@ -1,6 +1,6 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
       shownModally="onShownModally"
-      loaded="onLoaded">
+      loaded="onLoaded" backgroundColor="Transparent">
 
   <StackLayout backgroundColor="PaleGreen">
 

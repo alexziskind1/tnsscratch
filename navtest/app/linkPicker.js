@@ -31,6 +31,11 @@ var LinkPickerController = (function (_super) {
         this.page = args.object;
         this.screens = globalModule.screens;
         this.page.bindingContext = this;
+        this.page.animate({
+            translate: { x: 0, y: -1000 },
+            opacity: 1,
+            duration: 300
+        });
     };
     LinkPickerController.prototype.listViewItemTap = function (args) {
         var itemIndex = args.index;
