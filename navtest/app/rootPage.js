@@ -1,12 +1,10 @@
 var observable_1 = require("data/observable");
 var gestures_1 = require("ui/gestures");
-var navigationModule = require("./shared/navigation");
-var myglobalModule = require("./shared/myglobal");
-var point_1 = require("./point");
-var size_1 = require("./size");
+var navigationModule = require("./common/navigation");
+var myglobalModule = require("./common/myglobal");
+var geometry_1 = require("./common/geometry");
 var linkView_1 = require("./views/linkView");
 var imageView_1 = require("./views/imageView");
-var utilModule = require("./shared/util");
 var RootPageController = (function (_super) {
     __extends(RootPageController, _super);
     function RootPageController() {
@@ -18,7 +16,7 @@ var RootPageController = (function (_super) {
     RootPageController.prototype.pageLoaded = function (args) {
         var height = this.page.getMeasuredHeight();
         var width = this.page.getMeasuredWidth();
-        this.pageSize = new size_1.Size(width, height);
+        this.pageSize = new geometry_1.Size(width, height);
         this.set("message", "height: " + height + ", width: " + width);
         if (myglobalModule.firstLoad) {
             this.imageView.requestLayout();
@@ -49,7 +47,7 @@ var RootPageController = (function (_super) {
         }
         var x = arg1.ios.locationInView(arg1.ios.view).x;
         var y = arg1.ios.locationInView(arg1.ios.view).y;
-        var hitPoint = new point_1.Point(x, y);
+        var hitPoint = new geometry_1.Point(x, y);
         var matchedLink;
         for (var i = 0; i < this.currentNavPage.linkItems.length; i++) {
             var li = this.currentNavPage.linkItems[i];
@@ -102,25 +100,31 @@ var RootPageController = (function (_super) {
         this.isInEditMode = true;
         this.drawLinks(this.currentNavPage.linkItems);
     };
-    RootPageController.prototype.exitEditMode = function () {
-        this.isInEditMode = false;
-        for (var i = 0; i < this.linkViews.length; i++) {
-            var lv = this.linkViews[i];
-            try {
-                this.layout.removeChild(lv);
-            }
-            catch (ex) { }
-        }
-        this.linkViews = [];
-    };
     RootPageController.prototype.drawLinks = function (linkItems) {
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
-            var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
+            //var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
+            var relRect = li.rect.changeRatio(li.parentSize, this.pageSize);
             var lv = new linkView_1.LinkView(li, relRect, this.showLinkPicker);
+            lv.opacity = 0;
             this.linkViews.push(lv);
             this.layout.addChild(lv);
+            lv.fadeIn();
         }
+    };
+    RootPageController.prototype.exitEditMode = function () {
+        var _this = this;
+        this.isInEditMode = false;
+        for (var i = 0; i < this.linkViews.length; i++) {
+            var lv = this.linkViews[i];
+            lv.fadeOut().then(function () {
+                try {
+                    _this.layout.removeChild(lv);
+                }
+                catch (ex) { }
+            });
+        }
+        this.linkViews = [];
     };
     RootPageController.prototype.showLinkPicker = function (li) {
         var fullscreen = true;

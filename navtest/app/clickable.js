@@ -1,6 +1,8 @@
-var Clickable = (function () {
-    function Clickable() {
+/*
+export class Clickable {
+
+    constructor() {
+
     }
-    return Clickable;
-})();
-exports.Clickable = Clickable;
+}
+*/ 

@@ -1,5 +1,5 @@
 var image_1 = require("ui/image");
-var myglobalModule = require("../shared/myglobal");
+var myglobalModule = require("../common/myglobal");
 //import utils = require("utils/utils");
 var ImageView = (function (_super) {
     __extends(ImageView, _super);

@@ -1,8 +1,8 @@
 var color_1 = require("color");
 var gestures_1 = require("ui/gestures");
-var label_1 = require("ui/label");
-var point_1 = require("../point");
-//import {LinkViewOptions} from "./linkViewOptions";
+//import {Label} from "ui/label";
+var geometry_1 = require("../common/geometry");
+var viewAnimationExtensions_1 = require("../common/animation/viewAnimationExtensions");
 var LinkView = (function (_super) {
     __extends(LinkView, _super);
     function LinkView(li, rect, showLPCallback) {
@@ -11,7 +11,7 @@ var LinkView = (function (_super) {
         this.rect = rect;
         //private _width: number = 50;
         //private _height: number = 50;
-        this.lastLocation = new point_1.Point(0, 0);
+        this.lastLocation = new geometry_1.Point(0, 0);
         //this._width = options.width;
         //this._height = options.height;
         this.linkItem = li;
@@ -115,5 +115,5 @@ var LinkView = (function (_super) {
         }
     };
     return LinkView;
-})(label_1.Label);
+})(viewAnimationExtensions_1.AnimatedLabel);
 exports.LinkView = LinkView;

@@ -2,9 +2,9 @@ import {Observable, EventData} from "data/observable";
 import {Page, ShownModallyData, NavigatedData} from "ui/page";
 import {TextField} from "ui/text-field";
 import {ItemEventData} from "ui/list-view";
-import {ScreenItem} from "./screenItem";
+import {ScreenItem} from "./model/screenItem";
 import frameModule = require("ui/frame");
-import globalModule = require("./shared/myglobal");
+import globalModule = require("./common/myglobal");
 
 export class LinkPickerController extends Observable {
 
@@ -41,7 +41,7 @@ export class LinkPickerController extends Observable {
         this.page = <Page>args.object;
         this.screens = globalModule.screens;
         this.page.bindingContext = this;
-        
+
         this.page.animate({
             translate: { x: 0, y: -1000 },
             opacity: 1,

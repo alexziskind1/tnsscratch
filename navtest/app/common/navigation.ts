@@ -1,6 +1,6 @@
 import frameModule = require("ui/frame");
 import {NavigationBarVisibility} from "ui/enums";
-import {NavPage} from "../navPageObj";
+import {NavPage} from "../model/navPage";
 
 
 var token = true;

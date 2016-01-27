@@ -1,9 +1,8 @@
 var navdata_1 = require("./navdata");
-var navPageObj_1 = require("../navPageObj");
-var linkItem_1 = require("../linkItem");
-var rect_1 = require("../rect");
-var size_1 = require("../size");
-var navigationModule = require("./navigation");
+var navPage_1 = require("../model/navPage");
+var linkItem_1 = require("../model/linkItem");
+var geometry_1 = require("../common/geometry");
+var navigationModule = require("../common/navigation");
 function convertNavDataToObjects() {
     var navPageItems = navdata_1.pageNavData.map(function (i) {
         var linkItems = i.links.map(function (l) {
@@ -11,11 +10,11 @@ function convertNavDataToObjects() {
             var y = l.rect.origin.y;
             var width = l.rect.size.width;
             var height = l.rect.size.height;
-            var linkRect = new rect_1.Rect(x, y, width, height);
-            var parentSize = new size_1.Size(l.parent.size.width, l.parent.size.height);
+            var linkRect = new geometry_1.Rect(x, y, width, height);
+            var parentSize = new geometry_1.Size(l.parent.size.width, l.parent.size.height);
             return new linkItem_1.LinkItem(l.name, linkRect, parentSize, l.isBack);
         });
-        return new navPageObj_1.NavPage(i.pageName, linkItems);
+        return new navPage_1.NavPage(i.pageName, linkItems);
     });
     navigationModule.navPages = navPageItems;
     return navPageItems;

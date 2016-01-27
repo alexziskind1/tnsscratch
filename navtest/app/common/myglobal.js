@@ -1,7 +1,7 @@
-var size_1 = require("../size");
-var screenItem_1 = require("../screenItem");
+var geometry_1 = require("../common/geometry");
+var screenItem_1 = require("../model/screenItem");
 exports.firstLoad = true;
-exports.pageSize = new size_1.Size(0, 0);
+exports.pageSize = new geometry_1.Size(0, 0);
 exports.screens = [
     new screenItem_1.ScreenItem('page1'),
     new screenItem_1.ScreenItem('page2'),

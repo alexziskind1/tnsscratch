@@ -1,8 +1,9 @@
 
-
+/*
 export class Clickable {
-    
+
     constructor() {
-        
+
     }
 }
+*/

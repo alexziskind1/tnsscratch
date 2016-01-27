@@ -1,6 +1,6 @@
 var applicationModule = require("application");
-var navigationModule = require("./shared/navigation");
-var navDataConverter = require("./shared/navDataConverter");
+var navigationModule = require("./common/navigation");
+var navDataConverter = require("./data/navDataConverter");
 applicationModule.mainModule = navigationModule.navigation.rootPage();
 applicationModule.cssFile = "./app.css";
 applicationModule.on(applicationModule.launchEvent, function (args) {

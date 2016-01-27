@@ -1,6 +1,6 @@
 import applicationModule = require("application");
-import navigationModule = require("./shared/navigation");
-import navDataConverter = require("./shared/navDataConverter");
+import navigationModule = require("./common/navigation");
+import navDataConverter = require("./data/navDataConverter");
 
 applicationModule.mainModule = navigationModule.navigation.rootPage();
 applicationModule.cssFile = "./app.css";
@@ -15,7 +15,7 @@ applicationModule.on(applicationModule.launchEvent, function (args) {
         console.log("Launched iOS application with options: " + args.ios);
 
         var navPages = navDataConverter.convertNavDataToObjects();
-        
+
     }
 });
 

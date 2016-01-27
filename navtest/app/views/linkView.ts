@@ -1,14 +1,13 @@
 import {Color} from "color";
 import {GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} from "ui/gestures";
-import {Label} from "ui/label";
-import {Point} from "../point";
-import {Rect} from "../rect";
+//import {Label} from "ui/label";
+import {Point, Rect} from "../common/geometry";
 import {Page} from "ui/page";
-import {LinkItem} from "../linkItem";
-//import {LinkViewOptions} from "./linkViewOptions";
+import {LinkItem} from "../model/linkItem";
+import {AnimatedLabel} from "../common/animation/viewAnimationExtensions";
 
 
-export class LinkView extends Label {
+export class LinkView extends AnimatedLabel {
 
     //private _width: number = 50;
     //private _height: number = 50;

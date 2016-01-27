@@ -1,6 +1,6 @@
 var observable_1 = require("data/observable");
 var frameModule = require("ui/frame");
-var globalModule = require("./shared/myglobal");
+var globalModule = require("./common/myglobal");
 var LinkPickerController = (function (_super) {
     __extends(LinkPickerController, _super);
     function LinkPickerController() {

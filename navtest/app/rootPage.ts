@@ -1,21 +1,19 @@
 import {Page} from "ui/page";
 import {Observable} from "data/observable";
 import {GestureEventData, GestureTypes, GestureStateTypes} from "ui/gestures";
-import {NavPage} from "./navPageObj";
-import navigationModule = require("./shared/navigation");
-import myglobalModule = require("./shared/myglobal");
+import {NavPage} from "./model/navPage";
+import navigationModule = require("./common/navigation");
+import myglobalModule = require("./common/myglobal");
 import {Image} from "ui/image";
 import {AbsoluteLayout} from "ui/layouts/absolute-layout";
 import {StackLayout} from "ui/layouts/stack-layout";
-import {Point} from "./point";
-import {Size} from "./size";
-import {LinkItem} from "./linkItem";
+import {Point, Size} from "./common/geometry";
+import {LinkItem} from "./model/linkItem";
 import {LinkView} from "./views/linkView";
 import {ImageView} from "./views/imageView";
 import imageSourceModule = require("image-source");
 import enumsModule = require("ui/enums");
 import dialogs = require("ui/dialogs");
-import utilModule = require("./shared/util");
 
 
 class RootPageController extends Observable {
@@ -138,27 +136,35 @@ class RootPageController extends Observable {
         this.drawLinks(this.currentNavPage.linkItems);
     }
 
+    private drawLinks(linkItems: Array<LinkItem>) {
+        for (var i = 0; i < linkItems.length; i++) {
+            var li = linkItems[i];
+            //var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
+            var relRect = li.rect.changeRatio(li.parentSize,  this.pageSize);
+
+            var lv = new LinkView(li, relRect, this.showLinkPicker);
+            lv.opacity = 0;
+            this.linkViews.push(lv);
+            this.layout.addChild(lv);
+            lv.fadeIn();
+        }
+    }
+
     private exitEditMode() {
         this.isInEditMode = false;
         for (var i = 0; i < this.linkViews.length; i++){
             var lv = this.linkViews[i];
-            try {
-                this.layout.removeChild(lv);
-            }
-            catch (ex) { }
+
+            lv.fadeOut().then(()=>{
+                try {
+                    this.layout.removeChild(lv);
+                }
+                catch (ex) { }
+            });
         }
         this.linkViews = [];
     }
 
-    private drawLinks(linkItems: Array<LinkItem>) {
-        for (var i = 0; i < linkItems.length; i++) {
-            var li = linkItems[i];
-            var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
-            var lv = new LinkView(li, relRect, this.showLinkPicker);
-            this.linkViews.push(lv);
-            this.layout.addChild(lv);
-        }
-    }
 
     public showLinkPicker(li: LinkItem) {
         var fullscreen: boolean = true;
