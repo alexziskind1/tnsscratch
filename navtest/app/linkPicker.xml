@@ -9,10 +9,11 @@
 
     <ListView items="{{ screens }}" itemTap=" {{ listViewItemTap }}">
         <ListView.itemTemplate>
-            <Label text="{{ name || 'Downloading...' }}" textWrap="true" class="title" />
+            <Label text="{{ name }}" textWrap="true" class="title" />
         </ListView.itemTemplate>
     </ListView>
 
     <Button text="Done" tap="{{ doneTap }}"/>
+    <Button text="Delete" tap="{{ deleteTap }}"/>
   </StackLayout>
 </Page>

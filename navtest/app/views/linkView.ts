@@ -45,7 +45,8 @@ export class LinkView extends AnimatedLabel {
 
         this.on(GestureTypes.tap, (args: GestureEventData) => {
             console.log('link view tap');
-            this.showLinkPickerCallback.call(this, this.linkItem);
+            //this.showLinkPickerCallback(this, this.linkItem);
+            this.showLinkPickerCallback(this, this.linkItem);
 
             //this.showLinkPicker();
         });
@@ -74,8 +75,8 @@ export class LinkView extends AnimatedLabel {
         let redValue = Math.floor(Math.random() * 255) + 1;
 
         this.setMeasuredDimension(this.rect.size.width, this.rect.size.height);
-        this.backgroundColor = new Color(255, redValue,greenValue,blueValue);
-        this.color = new Color(255, redValue,greenValue,blueValue);
+        this.backgroundColor = new Color(150, redValue,greenValue,blueValue);
+        //this.color = new Color(255, redValue,greenValue,blueValue);
 
         //randomize location
         //let pointX = Math.floor(Math.random() * (this.parent.getMeasuredWidth() - this.rect.size.width)) + 1;

@@ -11,6 +11,7 @@ import {Point, Size} from "./common/geometry";
 import {LinkItem} from "./model/linkItem";
 import {LinkView} from "./views/linkView";
 import {ImageView} from "./views/imageView";
+import {LinkPickerClosedEventArgs} from "./common/events/linkPickerEventArgs";
 import imageSourceModule = require("image-source");
 import enumsModule = require("ui/enums");
 import dialogs = require("ui/dialogs");
@@ -142,7 +143,7 @@ class RootPageController extends Observable {
             //var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
             var relRect = li.rect.changeRatio(li.parentSize,  this.pageSize);
 
-            var lv = new LinkView(li, relRect, this.showLinkPicker);
+            var lv = new LinkView(li, relRect, () =>  this.showLinkPicker(lv, li) );
             lv.opacity = 0;
             this.linkViews.push(lv);
             this.layout.addChild(lv);
@@ -155,25 +156,50 @@ class RootPageController extends Observable {
         for (var i = 0; i < this.linkViews.length; i++){
             var lv = this.linkViews[i];
 
+            this.removeLinkView(lv);
+
+            /*
             lv.fadeOut().then(()=>{
                 try {
                     this.layout.removeChild(lv);
                 }
                 catch (ex) { }
             });
+            */
         }
         this.linkViews = [];
     }
 
 
-    public showLinkPicker(li: LinkItem) {
+    public showLinkPicker(lv:LinkView, li: LinkItem) {
         var fullscreen: boolean = true;
 
-        this.page.showModal("./linkPicker", li.name,  (selectedScreenName: string) => {
-            console.log("rootPage received selectedScreenName: " + selectedScreenName);
-            li.name = selectedScreenName;
+        this.page.showModal("./linkPicker", li.name,  (args: LinkPickerClosedEventArgs) => {
+            console.log("rootPage received LinkPickerClosedEventArgs");
+            if (args.linkDeleted) {
+                var liIdx = this.currentNavPage.linkItems.indexOf(li);
+                this.currentNavPage.linkItems.splice(liIdx,1);
+
+                this.removeLinkView(lv);
+            }
+            else {
+                li.name = args.selectedName;
+            }
 
         }, fullscreen);
+    }
+
+    private removeLinkView(lv: LinkView) {
+        var lvIdx = this.linkViews.indexOf(lv);
+        this.linkViews.splice(lvIdx,1);
+        lv.fadeOut().then(()=>{
+            try {
+                this.layout.removeChild(lv);
+            }
+            catch (ex) {
+                console.error(`failed removing lv from layout. ${ex.message}`);
+            }
+        });
     }
 
 

@@ -101,11 +101,12 @@ var RootPageController = (function (_super) {
         this.drawLinks(this.currentNavPage.linkItems);
     };
     RootPageController.prototype.drawLinks = function (linkItems) {
+        var _this = this;
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
             //var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
             var relRect = li.rect.changeRatio(li.parentSize, this.pageSize);
-            var lv = new linkView_1.LinkView(li, relRect, this.showLinkPicker);
+            var lv = new linkView_1.LinkView(li, relRect, function () { return _this.showLinkPicker(lv, li); });
             lv.opacity = 0;
             this.linkViews.push(lv);
             this.layout.addChild(lv);
@@ -113,25 +114,40 @@ var RootPageController = (function (_super) {
         }
     };
     RootPageController.prototype.exitEditMode = function () {
-        var _this = this;
         this.isInEditMode = false;
         for (var i = 0; i < this.linkViews.length; i++) {
             var lv = this.linkViews[i];
-            lv.fadeOut().then(function () {
-                try {
-                    _this.layout.removeChild(lv);
-                }
-                catch (ex) { }
-            });
+            this.removeLinkView(lv);
         }
         this.linkViews = [];
     };
-    RootPageController.prototype.showLinkPicker = function (li) {
+    RootPageController.prototype.showLinkPicker = function (lv, li) {
+        var _this = this;
         var fullscreen = true;
-        this.page.showModal("./linkPicker", li.name, function (selectedScreenName) {
-            console.log("rootPage received selectedScreenName: " + selectedScreenName);
-            li.name = selectedScreenName;
+        this.page.showModal("./linkPicker", li.name, function (args) {
+            console.log("rootPage received LinkPickerClosedEventArgs");
+            if (args.linkDeleted) {
+                var liIdx = _this.currentNavPage.linkItems.indexOf(li);
+                _this.currentNavPage.linkItems.splice(liIdx, 1);
+                _this.removeLinkView(lv);
+            }
+            else {
+                li.name = args.selectedName;
+            }
         }, fullscreen);
+    };
+    RootPageController.prototype.removeLinkView = function (lv) {
+        var _this = this;
+        var lvIdx = this.linkViews.indexOf(lv);
+        this.linkViews.splice(lvIdx, 1);
+        lv.fadeOut().then(function () {
+            try {
+                _this.layout.removeChild(lv);
+            }
+            catch (ex) {
+                console.error("failed removing lv from layout. " + ex.message);
+            }
+        });
     };
     RootPageController.prototype.setImage = function (name) {
         this.imageView = new imageView_1.ImageView();

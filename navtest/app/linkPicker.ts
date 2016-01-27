@@ -3,13 +3,14 @@ import {Page, ShownModallyData, NavigatedData} from "ui/page";
 import {TextField} from "ui/text-field";
 import {ItemEventData} from "ui/list-view";
 import {ScreenItem} from "./model/screenItem";
+import {LinkPickerClosedEventArgs} from "./common/events/linkPickerEventArgs";
 import frameModule = require("ui/frame");
 import globalModule = require("./common/myglobal");
 
 export class LinkPickerController extends Observable {
 
     private page: Page;
-    private closeCallback: Function;
+    private closeCallback: (args: LinkPickerClosedEventArgs)=>{};
     public screens: Array<ScreenItem> = [];
 
 /*
@@ -28,7 +29,7 @@ export class LinkPickerController extends Observable {
 
         this.set("selectedScreenName", args.context);
 
-        this.closeCallback = args.closeCallback;
+        this.closeCallback = <(args: LinkPickerClosedEventArgs)=>{}>args.closeCallback;
         var modalPage = <Page>args.object;
 
         if (frameModule.topmost().currentPage.modal !== args.object) {
@@ -62,7 +63,27 @@ export class LinkPickerController extends Observable {
 
         if (this.closeCallback) {
             var selectedScreenName = this.get("selectedScreenName");
-            this.closeCallback(selectedScreenName);
+
+            var lpArgs = new LinkPickerClosedEventArgs();
+            lpArgs.selectedName = selectedScreenName;
+
+            this.closeCallback(lpArgs);
+        }
+        else {
+            frameModule.topmost().goBack();
+        }
+    }
+
+    public deleteTap(args) {
+        console.log(">>> linkPicker.deleteTap");
+
+        if (this.closeCallback) {
+            var selectedScreenName = this.get("selectedScreenName");
+
+            var lpArgs = new LinkPickerClosedEventArgs();
+            lpArgs.linkDeleted = true;
+
+            this.closeCallback(lpArgs);
         }
         else {
             frameModule.topmost().goBack();

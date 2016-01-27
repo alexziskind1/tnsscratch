@@ -1,4 +1,5 @@
 var observable_1 = require("data/observable");
+var linkPickerEventArgs_1 = require("./common/events/linkPickerEventArgs");
 var frameModule = require("ui/frame");
 var globalModule = require("./common/myglobal");
 var LinkPickerController = (function (_super) {
@@ -47,7 +48,21 @@ var LinkPickerController = (function (_super) {
         console.log(">>> linkPicker.doneTap");
         if (this.closeCallback) {
             var selectedScreenName = this.get("selectedScreenName");
-            this.closeCallback(selectedScreenName);
+            var lpArgs = new linkPickerEventArgs_1.LinkPickerClosedEventArgs();
+            lpArgs.selectedName = selectedScreenName;
+            this.closeCallback(lpArgs);
+        }
+        else {
+            frameModule.topmost().goBack();
+        }
+    };
+    LinkPickerController.prototype.deleteTap = function (args) {
+        console.log(">>> linkPicker.deleteTap");
+        if (this.closeCallback) {
+            var selectedScreenName = this.get("selectedScreenName");
+            var lpArgs = new linkPickerEventArgs_1.LinkPickerClosedEventArgs();
+            lpArgs.linkDeleted = true;
+            this.closeCallback(lpArgs);
         }
         else {
             frameModule.topmost().goBack();

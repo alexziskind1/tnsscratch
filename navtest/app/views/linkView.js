@@ -37,7 +37,8 @@ var LinkView = (function (_super) {
         });
         this.on(gestures_1.GestureTypes.tap, function (args) {
             console.log('link view tap');
-            _this.showLinkPickerCallback.call(_this, _this.linkItem);
+            //this.showLinkPickerCallback(this, this.linkItem);
+            _this.showLinkPickerCallback(_this, _this.linkItem);
             //this.showLinkPicker();
         });
     }
@@ -59,8 +60,8 @@ var LinkView = (function (_super) {
         var greenValue = Math.floor(Math.random() * 255) + 1;
         var redValue = Math.floor(Math.random() * 255) + 1;
         this.setMeasuredDimension(this.rect.size.width, this.rect.size.height);
-        this.backgroundColor = new color_1.Color(255, redValue, greenValue, blueValue);
-        this.color = new color_1.Color(255, redValue, greenValue, blueValue);
+        this.backgroundColor = new color_1.Color(150, redValue, greenValue, blueValue);
+        //this.color = new Color(255, redValue,greenValue,blueValue);
         //randomize location
         //let pointX = Math.floor(Math.random() * (this.parent.getMeasuredWidth() - this.rect.size.width)) + 1;
         //let pointY = Math.floor(Math.random() * (this.parent.getMeasuredHeight() - this.rect.size.height)) + 1
