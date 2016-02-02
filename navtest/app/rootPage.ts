@@ -1,22 +1,17 @@
-import {Page} from "ui/page";
 import {Observable} from "data/observable";
-import {GestureEventData, GestureTypes, GestureStateTypes,GestureEventDataWithState, PanGestureEventData} from "ui/gestures";
+import {Button, Image, AbsoluteLayout, Page,GestureEventData, GestureTypes, GestureStateTypes,GestureEventDataWithState, PanGestureEventData} from "ui";
+import {Color} from "color";
+
 import {NavPage} from "./model/navPage";
 import navigationModule = require("./common/navigation");
 import myglobalModule = require("./common/myglobal");
-import {Image} from "ui/image";
-import {Button} from "ui/button";
-import {Color} from "color";
-import {AbsoluteLayout} from "ui/layouts/absolute-layout";
-//import {StackLayout} from "ui/layouts/stack-layout";
 import {Point, Size, Rect} from "./common/geometry";
 import {LinkItem} from "./model/linkItem";
 import {LinkView} from "./views/linkView";
 import {ImageView} from "./views/imageView";
 import {LinkPickerClosedEventArgs} from "./common/events/linkPickerEventArgs";
-import imageSourceModule = require("image-source");
-import enumsModule = require("ui/enums");
-import dialogs = require("ui/dialogs");
+
+
 
 
 class RootPageController extends Observable {

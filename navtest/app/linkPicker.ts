@@ -1,10 +1,11 @@
 import {Observable, EventData} from "data/observable";
-import {Page, ShownModallyData, NavigatedData} from "ui/page";
-import {TextField} from "ui/text-field";
-import {ItemEventData} from "ui/list-view";
+import {Page, ShownModallyData, NavigatedData, ItemEventData, TextField} from "ui";
+import frameModule = require("ui/frame");
+
+//import {TextField} from "ui/text-field";
+//import {ItemEventData} from "ui/list-view";
 import {ScreenItem} from "./model/screenItem";
 import {LinkPickerClosedEventArgs} from "./common/events/linkPickerEventArgs";
-import frameModule = require("ui/frame");
 import globalModule = require("./common/myglobal");
 
 export class LinkPickerController extends Observable {

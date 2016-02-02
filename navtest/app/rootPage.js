@@ -1,11 +1,8 @@
 var observable_1 = require("data/observable");
-var gestures_1 = require("ui/gestures");
+var ui_1 = require("ui");
+var color_1 = require("color");
 var navigationModule = require("./common/navigation");
 var myglobalModule = require("./common/myglobal");
-var button_1 = require("ui/button");
-var color_1 = require("color");
-var absolute_layout_1 = require("ui/layouts/absolute-layout");
-//import {StackLayout} from "ui/layouts/stack-layout";
 var geometry_1 = require("./common/geometry");
 var linkView_1 = require("./views/linkView");
 var imageView_1 = require("./views/imageView");
@@ -16,7 +13,7 @@ var RootPageController = (function (_super) {
         this.isInEditMode = false;
         this.linkViews = [];
         this.message = "hi there";
-        this.currentRect = new absolute_layout_1.AbsoluteLayout();
+        this.currentRect = new ui_1.AbsoluteLayout();
         this.selectRectId = "currentRect";
         this.layoutBaseId = "layoutBase";
         this.editBtnId = "editBtn";
@@ -36,7 +33,7 @@ var RootPageController = (function (_super) {
         myglobalModule.pageSize = this.pageSize;
         this.currentRect.id = this.selectRectId;
         this.currentRect.style.backgroundColor = new color_1.Color(150, 100, 100, 100);
-        var editBtn = new button_1.Button();
+        var editBtn = new ui_1.Button();
         editBtn.text = "edit";
         editBtn.id = this.editBtnId;
         editBtn.opacity = 0;
@@ -93,7 +90,7 @@ var RootPageController = (function (_super) {
     };
     RootPageController.prototype.panPage = function (arg1) {
         switch (arg1.state) {
-            case gestures_1.GestureStateTypes.began:
+            case ui_1.GestureStateTypes.began:
                 this.selRect.origin.x = arg1.ios.locationInView(arg1.ios.view).x;
                 this.selRect.origin.y = arg1.ios.locationInView(arg1.ios.view).y;
                 this.startPoint.x = this.selRect.origin.x;
@@ -102,7 +99,7 @@ var RootPageController = (function (_super) {
                 this.selRect.size.height = 0;
                 this.drawRectUpdate(arg1.state);
                 break;
-            case gestures_1.GestureStateTypes.changed:
+            case ui_1.GestureStateTypes.changed:
                 if (arg1.deltaX < 0) {
                     this.selRect.size.width = Math.abs(arg1.deltaX);
                     this.selRect.origin.x = this.startPoint.x - this.selRect.size.width;
@@ -123,7 +120,7 @@ var RootPageController = (function (_super) {
                     this.selRect.origin.y = 0;
                 this.drawRectUpdate(arg1.state);
                 break;
-            case gestures_1.GestureStateTypes.ended:
+            case ui_1.GestureStateTypes.ended:
                 this.showEditBtn();
                 break;
         }
@@ -147,11 +144,11 @@ var RootPageController = (function (_super) {
         }
     };
     RootPageController.prototype.drawRectUpdate = function (state) {
-        if (state == gestures_1.GestureStateTypes.began) {
+        if (state == ui_1.GestureStateTypes.began) {
             this.hideEditBtn(1);
         }
-        absolute_layout_1.AbsoluteLayout.setTop(this.currentRect, this.selRect.origin.y);
-        absolute_layout_1.AbsoluteLayout.setLeft(this.currentRect, this.selRect.origin.x);
+        ui_1.AbsoluteLayout.setTop(this.currentRect, this.selRect.origin.y);
+        ui_1.AbsoluteLayout.setLeft(this.currentRect, this.selRect.origin.x);
         this.currentRect.width = this.selRect.size.width;
         this.currentRect.height = this.selRect.size.height;
         var ch = this.layout.getViewById(this.selectRectId);
@@ -179,7 +176,7 @@ var RootPageController = (function (_super) {
         //});
         //this.drawLinks(this.currentNavPage.linkItems);
         switch (arg1.ios.state) {
-            case gestures_1.GestureStateTypes.began:
+            case ui_1.GestureStateTypes.began:
                 if (this.isInEditMode) {
                     this.exitEditMode();
                 }
@@ -187,9 +184,9 @@ var RootPageController = (function (_super) {
                     this.enterEditMode();
                 }
                 break;
-            case gestures_1.GestureStateTypes.changed:
+            case ui_1.GestureStateTypes.changed:
                 break;
-            case gestures_1.GestureStateTypes.ended:
+            case ui_1.GestureStateTypes.ended:
                 break;
         }
     };

@@ -1,8 +1,7 @@
+import {Page, GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} from "ui";
 import {Color} from "color";
-import {GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} from "ui/gestures";
-//import {Label} from "ui/label";
+
 import {Point, Rect} from "../common/geometry";
-import {Page} from "ui/page";
 import {LinkItem} from "../model/linkItem";
 import {AnimatedLabel} from "../common/animation/viewAnimationExtensions";
 

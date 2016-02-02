@@ -1,6 +1,5 @@
-var image_1 = require("ui/image");
+var ui_1 = require("ui");
 var myglobalModule = require("../common/myglobal");
-//import utils = require("utils/utils");
 var ImageView = (function (_super) {
     __extends(ImageView, _super);
     /*
@@ -29,5 +28,5 @@ var ImageView = (function (_super) {
         var a = 0;
     };
     return ImageView;
-})(image_1.Image);
+})(ui_1.Image);
 exports.ImageView = ImageView;

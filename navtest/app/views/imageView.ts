@@ -1,10 +1,8 @@
+import {Image, GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} from "ui";
 import {Color} from "color";
-import {GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} from "ui/gestures";
-import {Point, Size, Rect} from "../common/geometry";
-import {Image} from "ui/image";
-import myglobalModule = require("../common/myglobal");
 
-//import utils = require("utils/utils");
+import {Point, Size, Rect} from "../common/geometry";
+import myglobalModule = require("../common/myglobal");
 
 
 export class ImageView extends Image {

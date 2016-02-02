@@ -1,6 +1,5 @@
+var ui_1 = require("ui");
 var color_1 = require("color");
-var gestures_1 = require("ui/gestures");
-//import {Label} from "ui/label";
 var geometry_1 = require("../common/geometry");
 var viewAnimationExtensions_1 = require("../common/animation/viewAnimationExtensions");
 var LinkView = (function (_super) {
@@ -16,26 +15,26 @@ var LinkView = (function (_super) {
         //this._height = options.height;
         this.linkItem = li;
         this.showLinkPickerCallback = showLPCallback;
-        this.on(gestures_1.GestureTypes.pan, function (args) {
+        this.on(ui_1.GestureTypes.pan, function (args) {
             switch (args.state) {
-                case gestures_1.GestureStateTypes.began: {
+                case ui_1.GestureStateTypes.began: {
                     _this.dragStarted();
                     break;
                 }
-                case gestures_1.GestureStateTypes.changed:
+                case ui_1.GestureStateTypes.changed:
                     _this.dragged(args);
                     break;
-                case gestures_1.GestureStateTypes.ended: {
+                case ui_1.GestureStateTypes.ended: {
                     _this.dragged(args);
                     _this.dradEnded();
                     break;
                 }
             }
         });
-        this.on(gestures_1.GestureTypes.longPress, function (args) {
+        this.on(ui_1.GestureTypes.longPress, function (args) {
             console.log('link view long press');
         });
-        this.on(gestures_1.GestureTypes.tap, function (args) {
+        this.on(ui_1.GestureTypes.tap, function (args) {
             console.log('link view tap');
             //this.showLinkPickerCallback(this, this.linkItem);
             _this.showLinkPickerCallback(_this, _this.linkItem);

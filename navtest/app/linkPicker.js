@@ -1,6 +1,6 @@
 var observable_1 = require("data/observable");
-var linkPickerEventArgs_1 = require("./common/events/linkPickerEventArgs");
 var frameModule = require("ui/frame");
+var linkPickerEventArgs_1 = require("./common/events/linkPickerEventArgs");
 var globalModule = require("./common/myglobal");
 var LinkPickerController = (function (_super) {
     __extends(LinkPickerController, _super);
