@@ -1,0 +1,21 @@
+stack-layout {
+    text-align: center;
+}
+
+button {
+   border-radius: 3;
+   border-color: darkcyan;
+   border-width: 2;
+   color: black;
+   background-color: cadetblue;
+   width: 100;
+}
+
+label {
+    font-size: 30;
+}
+
+.counter {
+    font-size: 50;
+    color: mediumvioletred;
+}

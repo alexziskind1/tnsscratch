@@ -1,0 +1,6 @@
+<Page loaded="pageLoaded">
+  <StackLayout>
+    <Button text="TAP" tap="{{tapAction}}" />
+    <Label class="counter" text="{{message}}"/>
+  </StackLayout>
+</Page>
