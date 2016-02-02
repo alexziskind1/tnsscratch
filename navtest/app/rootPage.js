@@ -128,8 +128,10 @@ var RootPageController = (function (_super) {
             console.log("rootPage received LinkPickerClosedEventArgs");
             if (args.linkDeleted) {
                 var liIdx = _this.currentNavPage.linkItems.indexOf(li);
+                var lvIdx = _this.linkViews.indexOf(lv);
                 _this.currentNavPage.linkItems.splice(liIdx, 1);
                 _this.removeLinkView(lv);
+                _this.linkViews.splice(lvIdx, 1);
             }
             else {
                 li.name = args.selectedName;
@@ -138,8 +140,8 @@ var RootPageController = (function (_super) {
     };
     RootPageController.prototype.removeLinkView = function (lv) {
         var _this = this;
-        var lvIdx = this.linkViews.indexOf(lv);
-        this.linkViews.splice(lvIdx, 1);
+        //var lvIdx = this.linkViews.indexOf(lv);
+        //this.linkViews.splice(lvIdx,1);
         lv.fadeOut().then(function () {
             try {
                 _this.layout.removeChild(lv);

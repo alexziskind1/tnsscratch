@@ -153,6 +153,7 @@ class RootPageController extends Observable {
 
     private exitEditMode() {
         this.isInEditMode = false;
+
         for (var i = 0; i < this.linkViews.length; i++){
             var lv = this.linkViews[i];
 
@@ -178,9 +179,11 @@ class RootPageController extends Observable {
             console.log("rootPage received LinkPickerClosedEventArgs");
             if (args.linkDeleted) {
                 var liIdx = this.currentNavPage.linkItems.indexOf(li);
+                var lvIdx = this.linkViews.indexOf(lv);
                 this.currentNavPage.linkItems.splice(liIdx,1);
 
                 this.removeLinkView(lv);
+                this.linkViews.splice(lvIdx,1);
             }
             else {
                 li.name = args.selectedName;
@@ -190,8 +193,8 @@ class RootPageController extends Observable {
     }
 
     private removeLinkView(lv: LinkView) {
-        var lvIdx = this.linkViews.indexOf(lv);
-        this.linkViews.splice(lvIdx,1);
+        //var lvIdx = this.linkViews.indexOf(lv);
+        //this.linkViews.splice(lvIdx,1);
         lv.fadeOut().then(()=>{
             try {
                 this.layout.removeChild(lv);

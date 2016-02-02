@@ -65,7 +65,7 @@ export const pageNavData = [
             {
                 name: "pageMe",
                 rect: {"origin":{"x":294,"y":595},"size":{"width":71,"height":43}},
-                parent: { "size":{"width":375,"height":647} }, 
+                parent: { "size":{"width":375,"height":647} },
                 isBack: false
             }
         ]
