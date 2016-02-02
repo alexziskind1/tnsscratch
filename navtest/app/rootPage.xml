@@ -1,4 +1,4 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" loaded="pageLoaded" tap="{{ tapPage }}" doubleTap="{{ doubleTap }}" longPress="{{ longPress }}">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" loaded="pageLoaded" tap="{{ tapPage }}" doubleTap="{{ doubleTap }}" longPress="{{ longPress }}" pan="{{ panPage }}">
 
     <AbsoluteLayout id="layoutBase" class="wrapper">
     </AbsoluteLayout>

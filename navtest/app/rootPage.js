@@ -2,6 +2,10 @@ var observable_1 = require("data/observable");
 var gestures_1 = require("ui/gestures");
 var navigationModule = require("./common/navigation");
 var myglobalModule = require("./common/myglobal");
+var button_1 = require("ui/button");
+var color_1 = require("color");
+var absolute_layout_1 = require("ui/layouts/absolute-layout");
+//import {StackLayout} from "ui/layouts/stack-layout";
 var geometry_1 = require("./common/geometry");
 var linkView_1 = require("./views/linkView");
 var imageView_1 = require("./views/imageView");
@@ -12,6 +16,12 @@ var RootPageController = (function (_super) {
         this.isInEditMode = false;
         this.linkViews = [];
         this.message = "hi there";
+        this.currentRect = new absolute_layout_1.AbsoluteLayout();
+        this.selectRectId = "currentRect";
+        this.layoutBaseId = "layoutBase";
+        this.editBtnId = "editBtn";
+        this.startPoint = new geometry_1.Point(0, 0);
+        this.selRect = new geometry_1.Rect(0, 0, 0, 0);
     }
     RootPageController.prototype.pageLoaded = function (args) {
         var height = this.page.getMeasuredHeight();
@@ -24,12 +34,19 @@ var RootPageController = (function (_super) {
             myglobalModule.firstLoad = false;
         }
         myglobalModule.pageSize = this.pageSize;
+        this.currentRect.id = this.selectRectId;
+        this.currentRect.style.backgroundColor = new color_1.Color(150, 100, 100, 100);
+        var editBtn = new button_1.Button();
+        editBtn.text = "edit";
+        editBtn.id = this.editBtnId;
+        editBtn.opacity = 0;
+        this.currentRect.addChild(editBtn);
     };
     RootPageController.prototype.navigatingTo = function (args) {
         this.page = args.object;
         this.page.bindingContext = this;
         //this.pageImg = <Image>this.page.getViewById("pageImg");
-        this.layout = this.page.getViewById("layoutBase");
+        this.layout = this.page.getViewById(this.layoutBaseId);
         if (args.context != null) {
             this.currentNavPage = args.context;
         }
@@ -42,6 +59,7 @@ var RootPageController = (function (_super) {
         this.setImage(this.currentNavPage.name);
     };
     RootPageController.prototype.tapPage = function (arg1) {
+        this.clearSelection();
         if (this.isInEditMode) {
             return;
         }
@@ -70,6 +88,85 @@ var RootPageController = (function (_super) {
             else {
                 var nextPage = navigationModule.navigation.getPageByName(matchedLink.name);
                 navigationModule.navigation.goToRoot(nextPage);
+            }
+        }
+    };
+    RootPageController.prototype.panPage = function (arg1) {
+        switch (arg1.state) {
+            case gestures_1.GestureStateTypes.began:
+                this.selRect.origin.x = arg1.ios.locationInView(arg1.ios.view).x;
+                this.selRect.origin.y = arg1.ios.locationInView(arg1.ios.view).y;
+                this.startPoint.x = this.selRect.origin.x;
+                this.startPoint.y = this.selRect.origin.y;
+                this.selRect.size.width = 0;
+                this.selRect.size.height = 0;
+                this.drawRectUpdate(arg1.state);
+                break;
+            case gestures_1.GestureStateTypes.changed:
+                if (arg1.deltaX < 0) {
+                    this.selRect.size.width = Math.abs(arg1.deltaX);
+                    this.selRect.origin.x = this.startPoint.x - this.selRect.size.width;
+                }
+                else {
+                    this.selRect.size.width = arg1.deltaX;
+                }
+                if (arg1.deltaY < 0) {
+                    this.selRect.size.height = Math.abs(arg1.deltaY);
+                    this.selRect.origin.y = this.startPoint.y - this.selRect.size.height;
+                }
+                else {
+                    this.selRect.size.height = arg1.deltaY;
+                }
+                if (this.selRect.origin.x < 0)
+                    this.selRect.origin.x = 0;
+                if (this.selRect.origin.y < 0)
+                    this.selRect.origin.y = 0;
+                this.drawRectUpdate(arg1.state);
+                break;
+            case gestures_1.GestureStateTypes.ended:
+                this.showEditBtn();
+                break;
+        }
+    };
+    RootPageController.prototype.showEditBtn = function (duration) {
+        if (duration === void 0) { duration = 250; }
+        return this.toggleEditBtn(true, duration);
+    };
+    RootPageController.prototype.hideEditBtn = function (duration) {
+        if (duration === void 0) { duration = 250; }
+        return this.toggleEditBtn(false, duration);
+    };
+    RootPageController.prototype.toggleEditBtn = function (show, duration) {
+        var ch = this.layout.getViewById(this.selectRectId);
+        if (ch != null) {
+            var editBtn = ch.getViewById(this.editBtnId);
+            return editBtn.animate({
+                opacity: show ? 1 : 0,
+                duration: duration
+            });
+        }
+    };
+    RootPageController.prototype.drawRectUpdate = function (state) {
+        if (state == gestures_1.GestureStateTypes.began) {
+            this.hideEditBtn(1);
+        }
+        absolute_layout_1.AbsoluteLayout.setTop(this.currentRect, this.selRect.origin.y);
+        absolute_layout_1.AbsoluteLayout.setLeft(this.currentRect, this.selRect.origin.x);
+        this.currentRect.width = this.selRect.size.width;
+        this.currentRect.height = this.selRect.size.height;
+        var ch = this.layout.getViewById(this.selectRectId);
+        if (ch == null)
+            this.layout.addChild(this.currentRect);
+    };
+    RootPageController.prototype.clearSelection = function () {
+        var _this = this;
+        var ch = this.layout.getViewById(this.selectRectId);
+        if (ch != null) {
+            var p = this.hideEditBtn(1);
+            if (p != null) {
+                p.then(function () {
+                    _this.layout.removeChild(ch);
+                });
             }
         }
     };

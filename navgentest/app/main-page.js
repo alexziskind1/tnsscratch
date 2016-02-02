@@ -23,7 +23,7 @@ exports.pageLoaded = pageLoaded;
 
 function getViewRefs(page) {
     layoutBase = page.getViewById("layoutBase");
-    lblMyLabel = page.getViewById("lblMyLabel");
+    //lblMyLabel = page.getViewById("lblMyLabel");
 
     imgMy = page.getViewById("imgMy");
 }
@@ -104,9 +104,9 @@ function drawRectUpdate() {
 }
 
 function buttonTap() {
-    imgMy.imageSource = ImageSourceModule.fromResource("page1.png");
+    //imgMy.imageSource = ImageSourceModule.fromResource("page1.png");
 
-    imgMy.stretch = EnumsModule.Stretch.aspectFill;
+    //imgMy.stretch = EnumsModule.Stretch.aspectFill;
 }
 
 exports.buttonTap = buttonTap;
