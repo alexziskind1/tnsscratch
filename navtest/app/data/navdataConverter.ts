@@ -16,7 +16,7 @@ export function convertNavDataToObjects() {
 
             var parentSize = new Size(l.parent.size.width, l.parent.size.height);
 
-            return new LinkItem(l.name, linkRect, parentSize, l.isBack);
+            return new LinkItem(l.id, l.name, linkRect, parentSize, l.isBack);
 
         });
 

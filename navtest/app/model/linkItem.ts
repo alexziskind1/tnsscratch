@@ -2,7 +2,7 @@ import {Point, Size, Rect} from "../common/geometry";
 
 
 export class LinkItem {
-    constructor(public name: string, public rect: Rect, public parentSize: Size, public isBack: boolean) {
+    constructor(public id: string, public name: string, public rect: Rect, public parentSize: Size, public isBack: boolean) {
 
     }
 

@@ -1,6 +1,7 @@
 var observable_1 = require("data/observable");
 var ui_1 = require("ui");
 var color_1 = require("color");
+var guid_1 = require("./common/guid");
 var navigationModule = require("./common/navigation");
 var myglobalModule = require("./common/myglobal");
 var geometry_1 = require("./common/geometry");
@@ -37,17 +38,18 @@ var RootPageController = (function (_super) {
         myglobalModule.pageSize = this.pageSize;
         this.currentRect.id = this.selectRectId;
         this.currentRect.style.backgroundColor = new color_1.Color(150, 100, 100, 100);
-        var editBtn = new ui_1.Button();
-        editBtn.text = "make";
-        editBtn.id = this.editBtnId;
-        editBtn.opacity = 0;
-        editBtn.className = "btn-convert";
-        editBtn.on('tap', function () {
-            var li = new linkItem_1.LinkItem('', _this.selRect, _this.pageSize, false);
+        var makeBtn = new ui_1.Button();
+        makeBtn.text = "make";
+        makeBtn.id = this.editBtnId;
+        makeBtn.opacity = 0;
+        makeBtn.className = "btn-convert";
+        makeBtn.on('tap', function () {
+            var li = new linkItem_1.LinkItem(guid_1.Guid.newGuid(), '', _this.selRect, _this.pageSize, false);
             _this.currentNavPage.linkItems.push(li);
             _this.drawLink(li);
+            _this.clearSelection();
         });
-        this.currentRect.addChild(editBtn);
+        this.currentRect.addChild(makeBtn);
     };
     RootPageController.prototype.navigatingTo = function (args) {
         this.page = args.object;
@@ -97,8 +99,19 @@ var RootPageController = (function (_super) {
                 navigationModule.navigation.goToRoot(nextPage);
             }
         }
+        else {
+            this.flashValidLinks();
+        }
+    };
+    RootPageController.prototype.flashValidLinks = function () {
+        this.drawLinks(this.currentNavPage.linkItems);
+        setTimeout(this.exitEditMode, 500);
+        //this.exitEditMode();
     };
     RootPageController.prototype.panPage = function (arg1) {
+        if (!this.isInEditMode) {
+            return;
+        }
         switch (arg1.state) {
             case ui_1.GestureStateTypes.began:
                 this.selRect.origin.x = arg1.ios.locationInView(arg1.ios.view).x;
@@ -238,8 +251,10 @@ var RootPageController = (function (_super) {
                 return;
             }
             if (args.linkDeleted) {
-                var liIdx = _this.currentNavPage.linkItems.indexOf(li);
-                var lvIdx = _this.linkViews.indexOf(lv);
+                var liIdx = _this.currentNavPage.linkItems.map(function (x) { return x.id; }).indexOf(li.id);
+                //var liIdx = this.currentNavPage.linkItems.indexOf(li);
+                var lvIdx = _this.linkViews.map(function (x) { return x.linkItem.id; }).indexOf(lv.linkItem.id);
+                //var lvIdx = this.linkViews.indexOf(lv);
                 _this.currentNavPage.linkItems.splice(liIdx, 1);
                 _this.removeLinkView(lv);
                 _this.linkViews.splice(lvIdx, 1);

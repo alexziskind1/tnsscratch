@@ -1,5 +1,6 @@
 var LinkItem = (function () {
-    function LinkItem(name, rect, parentSize, isBack) {
+    function LinkItem(id, name, rect, parentSize, isBack) {
+        this.id = id;
         this.name = name;
         this.rect = rect;
         this.parentSize = parentSize;

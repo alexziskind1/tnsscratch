@@ -2,6 +2,8 @@ import {Observable} from "data/observable";
 import {Button, Image, AbsoluteLayout, Page,GestureEventData, GestureTypes, GestureStateTypes,GestureEventDataWithState, PanGestureEventData} from "ui";
 import {Color} from "color";
 
+import {Guid} from "./common/guid";
+
 import {NavPage} from "./model/navPage";
 import navigationModule = require("./common/navigation");
 import myglobalModule = require("./common/myglobal");
@@ -46,19 +48,20 @@ class RootPageController extends Observable {
 
         this.currentRect.id = this.selectRectId;
         this.currentRect.style.backgroundColor = new Color(150,100,100,100);
-        var editBtn = new Button();
-        editBtn.text = "make";
-        editBtn.id = this.editBtnId;
-        editBtn.opacity = 0;
-        editBtn.className = "btn-convert";
+        var makeBtn = new Button();
+        makeBtn.text = "make";
+        makeBtn.id = this.editBtnId;
+        makeBtn.opacity = 0;
+        makeBtn.className = "btn-convert";
 
-        editBtn.on('tap', () => {
-            var li: LinkItem = new LinkItem('', this.selRect, this.pageSize, false);
+        makeBtn.on('tap', () => {
+            var li: LinkItem = new LinkItem(Guid.newGuid(), '', this.selRect, this.pageSize, false);
             this.currentNavPage.linkItems.push(li);
             this.drawLink(li);
+            this.clearSelection();
         });
 
-        this.currentRect.addChild(editBtn);
+        this.currentRect.addChild(makeBtn);
     }
 
 
@@ -121,14 +124,23 @@ class RootPageController extends Observable {
                 navigationModule.navigation.goToRoot(nextPage);
             }
         }
+        else {
+            this.flashValidLinks();
+        }
     }
 
-
+    private flashValidLinks() {
+        //.drawLinks(this.currentNavPage.linkItems);
+    }
 
     private startPoint: Point = new Point(0, 0);
     private selRect: Rect = new Rect(0, 0, 0, 0);
 
     public panPage(arg1: PanGestureEventData) {
+        if (!this.isInEditMode) {
+            return;
+        }
+        
         switch (arg1.state) {
             case GestureStateTypes.began:
                 this.selRect.origin.x = arg1.ios.locationInView(arg1.ios.view).x;
@@ -305,8 +317,12 @@ class RootPageController extends Observable {
             }
 
             if (args.linkDeleted) {
-                var liIdx = this.currentNavPage.linkItems.indexOf(li);
-                var lvIdx = this.linkViews.indexOf(lv);
+                var liIdx = this.currentNavPage.linkItems.map(function(x) {return x.id; }).indexOf(li.id);
+               
+                //var liIdx = this.currentNavPage.linkItems.indexOf(li);
+                var lvIdx = this.linkViews.map(function(x) {return x.linkItem.id; }).indexOf(lv.linkItem.id);
+                
+                //var lvIdx = this.linkViews.indexOf(lv);
                 this.currentNavPage.linkItems.splice(liIdx,1);
 
                 this.removeLinkView(lv);

@@ -11,7 +11,7 @@ export class LinkView extends AnimatedLabel {
     //private _width: number = 50;
     //private _height: number = 50;
     private lastLocation: Point = new Point(0,0);
-    private linkItem: LinkItem;
+    public linkItem: LinkItem;
     private showLinkPickerCallback: Function;
 
     constructor(li: LinkItem, private rect: Rect, showLPCallback: Function){

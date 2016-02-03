@@ -12,7 +12,7 @@ function convertNavDataToObjects() {
             var height = l.rect.size.height;
             var linkRect = new geometry_1.Rect(x, y, width, height);
             var parentSize = new geometry_1.Size(l.parent.size.width, l.parent.size.height);
-            return new linkItem_1.LinkItem(l.name, linkRect, parentSize, l.isBack);
+            return new linkItem_1.LinkItem(l.id, l.name, linkRect, parentSize, l.isBack);
         });
         return new navPage_1.NavPage(i.pageName, linkItems);
     });
