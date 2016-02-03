@@ -4,6 +4,7 @@ var color_1 = require("color");
 var navigationModule = require("./common/navigation");
 var myglobalModule = require("./common/myglobal");
 var geometry_1 = require("./common/geometry");
+var linkItem_1 = require("./model/linkItem");
 var linkView_1 = require("./views/linkView");
 var imageView_1 = require("./views/imageView");
 var RootPageController = (function (_super) {
@@ -17,10 +18,13 @@ var RootPageController = (function (_super) {
         this.selectRectId = "currentRect";
         this.layoutBaseId = "layoutBase";
         this.editBtnId = "editBtn";
+        this.wrapperClassNameProp = "wrapperClassName";
+        this.wrapEditClassName = "wrapper";
         this.startPoint = new geometry_1.Point(0, 0);
         this.selRect = new geometry_1.Rect(0, 0, 0, 0);
     }
     RootPageController.prototype.pageLoaded = function (args) {
+        var _this = this;
         var height = this.page.getMeasuredHeight();
         var width = this.page.getMeasuredWidth();
         this.pageSize = new geometry_1.Size(width, height);
@@ -34,9 +38,15 @@ var RootPageController = (function (_super) {
         this.currentRect.id = this.selectRectId;
         this.currentRect.style.backgroundColor = new color_1.Color(150, 100, 100, 100);
         var editBtn = new ui_1.Button();
-        editBtn.text = "edit";
+        editBtn.text = "make";
         editBtn.id = this.editBtnId;
         editBtn.opacity = 0;
+        editBtn.className = "btn-convert";
+        editBtn.on('tap', function () {
+            var li = new linkItem_1.LinkItem('', _this.selRect, _this.pageSize, false);
+            _this.currentNavPage.linkItems.push(li);
+            _this.drawLink(li);
+        });
         this.currentRect.addChild(editBtn);
     };
     RootPageController.prototype.navigatingTo = function (args) {
@@ -193,19 +203,22 @@ var RootPageController = (function (_super) {
     RootPageController.prototype.enterEditMode = function () {
         this.isInEditMode = true;
         this.drawLinks(this.currentNavPage.linkItems);
+        this.set(this.wrapperClassNameProp, this.wrapEditClassName);
     };
     RootPageController.prototype.drawLinks = function (linkItems) {
-        var _this = this;
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
-            //var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
-            var relRect = li.rect.changeRatio(li.parentSize, this.pageSize);
-            var lv = new linkView_1.LinkView(li, relRect, function () { return _this.showLinkPicker(lv, li); });
-            lv.opacity = 0;
-            this.linkViews.push(lv);
-            this.layout.addChild(lv);
-            lv.fadeIn();
+            this.drawLink(li);
         }
+    };
+    RootPageController.prototype.drawLink = function (li) {
+        var _this = this;
+        var relRect = li.rect.changeRatio(li.parentSize, this.pageSize);
+        var lv = new linkView_1.LinkView(li, relRect, function () { return _this.showLinkPicker(lv, li); });
+        lv.opacity = 0;
+        this.linkViews.push(lv);
+        this.layout.addChild(lv);
+        lv.fadeIn();
     };
     RootPageController.prototype.exitEditMode = function () {
         this.isInEditMode = false;
@@ -214,12 +227,16 @@ var RootPageController = (function (_super) {
             this.removeLinkView(lv);
         }
         this.linkViews = [];
+        this.set(this.wrapperClassNameProp, "");
     };
     RootPageController.prototype.showLinkPicker = function (lv, li) {
         var _this = this;
         var fullscreen = true;
         this.page.showModal("./linkPicker", li.name, function (args) {
             console.log("rootPage received LinkPickerClosedEventArgs");
+            if (args.canceled) {
+                return;
+            }
             if (args.linkDeleted) {
                 var liIdx = _this.currentNavPage.linkItems.indexOf(li);
                 var lvIdx = _this.linkViews.indexOf(lv);

@@ -44,29 +44,33 @@ var LinkPickerController = (function (_super) {
         console.log('listViewItemTap idx: ' + itemIndex);
         this.set("selectedScreenName", selectedScreen.name);
     };
+    LinkPickerController.prototype.cancelTap = function (args) {
+        console.log(">>> linkPicker.cancelTap");
+        if (this.closeCallback) {
+            var lpArgs = new linkPickerEventArgs_1.LinkPickerClosedEventArgs();
+            lpArgs.canceled = true;
+            this.dismissModal(lpArgs);
+        }
+    };
     LinkPickerController.prototype.doneTap = function (args) {
         console.log(">>> linkPicker.doneTap");
         if (this.closeCallback) {
             var selectedScreenName = this.get("selectedScreenName");
             var lpArgs = new linkPickerEventArgs_1.LinkPickerClosedEventArgs();
             lpArgs.selectedName = selectedScreenName;
-            this.closeCallback(lpArgs);
-        }
-        else {
-            frameModule.topmost().goBack();
+            this.dismissModal(lpArgs);
         }
     };
     LinkPickerController.prototype.deleteTap = function (args) {
         console.log(">>> linkPicker.deleteTap");
         if (this.closeCallback) {
-            var selectedScreenName = this.get("selectedScreenName");
             var lpArgs = new linkPickerEventArgs_1.LinkPickerClosedEventArgs();
             lpArgs.linkDeleted = true;
-            this.closeCallback(lpArgs);
+            this.dismissModal(lpArgs);
         }
-        else {
-            frameModule.topmost().goBack();
-        }
+    };
+    LinkPickerController.prototype.dismissModal = function (lpArgs) {
+        this.closeCallback(lpArgs);
     };
     return LinkPickerController;
 })(observable_1.Observable);

@@ -28,6 +28,8 @@ class RootPageController extends Observable {
     private selectRectId = "currentRect";
     private layoutBaseId = "layoutBase";
     private editBtnId = "editBtn";
+    private wrapperClassNameProp = "wrapperClassName";
+    private wrapEditClassName = "wrapper";
 
     public pageLoaded(args) {
         var height = this.page.getMeasuredHeight();
@@ -41,15 +43,24 @@ class RootPageController extends Observable {
         }
 
         myglobalModule.pageSize = this.pageSize;
-        
+
         this.currentRect.id = this.selectRectId;
         this.currentRect.style.backgroundColor = new Color(150,100,100,100);
         var editBtn = new Button();
-        editBtn.text = "edit";
+        editBtn.text = "make";
         editBtn.id = this.editBtnId;
         editBtn.opacity = 0;
+        editBtn.className = "btn-convert";
+
+        editBtn.on('tap', () => {
+            var li: LinkItem = new LinkItem('', this.selRect, this.pageSize, false);
+            this.currentNavPage.linkItems.push(li);
+            this.drawLink(li);
+        });
+
         this.currentRect.addChild(editBtn);
     }
+
 
     public navigatingTo(args) {
         this.page = <Page>args.object;
@@ -126,7 +137,7 @@ class RootPageController extends Observable {
                 this.startPoint.y = this.selRect.origin.y;
                 this.selRect.size.width = 0;
                 this.selRect.size.height = 0;
-                
+
                 this.drawRectUpdate(arg1.state);
                 break;
             case GestureStateTypes.changed:
@@ -157,15 +168,15 @@ class RootPageController extends Observable {
                 break;
         }
     }
-    
+
     private showEditBtn(duration: number = 250) {
         return this.toggleEditBtn(true, duration);
     }
-    
+
     private hideEditBtn(duration: number = 250) {
         return this.toggleEditBtn(false, duration);
     }
-    
+
     private toggleEditBtn(show: boolean, duration: number) {
         var ch: AbsoluteLayout = <AbsoluteLayout>this.layout.getViewById(this.selectRectId);
         if (ch != null) {
@@ -176,7 +187,7 @@ class RootPageController extends Observable {
             });
         }
     }
-    
+
     public drawRectUpdate(state: GestureStateTypes) {
         if (state == GestureStateTypes.began) {
             this.hideEditBtn(1);
@@ -191,7 +202,7 @@ class RootPageController extends Observable {
         if (ch == null)
             this.layout.addChild(this.currentRect);
     }
-    
+
     public clearSelection() {
         var ch: AbsoluteLayout = <AbsoluteLayout>this.layout.getViewById(this.selectRectId);
         if (ch != null) {
@@ -203,7 +214,7 @@ class RootPageController extends Observable {
             }
         }
     }
-    
+
 
 
     public doubleTap(arg1: GestureEventData){
@@ -240,20 +251,26 @@ class RootPageController extends Observable {
     private enterEditMode() {
         this.isInEditMode = true;
         this.drawLinks(this.currentNavPage.linkItems);
+        this.set(this.wrapperClassNameProp, this.wrapEditClassName);
     }
 
     private drawLinks(linkItems: Array<LinkItem>) {
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
+            this.drawLink(li);
             //var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
-            var relRect = li.rect.changeRatio(li.parentSize,  this.pageSize);
 
-            var lv = new LinkView(li, relRect, () =>  this.showLinkPicker(lv, li) );
-            lv.opacity = 0;
-            this.linkViews.push(lv);
-            this.layout.addChild(lv);
-            lv.fadeIn();
         }
+    }
+
+    private drawLink(li: LinkItem) {
+        var relRect = li.rect.changeRatio(li.parentSize,  this.pageSize);
+
+        var lv = new LinkView(li, relRect, () =>  this.showLinkPicker(lv, li) );
+        lv.opacity = 0;
+        this.linkViews.push(lv);
+        this.layout.addChild(lv);
+        lv.fadeIn();
     }
 
     private exitEditMode() {
@@ -274,6 +291,7 @@ class RootPageController extends Observable {
             */
         }
         this.linkViews = [];
+        this.set(this.wrapperClassNameProp, "");
     }
 
 
@@ -282,6 +300,10 @@ class RootPageController extends Observable {
 
         this.page.showModal("./linkPicker", li.name,  (args: LinkPickerClosedEventArgs) => {
             console.log("rootPage received LinkPickerClosedEventArgs");
+            if (args.canceled) {
+                return;
+            }
+
             if (args.linkDeleted) {
                 var liIdx = this.currentNavPage.linkItems.indexOf(li);
                 var lvIdx = this.linkViews.indexOf(lv);

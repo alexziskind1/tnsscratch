@@ -2,10 +2,16 @@
       shownModally="onShownModally"
       loaded="onLoaded" backgroundColor="Transparent">
 
-  <StackLayout backgroundColor="PaleGreen">
+  <StackLayout backgroundColor="#efefef">
+    <DockLayout>
+        <Button text="cancel" tap="{{cancelTap}}" class="btn-modal-action" horizontalAlignment="left" />
+        <Button text="done" tap="{{doneTap}}" class="btn-modal-action" horizontalAlignment="right" />
+    </DockLayout>
 
-    <Label text="{{ selectedScreenName }}" textWrap="true" class="title" />
-
+    <StackLayout orientation="horizontal">
+        <Label text="selected page: " textWrap="true" class="title" />
+        <Label text="{{ selectedScreenName }}" textWrap="true" class="title" />
+    </StackLayout>
 
     <ListView items="{{ screens }}" itemTap=" {{ listViewItemTap }}">
         <ListView.itemTemplate>
@@ -13,7 +19,6 @@
         </ListView.itemTemplate>
     </ListView>
 
-    <Button text="Done" tap="{{ doneTap }}"/>
-    <Button text="Delete" tap="{{ deleteTap }}"/>
+    <Button text="Delete" class="btn-delete" tap="{{ deleteTap }}"/>
   </StackLayout>
 </Page>

@@ -59,19 +59,25 @@ export class LinkPickerController extends Observable {
         this.set("selectedScreenName", selectedScreen.name);
     }
 
+    public cancelTap(args) {
+        console.log(">>> linkPicker.cancelTap");
+        if (this.closeCallback) {
+            var lpArgs = new LinkPickerClosedEventArgs();
+            lpArgs.canceled = true;
+
+            this.dismissModal(lpArgs);
+        }
+    }
+
     public doneTap(args) {
         console.log(">>> linkPicker.doneTap");
 
         if (this.closeCallback) {
             var selectedScreenName = this.get("selectedScreenName");
-
             var lpArgs = new LinkPickerClosedEventArgs();
             lpArgs.selectedName = selectedScreenName;
 
-            this.closeCallback(lpArgs);
-        }
-        else {
-            frameModule.topmost().goBack();
+            this.dismissModal(lpArgs);
         }
     }
 
@@ -79,16 +85,14 @@ export class LinkPickerController extends Observable {
         console.log(">>> linkPicker.deleteTap");
 
         if (this.closeCallback) {
-            var selectedScreenName = this.get("selectedScreenName");
-
             var lpArgs = new LinkPickerClosedEventArgs();
             lpArgs.linkDeleted = true;
+            this.dismissModal(lpArgs);
+        }
+    }
 
-            this.closeCallback(lpArgs);
-        }
-        else {
-            frameModule.topmost().goBack();
-        }
+    private dismissModal(lpArgs:LinkPickerClosedEventArgs) {
+        this.closeCallback(lpArgs);
     }
 
 
