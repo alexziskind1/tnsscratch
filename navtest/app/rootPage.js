@@ -23,6 +23,7 @@ var RootPageController = (function (_super) {
         this.wrapEditClassName = "wrapper";
         this.startPoint = new geometry_1.Point(0, 0);
         this.selRect = new geometry_1.Rect(0, 0, 0, 0);
+        this.longPressDone = true;
     }
     RootPageController.prototype.pageLoaded = function (args) {
         var _this = this;
@@ -68,8 +69,9 @@ var RootPageController = (function (_super) {
         this.setImage(this.currentNavPage.name);
     };
     RootPageController.prototype.tapPage = function (arg1) {
+        console.log('tapPage');
         this.clearSelection();
-        if (this.isInEditMode) {
+        if (this.isInEditMode || !this.longPressDone) {
             return;
         }
         var x = arg1.ios.locationInView(arg1.ios.view).x;
@@ -199,6 +201,7 @@ var RootPageController = (function (_super) {
         //dialogs.action("Your message", "Cancel button text", ["Option1", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2"]).then(result => {
         //    console.log("Dialog result: " + result)
         //});
+        var _this = this;
         //this.drawLinks(this.currentNavPage.linkItems);
         switch (arg1.ios.state) {
             case ui_1.GestureStateTypes.began:
@@ -208,10 +211,13 @@ var RootPageController = (function (_super) {
                 else {
                     this.enterEditMode();
                 }
+                this.longPressDone = false;
                 break;
             case ui_1.GestureStateTypes.changed:
                 break;
             case ui_1.GestureStateTypes.ended:
+                console.log('longPress');
+                setTimeout(function () { return _this.longPressDone = true; }, 500);
                 break;
         }
     };

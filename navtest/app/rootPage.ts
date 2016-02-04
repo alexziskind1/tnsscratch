@@ -88,8 +88,9 @@ class RootPageController extends Observable {
     }
 
     public tapPage(arg1: GestureEventData) {
+        console.log('tapPage');
         this.clearSelection();
-        if (this.isInEditMode) {
+        if (this.isInEditMode || !this.longPressDone) {
             return;
         }
 
@@ -236,6 +237,8 @@ class RootPageController extends Observable {
         console.log('double tap');
     }
 
+    private longPressDone = true;
+
     public longPress(arg1: GestureEventData){
         //dialogs.action("Your message", "Cancel button text", ["Option1", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2"]).then(result => {
         //    console.log("Dialog result: " + result)
@@ -251,12 +254,14 @@ class RootPageController extends Observable {
                 else {
                     this.enterEditMode();
                 }
+                this.longPressDone = false;
                 break;
             case GestureStateTypes.changed:
 
                 break;
             case GestureStateTypes.ended:
-
+                console.log('longPress');
+                setTimeout(()=>this.longPressDone = true, 500);
                 break;
 
         }
@@ -269,8 +274,6 @@ class RootPageController extends Observable {
         this.set(this.wrapperClassNameProp, this.wrapEditClassName);
     }
 
-    private _resolve;
-    private _reject;
 
     private drawLinks(linkItems: Array<LinkItem>) {
         

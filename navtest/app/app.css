@@ -18,20 +18,22 @@ button {
 
 
 .wrapper {
-    border-color: #66ff0000;
+    border-color: #ff0000;
     border-width: 5;
+    opacity: 0.8;
 }
 
 
 
 .btn-convert {
-    background-color: #66444444;
+    background-color: #444444;
     color: #ffffff;
     border-width: 1;
     border-color: #666666;
     font-size: 14;
     margin: 3;
     padding: 5;
+    opacity: 0.5;
 }
 
 .btn-delete {
