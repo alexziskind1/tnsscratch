@@ -130,7 +130,10 @@ class RootPageController extends Observable {
     }
 
     private flashValidLinks() {
-        //.drawLinks(this.currentNavPage.linkItems);
+        this.drawLinks(this.currentNavPage.linkItems)
+            .then(()=>{
+                this.exitEditMode();
+            });
     }
 
     private startPoint: Point = new Point(0, 0);
@@ -266,13 +269,27 @@ class RootPageController extends Observable {
         this.set(this.wrapperClassNameProp, this.wrapEditClassName);
     }
 
+    private _resolve;
+    private _reject;
+
     private drawLinks(linkItems: Array<LinkItem>) {
+        
+        /*
+        var pro = new Promise((res, rej)=>{
+            this._resolve = res;
+            this._reject = rej;
+        });
+        */
+        
+        var retPromises = [];
+        
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
-            this.drawLink(li);
-            //var relRect = utilModule.changeRectangleRatio(li.rect, li.parentSize, this.pageSize);
-
+            var drawPromise = this.drawLink(li);
+            retPromises.push(drawPromise);
         }
+        
+        return Promise.all(retPromises);
     }
 
     private drawLink(li: LinkItem) {
@@ -282,7 +299,7 @@ class RootPageController extends Observable {
         lv.opacity = 0;
         this.linkViews.push(lv);
         this.layout.addChild(lv);
-        lv.fadeIn();
+        return lv.fadeIn();
     }
 
     private exitEditMode() {

@@ -104,9 +104,11 @@ var RootPageController = (function (_super) {
         }
     };
     RootPageController.prototype.flashValidLinks = function () {
-        this.drawLinks(this.currentNavPage.linkItems);
-        setTimeout(this.exitEditMode, 500);
-        //this.exitEditMode();
+        var _this = this;
+        this.drawLinks(this.currentNavPage.linkItems)
+            .then(function () {
+            _this.exitEditMode();
+        });
     };
     RootPageController.prototype.panPage = function (arg1) {
         if (!this.isInEditMode) {
@@ -219,10 +221,19 @@ var RootPageController = (function (_super) {
         this.set(this.wrapperClassNameProp, this.wrapEditClassName);
     };
     RootPageController.prototype.drawLinks = function (linkItems) {
+        /*
+        var pro = new Promise((res, rej)=>{
+            this._resolve = res;
+            this._reject = rej;
+        });
+        */
+        var retPromises = [];
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
-            this.drawLink(li);
+            var drawPromise = this.drawLink(li);
+            retPromises.push(drawPromise);
         }
+        return Promise.all(retPromises);
     };
     RootPageController.prototype.drawLink = function (li) {
         var _this = this;
@@ -231,7 +242,7 @@ var RootPageController = (function (_super) {
         lv.opacity = 0;
         this.linkViews.push(lv);
         this.layout.addChild(lv);
-        lv.fadeIn();
+        return lv.fadeIn();
     };
     RootPageController.prototype.exitEditMode = function () {
         this.isInEditMode = false;
