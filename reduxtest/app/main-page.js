@@ -15,6 +15,8 @@ var counter = function (state, action) {
             return state;
     }
 };
+var sdfdsf = function (state, action) {
+};
 var store = createStore(counter);
 var lblMessage;
 var MainPageController = (function () {

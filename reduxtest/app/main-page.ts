@@ -22,6 +22,11 @@ const counter = (state = 0, action) => {
     }
 }
 
+var sdfdsf: redux.ActionCreator = (state,action)=>{
+    
+};
+
+
 const store = createStore(counter);
 var lblMessage: Label;
 
@@ -29,11 +34,14 @@ class MainPageController {
     private page: Page;
     //private lblMessage: Label;
     
+    
+    
     public pageLoaded(args: EventData) {
         this.page = <Page>args.object;
         lblMessage = <Label> this.page.getViewById("lblMessage");
 
         store.subscribe(this.updateLabel);
+        
     }
     
     public tapPlus() {

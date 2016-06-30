@@ -1,0 +1,42 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+    <Page.actionBar>
+        <ActionBar title="Todo List">
+        <ActionBar.actionItems>
+            <ActionItem text="State" ios.position="left" tap="{{ btnGetState }}" />
+            <ActionItem ios.systemIcon="4" ios.position="right" tap="{{ btnAddTap }}" />
+        </ActionBar.actionItems>
+        </ActionBar>
+    </Page.actionBar>
+    
+    <DockLayout stretchLastChild="true">
+
+        <StackLayout>
+            <ScrollView>
+                <StackLayout id="slTodos">
+                </StackLayout>
+            </ScrollView>
+            
+            <ListView items="{{ todoItems }}" id="lvTodos">
+                <ListView.itemTemplate>
+                    <StackLayout orientation="horizontal" class="todo-item">
+                        <Switch checked="{{ completed }}" />
+                        <TextField text="{{ text }}" />
+                    </StackLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </StackLayout>
+        
+        
+        
+        <StackLayout dock="bottom"  style="background-color: lightpink; margin: 5; height: 100;">
+            <Button text="botom btn" style="background-color: lightgreen; margin: 5;" />
+        </StackLayout>
+        
+        
+
+    </DockLayout>
+  
+
+
+
+</Page>

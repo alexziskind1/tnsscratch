@@ -8,5 +8,35 @@
     </StackLayout>
     
     <Label  class="message" textWrap="true" id="lblMessage"/>
+    
+              <Label cssClass="info" textWrap="true" >
+            <Label.formattedText>
+              <FormattedString>
+                <FormattedString.spans>
+                  <Span text="
+As always, we'll make it worth your while. You will:
+
+1) Build your first (or tenth) mobile app and have fun doing it
+
+2) Enjoy free food, drinks and software licenses, all while learning new skills
+
+3) Get prizes, with" />
+                  <Span text=" winners every 20 minutes" fontAttributes="Bold"/>
+                  <Span text="
+
+5) Ask questions and meet our hackathon expert engineers
+
+6) Get " />
+                  <Span text=" FREE code" fontAttributes="Bold"/>
+                  <Span text=" licenses for 6 months!" />
+                  <Span text="
+
+Space is limited, so be sure to pick up your entry pass by stopping by at the Registration desk on Sunday between the hours of 4:00 p.m. - 6:00 p.m."
+                        foregroundColor="#A17201" fontAttributes="Bold"/>
+                </FormattedString.spans>
+              </FormattedString>
+            </Label.formattedText>
+          </Label>
+    
   </StackLayout>
 </Page>
