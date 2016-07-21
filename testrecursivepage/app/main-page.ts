@@ -1,6 +1,7 @@
 import { MainViewModel } from "./main-view-model";
 import { Page } from 'ui/page';
 import * as navigationModule from './shared/navigation';
+import * as utils from 'utils/utils';
 
 var page: Page;
 var a = 1;
@@ -12,9 +13,10 @@ export function onNavigatingTo(args) {
 
 var factoryFunc = function () {
     //var newpage = <Page>clone(page);
-    //var newpage: Page;
+    var newpage: Page = <Page>{};
     //newpage = extend(page, newpage);
-    var newpage = <Page>Object.create(page);
+    //var newpage = <Page>Object.create(page);
+    utils.copyFrom(page, newpage);
     newpage.bindingContext = null;
     return newpage;
 };
