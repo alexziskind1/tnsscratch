@@ -1,0 +1,1 @@
+.heart-img{height:100}.pulse-letter{color:#e00;font-size:100;font-weight:bold;animation-name:pound;animation-duration:.5s;animation-iteration-count:infinite}@keyframes pound{from,to{transform:none}50%{transform:scale(1.4, 1.4)}}

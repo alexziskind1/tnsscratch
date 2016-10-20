@@ -1,0 +1,13 @@
+<StackLayout>
+
+
+
+    <Button class="btn btn-primary" text="Add Item" (tap)="onTap()"></Button>
+
+    <StackLayout *ngFor="let item of items"> 
+        
+        <Label class="list-item" [text]="item.name"></Label>
+
+      </StackLayout>
+
+</StackLayout>

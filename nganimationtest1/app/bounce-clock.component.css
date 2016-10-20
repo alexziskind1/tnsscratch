@@ -1,0 +1,61 @@
+
+
+Label {
+  width: 10;
+  height: 100;
+  transform: scale(1, 0.01);
+  opacity: 0;
+  border-radius: 6;
+  background-color: #C532FC;
+  margin-left: 3;
+}
+
+
+
+.lbl-a2  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  16.227s ; animation-iteration-count: infinite; }
+.lbl-a3  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  15.455s ; animation-iteration-count: infinite; }
+.lbl-a4  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  14.682s ; animation-iteration-count: infinite; }
+.lbl-a5  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  13.909s ; animation-iteration-count: infinite; }
+.lbl-a6  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  13.136s ; animation-iteration-count: infinite; }
+.lbl-a7  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  12.364s ; animation-iteration-count: infinite; }
+.lbl-a8  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  11.591s ; animation-iteration-count: infinite; }
+.lbl-a9  { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  10.818s ; animation-iteration-count: infinite; }
+.lbl-a10 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  10.045s ; animation-iteration-count: infinite; }
+.lbl-a11 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  9.273s  ; animation-iteration-count: infinite; }
+.lbl-a12 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  8.500s  ; animation-iteration-count: infinite; }
+.lbl-a13 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  7.727s  ; animation-iteration-count: infinite; }
+.lbl-a14 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  6.955s  ; animation-iteration-count: infinite; }
+.lbl-a15 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  6.182s  ; animation-iteration-count: infinite; }
+.lbl-a16 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  5.409s  ; animation-iteration-count: infinite; }
+.lbl-a17 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  4.636s  ; animation-iteration-count: infinite; }
+.lbl-a18 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  3.864s  ; animation-iteration-count: infinite; }
+.lbl-a19 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  3.091s  ; animation-iteration-count: infinite; }
+.lbl-a20 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  2.318s  ; animation-iteration-count: infinite; }
+.lbl-a21 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  1.545s  ; animation-iteration-count: infinite; }
+.lbl-a22 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  0.773s  ; animation-iteration-count: infinite; }
+.lbl-a23 { animation-name: wave; animation-duration:  17s ; animation-timing-function: linear; animation-delay:  0.000s  ; animation-iteration-count: infinite; }
+
+
+@keyframes wave {
+  0%   { transform: scale(1, 0.01); background-color: #3B44D1;  }
+  5%   { background-color: #9337FE;  }
+  10%  { transform: scale(1, 0.10) translate(0, 0.05);  background-color: #C532FC; opacity: 1; }
+  15%  { background-color: #F639F8; }
+  20%  { transform: scale(1, 0.34) translate(0, 0.17); background-color: #F236C8; }
+  25%  { background-color: #FF2F8D; }
+  30%  { transform: scale(1, 0.10) translate(0, 0.05);  background-color: #EE3860; }
+  35%  { background-color: #DC5245; }
+  40%  { transform: scale(1, 0.34) translate(0, 0.17);  background-color: #F38643; }
+  45%  { background-color: #F8B435; }
+  50%  { transform: scale(1, 0.10) translate(0, 0.05);  background-color: #FAF444; }
+  55%  { background-color: #E0FF3B; }
+  60%  { transform: scale(1, 0.34) translate(0, 0.17); background-color: #E1FF3C; }
+  65%  { background-color: #46F443; }
+  70%  { transform: scale(1, 0.10) translate(0, 0.05);  background-color: #54E67B; }
+  75%  { background-color: #4DF3A9; }
+  80%  { transform: scale(1, 0.34) translate(0, 0.17);  background-color: #3AF9DA; }
+  85%  { background-color: #36EBF4; }
+  90%  { transform: scale(1, 0.10) translate(0, 0.05);  background-color: #3DB3F3; }
+  95%  { background-color: #3C82F1; }
+  100% { transform: scale(1, 0.01);  background-color: #5B38EE; }
+}

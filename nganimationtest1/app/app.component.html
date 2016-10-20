@@ -1,0 +1,27 @@
+<StackLayout>
+    <Label #myTitle text="Tap the button" class="title"></Label>
+
+
+    <Image #myImg class="google-logo" src="https://www.google.com/images/errors/logo_sm_2.png"></Image>
+
+    <AbsoluteLayout  class="heart-img-wrapper">
+        <Label #myHeartImg class="heart-img-1"></Label>
+    </AbsoluteLayout>
+
+
+
+    <Button text="TAP" (tap)="onTap()"></Button>
+
+
+
+    <Label #myLbl [text]="message" class="message" textWrap="true"></Label>
+
+    <StackLayout #myMenuBtn class="menu-button" (tap)="menuTap()">
+        <Label #myMenuBtnBar1 class="bar bar1"></Label>
+        <Label #myMenuBtnBar2 class="bar bar2"></Label>
+        <Label #myMenuBtnBar3 class="bar bar3"></Label>
+    </StackLayout>
+
+    <Label #lblSquare class="label-square"></Label>
+
+</StackLayout>
