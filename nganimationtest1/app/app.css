@@ -18,7 +18,7 @@ button {
 }
 
 .heart-img-1 {
-    background-image: url('~/web_heart_animation.png');
+    background-image: url('~/star_sprite.png');
     background-position: 0 0;
     height: 100;
     width: 100;
