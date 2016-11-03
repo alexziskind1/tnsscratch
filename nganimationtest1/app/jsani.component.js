@@ -9,7 +9,8 @@ var JsAniComponent = (function () {
     JsAniComponent.prototype.ngOnInit = function () {
     };
     JsAniComponent.prototype.onTap = function (myLbl) {
-        move(myLbl);
+        //move(myLbl);
+        move(myLbl, function (progress) { return progress; }, 1000);
     };
     JsAniComponent = __decorate([
         core_1.Component({
@@ -22,7 +23,7 @@ var JsAniComponent = (function () {
     return JsAniComponent;
 }());
 exports.JsAniComponent = JsAniComponent;
-function move(view) {
+function move_old(view) {
     var left = 0;
     var id = setInterval(function () {
         view.style.marginLeft = left; // show frame 
@@ -31,5 +32,30 @@ function move(view) {
         else
             left++; // update parameters 
     }, 6); // draw every 10ms
+}
+function move(view, deltaCalc, duration) {
+    var to = 100;
+    var options = {
+        duration: 1000,
+        deltaCalc: deltaCalc,
+        step: function (delta) {
+            view.style.marginLeft = to * delta;
+        }
+    };
+    animate(options);
+}
+function animate(options) {
+    var start = new Date();
+    var id = setInterval(function () {
+        var timePassed = new Date().valueOf() - start.valueOf();
+        var progress = timePassed / options.duration;
+        if (progress > 1)
+            progress = 1;
+        var delta = options.deltaCalc(progress);
+        options.step(delta);
+        if (progress == 1) {
+            clearInterval(id);
+        }
+    }, options.stepInterval || 10);
 }
 //# sourceMappingURL=jsani.component.js.map
