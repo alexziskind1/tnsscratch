@@ -10,7 +10,7 @@ var JsAniComponent = (function () {
     };
     JsAniComponent.prototype.onTap = function (myLbl) {
         //move(myLbl);
-        move(myLbl, function (progress) { return progress; }, 1000);
+        move(myLbl, function (progress) { return progress; }, 20000);
     };
     JsAniComponent = __decorate([
         core_1.Component({
@@ -36,7 +36,7 @@ function move_old(view) {
 function move(view, deltaCalc, duration) {
     var to = 100;
     var options = {
-        duration: 1000,
+        duration: duration,
         deltaCalc: deltaCalc,
         step: function (delta) {
             view.style.marginLeft = to * delta;

@@ -30,7 +30,7 @@ export class JsAniComponent implements OnInit {
 
     public onTap(myLbl: Label) {
         //move(myLbl);
-        move(myLbl, (progress) => { return progress; }, 1000);
+        move(myLbl, (progress) => { return progress; }, 20000);
     }
 
 }
@@ -57,7 +57,7 @@ function move(view: View, deltaCalc: (p: number) => number, duration: number) {
     var to = 100;
 
     let options: AnimationOptions = {
-        duration: 1000,
+        duration: duration,
         deltaCalc: deltaCalc,
         step: (delta) => {
             view.style.marginLeft = to * delta;
