@@ -1,0 +1,7 @@
+@import './animate.css'; 
+
+.list-item {
+    border-width: 1;
+    border-color: red;
+    background-color: green;
+}

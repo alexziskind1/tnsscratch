@@ -12,13 +12,16 @@ import { SequenceComponent } from './sequence.component';
 import { BounceClockComponent } from './bounce-clock.component';
 import { LoadingComponent } from './loading.component';
 import { AddItemComponent } from './add-item.component';
+//import { Gsap1Component } from './gsap1.component';
+import { JsAniComponent } from './jsani.component';
 
 
 @NgModule({
-    declarations: [AppComponent],
-    bootstrap: [AppComponent],
+    declarations: [JsAniComponent],
+    bootstrap: [JsAniComponent],
     imports: [NativeScriptModule]
 })
 class AppComponentModule { }
 
 platformNativeScriptDynamic().bootstrapModule(AppComponentModule);
+
