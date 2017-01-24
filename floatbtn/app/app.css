@@ -20,31 +20,20 @@ refer to http://docs.nativescript.org/ui/theme.
 @import 'nativescript-theme-core/css/core.light.css';
 
 
-.abs-wrapper {
- 
+.sv {
+    width: 100%;
+    height: 100%;
 }
 
-
-
-.list-layout {
-   
-}
 .list-item {
     height: 80;
     border-bottom-width: 1;
     border-bottom-color: gray;
 }
 
-.btn-circle {
-    background-color:#30bcff;
-    border-color:#30bcff;
-    border-radius: 28;;
-    color:#fff;
-    opacity: 0.8;
-    width:56;
-    height:56;
-    
-    margin-top: -10;
-    
+.float-btn-container {
+    margin-left: 80%; 
+    margin-top: 80%;
 }
+
 
