@@ -1,8 +1,5 @@
-<StackLayout class="p-20">
-    <my-component></my-component>
-
-    <StackLayout class="mysl">
-        <Label shadow text="sdfsdf">
-        </Label>
-    </StackLayout>
-</StackLayout>
+<GridLayout class="wrapper" clipToBounds="false">
+    <GridLayout class="mysl" [text]="slText" clipToBounds="false" (tap)="onTap($event)" (loaded)="onLoaded($event)">
+        <Label class="lblclass" [text]="slText" clipToBounds="false"></Label>
+    </GridLayout>
+</GridLayout>

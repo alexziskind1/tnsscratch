@@ -14,7 +14,7 @@ export abstract class ViewShadowBaseDirective implements OnInit {
     }
 
     protected get shadowColor(): Color {
-        return new Color('#888888');
+        return new Color('#FF00FF');
     }
 
     protected get shadowOffset(): number {
@@ -22,6 +22,25 @@ export abstract class ViewShadowBaseDirective implements OnInit {
     }
 
     constructor(protected el: ElementRef) {
+        console.log('ViewShadowBaseDirective constr');
+        this.view.on(Observable.propertyChangeEvent, () => {
+            console.log('propertyChangeEvent');
+            console.log('view measured height after change: ' + this.view.getMeasuredHeight());
+            /*
+        if (this.label.text !== undefined) {
+            this.displayShadowOn(this.label);
+        }
+        */
+        });
+        console.log('view measured height: ' + this.view.getMeasuredHeight());
+        /*
+        this.view.on('loaded', () => {
+            console.log('loaded in constr');
+        });
+        this.view.onLoaded = () => {
+            console.log('onLoaded in constr');
+        };
+        */
     }
 
     public ngOnInit() {

@@ -13,11 +13,11 @@ export abstract class ViewShadowDirective extends ViewShadowBaseDirective {
 
     constructor(protected el: ElementRef) {
         super(el);
-        console.log('LabelShadowDirective constr');
+        console.log('ViewShadowDirective constr');
     }
 
     protected displayShadowOn(view: View) {
-        console.log('displayShadowOn');
+        console.log('displayShadowOn view2');
         const nativeView = view.ios;
         nativeView.layer.shadowColor = this.shadowColor.ios.CGColor;
         nativeView.layer.shadowOffset = CGSizeMake(this.shadowOffset, this.shadowOffset);
