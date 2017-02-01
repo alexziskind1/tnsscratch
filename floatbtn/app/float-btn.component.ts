@@ -13,9 +13,11 @@ declare const android: any;
     selector: "float-btn",
     template: `
     <GridLayout class="float-btn-wrapper">
-        <StackLayout (tap)="onTap($event)" (touch)="onTouch($event)" class="float-btn" (loaded)="onLoaded($event)">   
-            <Label class="float-btn-text" [text]="text"></Label>
-        </StackLayout>
+        <GridLayout class="float-btn-shadow" (loaded)="onLoaded($event)"> 
+            <StackLayout class="float-btn" (tap)="onTap($event)" (touch)="onTouch($event)">  
+                <Label class="float-btn-text" [text]="text"></Label>
+            </StackLayout>
+        </GridLayout>
     </GridLayout>
     `,
     styles: [
@@ -23,6 +25,10 @@ declare const android: any;
             .float-btn-wrapper {
                 width:75;
                 height:75;
+            }
+            .float-btn-shadow {
+                width:56;
+                height:56;
             }
 
             .float-btn {
