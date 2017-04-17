@@ -1,0 +1,14 @@
+
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo">
+
+    <StackLayout>
+        <SegmentedBar items="{{ positions }}" selectedIndex="{{ selectedIndex }}">
+        </SegmentedBar>
+
+        <ListView id="myListView" items="{{ listItems }}">
+            <ListView.itemTemplate>
+                <Label text="{{ text }}" class="myitem" />
+            </ListView.itemTemplate>
+        </ListView>
+    </StackLayout>
+</Page>
