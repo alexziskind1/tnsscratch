@@ -1,21 +1,18 @@
-import {Observable} from "data/observable";
-import frameModule = require("ui/frame");
+import { Observable } from "data/observable";
+import * as frameModule from "tns-core-modules/ui/frame";
 
 
 
 export class HelloWorldModel extends Observable {
     public counter: number;
-    public topFrame: frameModule.Frame;
-
-    constructor(topFrame: frameModule.Frame) {
+    constructor() {
         super();
-        this.topFrame = topFrame;
         this.counter = 5;
         this.set("message", this.counter + " taps left");
     }
 
     public tapAction() {
-        this.topFrame.navigate("page2");
+        frameModule.topmost().navigate("page2");
 
     };
 };

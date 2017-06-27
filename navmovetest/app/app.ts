@@ -1,4 +1,5 @@
-var application = require("application");
-application.mainModule = "page1";
-application.cssFile = "./app.css";
-application.start();
+
+import "./bundle-config";
+import * as app from 'application';
+
+app.start({ moduleName: 'page1' });

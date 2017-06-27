@@ -1,6 +1,6 @@
-import {Page2Model} from "./page2-view-model";
+import { Page2Model } from "./page2-view-model";
 
-import pageModule from "ui/page";
+import * as pageModule from "ui/page";
 
 var viewModel = new Page2Model();
 

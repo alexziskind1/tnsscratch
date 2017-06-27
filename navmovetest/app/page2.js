@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var page2_view_model_1 = require("./page2-view-model");
 var viewModel = new page2_view_model_1.Page2Model();
 function pageLoaded(args) {
@@ -5,3 +7,4 @@ function pageLoaded(args) {
     page.bindingContext = viewModel;
 }
 exports.pageLoaded = pageLoaded;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGFnZTIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJwYWdlMi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLHVEQUFnRDtBQUloRCxJQUFJLFNBQVMsR0FBRyxJQUFJLDZCQUFVLEVBQUUsQ0FBQztBQUVqQyxvQkFBMkIsSUFBSTtJQUMzQixJQUFJLElBQUksR0FBb0IsSUFBSSxDQUFDLE1BQU0sQ0FBQztJQUN4QyxJQUFJLENBQUMsY0FBYyxHQUFHLFNBQVMsQ0FBQztBQUNwQyxDQUFDO0FBSEQsZ0NBR0MiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQYWdlMk1vZGVsIH0gZnJvbSBcIi4vcGFnZTItdmlldy1tb2RlbFwiO1xuXG5pbXBvcnQgKiBhcyBwYWdlTW9kdWxlIGZyb20gXCJ1aS9wYWdlXCI7XG5cbnZhciB2aWV3TW9kZWwgPSBuZXcgUGFnZTJNb2RlbCgpO1xuXG5leHBvcnQgZnVuY3Rpb24gcGFnZUxvYWRlZChhcmdzKSB7XG4gICAgdmFyIHBhZ2UgPSA8cGFnZU1vZHVsZS5QYWdlPmFyZ3Mub2JqZWN0O1xuICAgIHBhZ2UuYmluZGluZ0NvbnRleHQgPSB2aWV3TW9kZWw7XG59XG4iXX0=
