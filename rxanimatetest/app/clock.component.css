@@ -1,0 +1,6 @@
+.watch-hand {
+    height: 600px;
+    width:600px;
+    background-color: blue;
+    clip-path: polygon(50% 0, 45% 100%, 55% 100%);
+}
