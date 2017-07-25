@@ -4,6 +4,7 @@ import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { ClockComponent } from "./clock.component";
 import { RotatePipe } from "./rotate.pipe";
+import { TweenPipe } from "./tween.pipe";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RotatePipe } from "./rotate.pipe";
     declarations: [
         AppComponent,
         ClockComponent,
-        RotatePipe
+        RotatePipe,
+        TweenPipe
     ],
     providers: [
 

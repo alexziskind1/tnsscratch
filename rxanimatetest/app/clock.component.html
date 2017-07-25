@@ -1,6 +1,7 @@
 <GridLayout>
     <StackLayout>
         <Button text="TAP" (tap)="onTap($event)"></Button>
-        <Label #clocklbl (loaded)="onStackLoaded($event)" class="watch-hand" [style.transform]="dist$ | async | rotatePipe"></Label>
+        <Label style.transform="rotate({{ dist$ | tweenPipe | async }})" #clocklbl class="watch-hand"></Label>
+        <Label text="{{ dist$ | tweenPipe | async }}"></Label>
     </StackLayout>
 </GridLayout>

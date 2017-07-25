@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import 'rxjs';
-import { Scheduler } from "rxjs";
+import { Scheduler, Subject, Observer } from "rxjs";
 import { Color } from "tns-core-modules/color";
+import { Label } from "tns-core-modules/ui/label/label";
 
 //import 'd3-ease';
 //import { easeCubic, easeElasticOut } from "d3-ease";
@@ -49,12 +50,20 @@ export class ClockComponent implements OnInit {
 
     public dist$: Observable<number>;
 
+    public rotateTransform$: Observable<string>;
+    public fromTop$: Observable<number>;
+    private fromTopObserver: Observer<number>;
+
     @ViewChild('clocklbl') clocklblRef: ElementRef;
+
+    private counter = 100;
 
     public onTap(args) {
         const hand = this.clocklblRef.nativeElement;
 
+        this.fromTopObserver.next(this.counter);
 
+        this.counter = this.counter === 700 ? 100 : this.counter + 100;
     }
 
     public onStackLoaded(args) {
@@ -78,14 +87,26 @@ export class ClockComponent implements OnInit {
     }
 
     ngOnInit() {
-        const hand = this.clocklblRef.nativeElement;
-        /*
+        const hand = <Label>this.clocklblRef.nativeElement;
 
-                */
+        this.dist$ = Observable.interval(1000)
+            .map(t => t * 360 / 60);
+        //.let(tween(900, elasticOut));
 
-        this.dist$ = Observable.timer(0, 1000)
-            .map(t => t * 360 / 60)
-            .let(tween(900, elasticOut));
+        this.rotateTransform$ = this.dist$
+            .let(tween(900, elasticOut))
+            .map(d => `rotate(${d})`);
+
+
+        this.fromTop$ = Observable.create(
+            observer => {
+                this.fromTopObserver = observer;
+                observer.next(this.counter);
+            },
+            error => console.error(error),
+            () => { console.log('done') }
+        ).let(tween(900, elasticOut));
+
         //.subscribe(dist =>
         //    hand.style.transform = `rotate(${dist})`
         //);
