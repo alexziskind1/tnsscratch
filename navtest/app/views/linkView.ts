@@ -1,20 +1,23 @@
-import {Page, GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} from "ui";
-import {Color} from "color";
+import { GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes } from "ui/gestures";
+import { Page } from "ui/page";
 
-import {Point, Rect} from "../common/geometry";
-import {LinkItem} from "../model/linkItem";
-import {AnimatedLabel} from "../common/animation/viewAnimationExtensions";
+
+import { Color } from "color";
+
+import { Point, Rect } from "../common/geometry";
+import { LinkItem } from "../model/linkItem";
+import { AnimatedLabel } from "../common/animation/viewAnimationExtensions";
 
 
 export class LinkView extends AnimatedLabel {
 
     //private _width: number = 50;
     //private _height: number = 50;
-    private lastLocation: Point = new Point(0,0);
+    private lastLocation: Point = new Point(0, 0);
     public linkItem: LinkItem;
     private showLinkPickerCallback: Function;
 
-    constructor(li: LinkItem, private rect: Rect, showLPCallback: Function){
+    constructor(li: LinkItem, private rect: Rect, showLPCallback: Function) {
         super();
         //this._width = options.width;
         //this._height = options.height;
@@ -53,17 +56,17 @@ export class LinkView extends AnimatedLabel {
 
     }
 
-/*
-    public showLinkPicker() {
-        var p: Page = <Page>this.page;
-        var fullscreen: boolean = true;
-
-        p.showModal("../linkPicker", "Context from showModal", function (username: string, password: string) {
-            console.log(username + "/" + password);
-            //label.text = username + "/" + password;
-        }, fullscreen);
-    }
-    */
+    /*
+        public showLinkPicker() {
+            var p: Page = <Page>this.page;
+            var fullscreen: boolean = true;
+    
+            p.showModal("../linkPicker", "Context from showModal", function (username: string, password: string) {
+                console.log(username + "/" + password);
+                //label.text = username + "/" + password;
+            }, fullscreen);
+        }
+        */
 
     //View lifecycle
 
@@ -74,7 +77,7 @@ export class LinkView extends AnimatedLabel {
         let redValue = Math.floor(Math.random() * 255) + 1;
 
         this.setMeasuredDimension(this.rect.size.width, this.rect.size.height);
-        this.backgroundColor = new Color(150, redValue,greenValue,blueValue);
+        this.backgroundColor = new Color(150, redValue, greenValue, blueValue);
         //this.color = new Color(255, redValue,greenValue,blueValue);
 
         //randomize location
@@ -92,7 +95,7 @@ export class LinkView extends AnimatedLabel {
     //Private methods
 
     private dragged(args: PanGestureEventData) {
-        var translation  = args.ios.translationInView(this.parent.ios);
+        var translation = args.ios.translationInView(this.parent.ios);
         var newCenter = {
             x: this.lastLocation.x + translation.x,
             y: this.lastLocation.y + translation.y

@@ -1,23 +1,27 @@
-import {Image, GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes} from "ui";
-import {Color} from "color";
+import { GestureEventData, PanGestureEventData, GestureTypes, GestureStateTypes } from "ui/gestures";
 
-import {Point, Size, Rect} from "../common/geometry";
+import { Image } from "ui/image";
+
+import { Color } from "color";
+
+import { Point, Size, Rect } from "../common/geometry";
 import myglobalModule = require("../common/myglobal");
 
 
 export class ImageView extends Image {
 
-/*
-    constructor(private rect: Rect){
-        super();
-    }
-    */
+    /*
+        constructor(private rect: Rect){
+            super();
+        }
+        */
     constructor() {
         super();
     }
 
     //View lifecycle
     public onMeasure(widthMeasureSpec: number, heightMeasureSpec: number): void {
+
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         //var width = utils.layout.getMeasureSpecSize(widthMeasureSpec);

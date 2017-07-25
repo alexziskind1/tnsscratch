@@ -1,11 +1,15 @@
 {
-	"nativescript": {
-		"id": "org.nativescript.hellotest",
-		"tns-ios": {
-			"version": "1.5.2"
-		}
-	},
-	"dependencies": {
-		"tns-core-modules": "1.5.1"
-	}
+  "nativescript": {
+    "id": "org.nativescript.hellotest",
+    "tns-ios": {
+      "version": "3.0.1"
+    }
+  },
+  "dependencies": {
+    "nativescript-theme-core": "~1.0.2",
+    "tns-core-modules": "3.0.1"
+  },
+  "devDependencies": {
+    "nativescript-dev-android-snapshot": "^0.*.*"
+  }
 }

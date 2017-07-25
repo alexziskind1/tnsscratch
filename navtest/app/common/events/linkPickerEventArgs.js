@@ -1,6 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var LinkPickerClosedEventArgs = (function () {
     function LinkPickerClosedEventArgs() {
     }
     return LinkPickerClosedEventArgs;
-})();
+}());
 exports.LinkPickerClosedEventArgs = LinkPickerClosedEventArgs;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibGlua1BpY2tlckV2ZW50QXJncy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbImxpbmtQaWNrZXJFdmVudEFyZ3MudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFFQTtJQUFBO0lBS0EsQ0FBQztJQUFELGdDQUFDO0FBQUQsQ0FBQyxBQUxELElBS0M7QUFMWSw4REFBeUIiLCJzb3VyY2VzQ29udGVudCI6WyJcblxuZXhwb3J0IGNsYXNzIExpbmtQaWNrZXJDbG9zZWRFdmVudEFyZ3Mge1xuICAgIHNlbGVjdGVkTmFtZTogc3RyaW5nO1xuICAgIGxpbmtEZWxldGVkOiBib29sZWFuO1xuICAgIGlzQmFja0xpbms6IGJvb2xlYW47XG4gICAgY2FuY2VsZWQ6IGJvb2xlYW47XG59Il19

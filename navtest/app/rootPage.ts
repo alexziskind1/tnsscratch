@@ -1,17 +1,26 @@
-import {Observable} from "data/observable";
-import {Button, Image, AbsoluteLayout, Page,GestureEventData, GestureTypes, GestureStateTypes,GestureEventDataWithState, PanGestureEventData} from "ui";
-import {Color} from "color";
+import { Observable } from "data/observable";
+import { GestureEventData, GestureTypes, GestureStateTypes, GestureEventDataWithState, PanGestureEventData } from "ui/gestures";
 
-import {Guid} from "./common/guid";
+import { Page } from "ui/page";
+import { Button } from "ui/button";
+import { Image } from "ui/image";
+import { AbsoluteLayout } from "ui/layouts/absolute-layout";
 
-import {NavPage} from "./model/navPage";
+
+
+
+import { Color } from "color";
+
+import { Guid } from "./common/guid";
+
+import { NavPage } from "./model/navPage";
 import navigationModule = require("./common/navigation");
 import myglobalModule = require("./common/myglobal");
-import {Point, Size, Rect} from "./common/geometry";
-import {LinkItem} from "./model/linkItem";
-import {LinkView} from "./views/linkView";
-import {ImageView} from "./views/imageView";
-import {LinkPickerClosedEventArgs} from "./common/events/linkPickerEventArgs";
+import { Point, Size, Rect } from "./common/geometry";
+import { LinkItem } from "./model/linkItem";
+import { LinkView } from "./views/linkView";
+import { ImageView } from "./views/imageView";
+import { LinkPickerClosedEventArgs } from "./common/events/linkPickerEventArgs";
 
 
 
@@ -24,7 +33,7 @@ class RootPageController extends Observable {
     private layout: AbsoluteLayout;
     private isInEditMode: boolean = false;
     private linkViews: Array<LinkView> = [];
-    private pageSize: Size;
+    //private pageSize: Size;
     public message: string = "hi there";
     private currentRect = new AbsoluteLayout();
     private selectRectId = "currentRect";
@@ -33,21 +42,29 @@ class RootPageController extends Observable {
     private wrapperClassNameProp = "wrapperClassName";
     private wrapEditClassName = "wrapper";
 
+
+    private pageSize() {
+        var height = this.page.getMeasuredHeight();
+        var width = this.page.getMeasuredWidth();
+        return new Size(width, height);
+    }
+
     public pageLoaded(args) {
         var height = this.page.getMeasuredHeight();
         var width = this.page.getMeasuredWidth();
-        this.pageSize = new Size(width, height);
+        //this.pageSize = new Size(width, height);
         this.set("message", "height: " + height + ", width: " + width);
         if (myglobalModule.firstLoad) {
-            this.imageView.requestLayout();
-            //this.pageImg.requestLayout();
+
+            //this.imageView.requestLayout();
+
             myglobalModule.firstLoad = false;
         }
 
-        myglobalModule.pageSize = this.pageSize;
+        myglobalModule.pageSize = this.pageSize();
 
         this.currentRect.id = this.selectRectId;
-        this.currentRect.style.backgroundColor = new Color(150,100,100,100);
+        this.currentRect.style.backgroundColor = new Color(150, 100, 100, 100);
         var makeBtn = new Button();
         makeBtn.text = "make";
         makeBtn.id = this.editBtnId;
@@ -55,7 +72,7 @@ class RootPageController extends Observable {
         makeBtn.className = "btn-convert";
 
         makeBtn.on('tap', () => {
-            var li: LinkItem = new LinkItem(Guid.newGuid(), '', this.selRect, this.pageSize, false);
+            var li: LinkItem = new LinkItem(Guid.newGuid(), '', this.selRect, this.pageSize(), false);
             this.currentNavPage.linkItems.push(li);
             this.drawLink(li);
             this.clearSelection();
@@ -97,24 +114,24 @@ class RootPageController extends Observable {
         var x = arg1.ios.locationInView(arg1.ios.view).x;
         var y = arg1.ios.locationInView(arg1.ios.view).y;
 
-        var hitPoint: Point = new Point(x,y);
+        var hitPoint: Point = new Point(x, y);
         var matchedLink: LinkItem;
 
         for (var i = 0; i < this.currentNavPage.linkItems.length; i++) {
             var li = this.currentNavPage.linkItems[i];
-            if (li.isHitTestPositive(hitPoint, this.pageSize)) {
+            if (li.isHitTestPositive(hitPoint, this.pageSize())) {
                 matchedLink = li;
                 break;
             }
         }
 
-/*
-        this.currentNavPage.linkItems.forEach(l=> {
-            if (l.isHitTestPositive(hitPoint, this.pageSize)) {
-                matchedLink = l;
-            }
-        });
-        */
+        /*
+                this.currentNavPage.linkItems.forEach(l=> {
+                    if (l.isHitTestPositive(hitPoint, this.pageSize)) {
+                        matchedLink = l;
+                    }
+                });
+                */
 
         if (matchedLink != null) {
             if (matchedLink.isBack) {
@@ -132,7 +149,7 @@ class RootPageController extends Observable {
 
     private flashValidLinks() {
         this.drawLinks(this.currentNavPage.linkItems)
-            .then(()=>{
+            .then(() => {
                 this.exitEditMode();
             });
     }
@@ -144,7 +161,7 @@ class RootPageController extends Observable {
         if (!this.isInEditMode) {
             return;
         }
-        
+
         switch (arg1.state) {
             case GestureStateTypes.began:
                 this.selRect.origin.x = arg1.ios.locationInView(arg1.ios.view).x;
@@ -224,7 +241,7 @@ class RootPageController extends Observable {
         if (ch != null) {
             var p = this.hideEditBtn(1);
             if (p != null) {
-                p.then(()=>{
+                p.then(() => {
                     this.layout.removeChild(ch);
                 });
             }
@@ -233,13 +250,13 @@ class RootPageController extends Observable {
 
 
 
-    public doubleTap(arg1: GestureEventData){
+    public doubleTap(arg1: GestureEventData) {
         console.log('double tap');
     }
 
     private longPressDone = true;
 
-    public longPress(arg1: GestureEventData){
+    public longPress(arg1: GestureEventData) {
         //dialogs.action("Your message", "Cancel button text", ["Option1", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2", "Option2"]).then(result => {
         //    console.log("Dialog result: " + result)
         //});
@@ -261,7 +278,7 @@ class RootPageController extends Observable {
                 break;
             case GestureStateTypes.ended:
                 console.log('longPress');
-                setTimeout(()=>this.longPressDone = true, 500);
+                setTimeout(() => this.longPressDone = true, 500);
                 break;
 
         }
@@ -276,29 +293,29 @@ class RootPageController extends Observable {
 
 
     private drawLinks(linkItems: Array<LinkItem>) {
-        
+
         /*
         var pro = new Promise((res, rej)=>{
             this._resolve = res;
             this._reject = rej;
         });
         */
-        
+
         var retPromises = [];
-        
+
         for (var i = 0; i < linkItems.length; i++) {
             var li = linkItems[i];
             var drawPromise = this.drawLink(li);
             retPromises.push(drawPromise);
         }
-        
+
         return Promise.all(retPromises);
     }
 
     private drawLink(li: LinkItem) {
-        var relRect = li.rect.changeRatio(li.parentSize,  this.pageSize);
+        var relRect = li.rect.changeRatio(li.parentSize, this.pageSize());
 
-        var lv = new LinkView(li, relRect, () =>  this.showLinkPicker(lv, li) );
+        var lv = new LinkView(li, relRect, () => this.showLinkPicker(lv, li));
         lv.opacity = 0;
         this.linkViews.push(lv);
         this.layout.addChild(lv);
@@ -308,7 +325,7 @@ class RootPageController extends Observable {
     private exitEditMode() {
         this.isInEditMode = false;
 
-        for (var i = 0; i < this.linkViews.length; i++){
+        for (var i = 0; i < this.linkViews.length; i++) {
             var lv = this.linkViews[i];
 
             this.removeLinkView(lv);
@@ -327,26 +344,26 @@ class RootPageController extends Observable {
     }
 
 
-    public showLinkPicker(lv:LinkView, li: LinkItem) {
+    public showLinkPicker(lv: LinkView, li: LinkItem) {
         var fullscreen: boolean = true;
 
-        this.page.showModal("./linkPicker", li.name,  (args: LinkPickerClosedEventArgs) => {
+        this.page.showModal("./linkPicker", li.name, (args: LinkPickerClosedEventArgs) => {
             console.log("rootPage received LinkPickerClosedEventArgs");
             if (args.canceled) {
                 return;
             }
 
             if (args.linkDeleted) {
-                var liIdx = this.currentNavPage.linkItems.map(function(x) {return x.id; }).indexOf(li.id);
-               
+                var liIdx = this.currentNavPage.linkItems.map(function (x) { return x.id; }).indexOf(li.id);
+
                 //var liIdx = this.currentNavPage.linkItems.indexOf(li);
-                var lvIdx = this.linkViews.map(function(x) {return x.linkItem.id; }).indexOf(lv.linkItem.id);
-                
+                var lvIdx = this.linkViews.map(function (x) { return x.linkItem.id; }).indexOf(lv.linkItem.id);
+
                 //var lvIdx = this.linkViews.indexOf(lv);
-                this.currentNavPage.linkItems.splice(liIdx,1);
+                this.currentNavPage.linkItems.splice(liIdx, 1);
 
                 this.removeLinkView(lv);
-                this.linkViews.splice(lvIdx,1);
+                this.linkViews.splice(lvIdx, 1);
             }
             else {
                 li.name = args.selectedName;
@@ -358,7 +375,7 @@ class RootPageController extends Observable {
     private removeLinkView(lv: LinkView) {
         //var lvIdx = this.linkViews.indexOf(lv);
         //this.linkViews.splice(lvIdx,1);
-        lv.fadeOut().then(()=>{
+        lv.fadeOut().then(() => {
             try {
                 this.layout.removeChild(lv);
             }
@@ -372,6 +389,7 @@ class RootPageController extends Observable {
     private setImage(name: string) {
 
         this.imageView = new ImageView();
+
         this.imageView.src = "~/images/" + name + ".png";
         this.layout.addChild(this.imageView);
 

@@ -1,36 +1,38 @@
-import {Observable, EventData} from "data/observable";
-import {Page, ShownModallyData, NavigatedData, ItemEventData, TextField} from "ui";
+import { Observable, EventData } from "data/observable";
+import { Page, ShownModallyData, NavigatedData } from "ui/page";
+import { TextField } from "ui/text-field";
+import { ItemEventData } from "ui/list-view";
 import frameModule = require("ui/frame");
 
 //import {TextField} from "ui/text-field";
 //import {ItemEventData} from "ui/list-view";
-import {ScreenItem} from "./model/screenItem";
-import {LinkPickerClosedEventArgs} from "./common/events/linkPickerEventArgs";
+import { ScreenItem } from "./model/screenItem";
+import { LinkPickerClosedEventArgs } from "./common/events/linkPickerEventArgs";
 import globalModule = require("./common/myglobal");
 
 export class LinkPickerController extends Observable {
 
     private page: Page;
-    private closeCallback: (args: LinkPickerClosedEventArgs)=>{};
+    private closeCallback: (args: LinkPickerClosedEventArgs) => {};
     public screens: Array<ScreenItem> = [];
 
-/*
-    public onShowingModally(args: EventData) {
-        console.log(">>> linkPicker.onShowingModally");
-        var modalPage = <Page>args.object;
-        if (modalPage.ios && modalPage.ios.modalPresentationStyle === UIModalPresentationStyle.UIModalPresentationFullScreen) {
-            console.log(">>> Setting modalPage.ios.modalPresentationStyle to UIModalPresentationStyle.UIModalPresentationOverFullScreen");
-            modalPage.ios.modalPresentationStyle = UIModalPresentationStyle.UIModalPresentationOverFullScreen;
+    /*
+        public onShowingModally(args: EventData) {
+            console.log(">>> linkPicker.onShowingModally");
+            var modalPage = <Page>args.object;
+            if (modalPage.ios && modalPage.ios.modalPresentationStyle === UIModalPresentationStyle.UIModalPresentationFullScreen) {
+                console.log(">>> Setting modalPage.ios.modalPresentationStyle to UIModalPresentationStyle.UIModalPresentationOverFullScreen");
+                modalPage.ios.modalPresentationStyle = UIModalPresentationStyle.UIModalPresentationOverFullScreen;
+            }
         }
-    }
-    */
+        */
 
     public onShownModally(args: ShownModallyData) {
         console.log(`>>> linkPicker.onShownModally, context: ${args.context}`);
 
         this.set("selectedScreenName", args.context);
 
-        this.closeCallback = <(args: LinkPickerClosedEventArgs)=>{}>args.closeCallback;
+        this.closeCallback = <(args: LinkPickerClosedEventArgs) => {}>args.closeCallback;
         var modalPage = <Page>args.object;
 
         if (frameModule.topmost().currentPage.modal !== args.object) {
@@ -91,7 +93,7 @@ export class LinkPickerController extends Observable {
         }
     }
 
-    private dismissModal(lpArgs:LinkPickerClosedEventArgs) {
+    private dismissModal(lpArgs: LinkPickerClosedEventArgs) {
         this.closeCallback(lpArgs);
     }
 

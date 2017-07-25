@@ -1,12 +1,12 @@
-import applicationModule = require("application");
+import "./bundle-config";
+import * as app from 'application';
+
 import navigationModule = require("./common/navigation");
 import navDataConverter = require("./data/navDataConverter");
 
-applicationModule.mainModule = navigationModule.navigation.rootPage();
-applicationModule.cssFile = "./app.css";
 
 
-applicationModule.on(applicationModule.launchEvent, function (args) {
+app.on(app.launchEvent, function (args) {
     if (args.android) {
         // For Android applications, args.android is an android.content.Intent class.
         console.log("Launched Android application with the following intent: " + args.android + ".");
@@ -15,9 +15,7 @@ applicationModule.on(applicationModule.launchEvent, function (args) {
         console.log("Launched iOS application with options: " + args.ios);
 
         var navPages = navDataConverter.convertNavDataToObjects();
-
     }
 });
 
-
-applicationModule.start();
+app.start({ moduleName: navigationModule.navigation.rootPage() });
