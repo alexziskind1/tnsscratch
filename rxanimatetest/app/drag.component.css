@@ -1,0 +1,17 @@
+
+.stack1 {
+    border-width: 5px;
+    border-color: red;
+}
+
+Label {
+     border-width: 5px;
+    border-color: green;
+}
+
+.star {
+    height: 100;
+    width: 100;
+    background-color: green;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}

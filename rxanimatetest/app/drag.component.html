@@ -1,0 +1,20 @@
+<StackLayout #stack1 class="stack1">
+
+
+
+    <Button text="TAP" (tap)="onTap($event)"></Button>
+    <Label #lbl text="move me"></Label>
+
+    <StackLayout orientation="horizontal">
+        <Label text="status "></Label>
+        <Label [text]="status"></Label>
+    </StackLayout>
+
+    <StackLayout orientation="horizontal">
+        <Label text="position "></Label>
+        <Label [text]="position" [style.marginTop]="marLeft$ | async"></Label>
+    </StackLayout>
+
+    <Label class="star" [style.scaleX]="marLeft$ | async" [style.scaleY]="marLeft$ | async"></Label>
+
+</StackLayout>

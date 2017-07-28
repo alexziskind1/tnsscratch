@@ -5,12 +5,18 @@ import { AppComponent } from "./app.component";
 import { ClockComponent } from "./clock.component";
 import { RotatePipe } from "./rotate.pipe";
 import { TweenPipe } from "./tween.pipe";
+import { DragComponent } from "./drag.component";
+import { StarComponent } from "./star.component";
+import { ParalComponent } from "./paral.component";
 
 
 @NgModule({
     bootstrap: [
         //AppComponent
-        ClockComponent
+        //ClockComponent,
+        //DragComponent,
+        //StarComponent,
+        ParalComponent
     ],
     imports: [
         NativeScriptModule,
@@ -19,6 +25,9 @@ import { TweenPipe } from "./tween.pipe";
     declarations: [
         AppComponent,
         ClockComponent,
+        DragComponent,
+        StarComponent,
+        ParalComponent,
         RotatePipe,
         TweenPipe
     ],
