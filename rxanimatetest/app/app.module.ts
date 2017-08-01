@@ -8,6 +8,7 @@ import { TweenPipe } from "./tween.pipe";
 import { DragComponent } from "./drag.component";
 import { StarComponent } from "./star.component";
 import { ParalComponent } from "./paral.component";
+import { ListItemsComponent } from "./list-items.component";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ParalComponent } from "./paral.component";
         //ClockComponent,
         //DragComponent,
         //StarComponent,
-        ParalComponent
+        //ParalComponent,
+        ListItemsComponent
     ],
     imports: [
         NativeScriptModule,
@@ -28,6 +30,7 @@ import { ParalComponent } from "./paral.component";
         DragComponent,
         StarComponent,
         ParalComponent,
+        ListItemsComponent,
         RotatePipe,
         TweenPipe
     ],
