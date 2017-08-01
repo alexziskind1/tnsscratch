@@ -14,7 +14,8 @@ const opacityLow = 0.5;
     //moduleId: module.id,
     selector: 'tile',
     template: `
-        <GridLayout #thetile [class]="tileClass">
+
+        <GridLayout #thetile [class]="tileClass" [row]="row" [col]="col">
             <StackLayout>
                 <Label class="tile-idx" [text]="tileIndex"></Label>
                 <Label class="tile-text" [text]="tileText"></Label>

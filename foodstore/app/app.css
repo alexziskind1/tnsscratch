@@ -6,7 +6,9 @@
 
 
 .thegrid {
-    background-color: #d28b9b;
+    border-width: 2;
+    border-color: red;
+    /*background-color: #d28b9b;*/
     width: 900;
     height: 900;
     transform: rotate(45) scale(1);
@@ -14,55 +16,54 @@
     margin-left: -250;
 }
 
-.tile-container {
-
-    /*background-color: #ecc3cd;*/
+.tile-back {
+    background-color: #ecc3cd;
 }
 
-.tile-container-active {
-
+.tile-back-active {
+    border-top-width: 3;
+    border-left-width: 3;
+    border-color: white;
 }
 
-.tile-container-border-left {
-  
+.tile-back-border-left {
+    border-left-width: 3;
+    border-color: white;
 }
 
-.tile-container-border-top {
-    
+.tile-back-border-top {
+    border-top-width: 3;
+    border-color: white;
 }
 
 .tile-cover {
-    /*background-color: #ecc3cd;
-    opacity: 0.7;*/
+    background-color: #ecc3cd;
+    opacity: 0.7;
 }
 
 .tile-cover-active {
-    /*border-left-width: 2;
+    border-left-width: 2;
     border-top-width: 2;
-    border-color: white;*/
+    border-color: white;
 }
 
 .tile-cover-border-left {
-    /*border-left-width: 2;
-    border-color: white;*/
+    border-left-width: 2;
+    border-color: white;
 }
 
 .tile-cover-border-top {
-    /*border-top-width: 2;
-    border-color: white;*/
+    border-top-width: 2;
+    border-color: white;
 }
 
 .button-left {
-    border-width: 1;
-    border-color: green;
     background-color:black;;
     width: 150;
     height: 150;
 }
 
 .button-right {
-    border-width: 1;
-    border-color: green;
     background-color:black;;
     width: 150;
     height: 150;
