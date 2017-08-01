@@ -4,6 +4,7 @@ import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { TileComponent } from './tile.component';
 import { MoveService } from "./move.service";
+import { DetailComponent } from "./detail.component";
 
 @NgModule({
     bootstrap: [
@@ -15,7 +16,8 @@ import { MoveService } from "./move.service";
     ],
     declarations: [
         AppComponent,
-        TileComponent
+        TileComponent,
+        DetailComponent
     ],
     providers: [
         MoveService

@@ -14,18 +14,18 @@
 }
 
 .tile-back-active {
-    border-top-width: 3;
-    border-left-width: 3;
+    border-top-width: 2;
+    border-left-width: 2;
     border-color: white;
 }
 
 .tile-back-border-left {
-    border-left-width: 3;
+    border-left-width: 2;
     border-color: white;
 }
 
 .tile-back-border-top {
-    border-top-width: 3;
+    border-top-width: 2;
     border-color: white;
 }
 

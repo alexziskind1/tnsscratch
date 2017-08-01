@@ -1,0 +1,38 @@
+.detail-container {
+    margin-top: -60;
+    margin-left: -50;
+    transform: rotate(-45);
+    width: 250;
+    text-align: center;
+    border-width: 1;
+    border-color: red;
+}
+.detail-stack {
+    text-align: center;
+    border-width: 1;
+    border-color: blue;
+}
+.category {
+    font-family: "Lora-Regular";
+    color: black;
+    font-size: 12;
+    margin-bottom: 6;
+}
+.title {
+    font-family: "Lora-Regular";
+    color: black;
+    font-size: 28;
+    margin-bottom: 10;
+}
+.divider {
+    width: 50;
+    height: 5;
+    background-color: #d28b9b;
+    margin-bottom: 10;
+}
+.description {
+    text-align: left;
+    font-family: "Lora-Regular";
+    font-size: 14;
+    color: #666666;
+}
