@@ -1,3 +1,5 @@
+@import "platform.css";
+
 .container {
     width: 900;
     height: 900;
@@ -5,16 +7,7 @@
 }
 
 
-.thegrid {
-    border-width: 2;
-    border-color: red;
-    /*background-color: #d28b9b;*/
-    width: 900;
-    height: 900;
-    transform: rotate(45) scale(1);
-    margin-top: 100;
-    margin-left: -250;
-}
+
 
 .tile-back {
     background-color: #ecc3cd;

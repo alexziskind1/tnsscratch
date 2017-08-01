@@ -1,0 +1,11 @@
+.thegrid {
+    width: 900;
+    height: 900;
+    transform: rotate(45) scale(1);
+    margin-top: 50;
+    margin-left: -244;
+}
+
+.top-bar {
+    width: 415;
+}

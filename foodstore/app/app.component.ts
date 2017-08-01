@@ -8,6 +8,7 @@ import { Animation, AnimationDefinition } from "tns-core-modules/ui/animation/an
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
 import { MoveService } from "./move.service";
+import { Page } from "ui/page";
 
 @Component({
     selector: "ns-app",
@@ -16,7 +17,8 @@ import { MoveService } from "./move.service";
 
 export class AppComponent implements OnInit {
 
-    constructor(private moveService: MoveService) {
+    constructor(private page: Page, private moveService: MoveService) {
+        this.page.actionBarHidden = true;
         moveService.moveConfirmed$.subscribe(
             direction => {
                 console.log(`move ${direction} confirmed`);
