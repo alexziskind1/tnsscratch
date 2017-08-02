@@ -1,12 +1,14 @@
 @import "platform.css";
 
+.fa {
+  font-family: FontAwesome;
+}
+
 .container {
     width: 900;
     height: 900;
     background-color: #d28b9b;
 }
-
-
 
 
 .tile-back {
@@ -55,16 +57,21 @@
 }
 
 .button-left {
-    background-color:black;;
+    background-color:black;
     width: 150;
     height: 150;
 }
 
 .button-right {
-    background-color:black;;
+    background-color:black;
     width: 150;
     height: 150;
 }
 
+.button-position {
+    width: 50;
+    height: 50;
+    transform: rotate(-45);
+}
 
 

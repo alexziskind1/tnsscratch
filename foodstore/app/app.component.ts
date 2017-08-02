@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 
 import { Label } from 'ui/label';
 import { GridLayout } from 'ui/layouts/grid-layout';
@@ -9,6 +9,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
 import { MoveService } from "./move.service";
 import { Page } from "ui/page";
+import { TNSFontIconService } from "nativescript-ng2-fonticon";
 
 @Component({
     selector: "ns-app",
@@ -17,7 +18,9 @@ import { Page } from "ui/page";
 
 export class AppComponent implements OnInit {
 
-    constructor(private page: Page, private moveService: MoveService) {
+
+
+    constructor(private page: Page, private fonticon: TNSFontIconService, private moveService: MoveService) {
         this.page.actionBarHidden = true;
         moveService.moveConfirmed$.subscribe(
             direction => {

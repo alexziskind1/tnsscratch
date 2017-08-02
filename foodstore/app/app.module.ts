@@ -5,6 +5,7 @@ import { AppComponent } from "./app.component";
 import { TileComponent } from './tile.component';
 import { MoveService } from "./move.service";
 import { DetailComponent } from "./detail.component";
+import { TNSFontIconModule } from 'nativescript-ng2-fonticon';
 
 @NgModule({
     bootstrap: [
@@ -12,7 +13,10 @@ import { DetailComponent } from "./detail.component";
     ],
     imports: [
         NativeScriptModule,
-        AppRoutingModule
+        AppRoutingModule,
+        TNSFontIconModule.forRoot({
+            'fa': 'font-awesome.css'
+        })
     ],
     declarations: [
         AppComponent,

@@ -1,5 +1,6 @@
 <AbsoluteLayout class="container">
     <Image class="top-bar" src="~/foodstore-top-bar.png"></Image>
+    <Label class="fa" [text]="'fa-arrow-right' | fonticon" style="color:white;"></Label>
 
     <GridLayout #thegrid class="thegrid" rows="150,150,150,150,150,150" columns="150,150,150,150,150,150">
 
@@ -21,7 +22,10 @@
         <tile mleft="down" mright="right" row="1" col="1" tileIndex="3"></tile>
         <tile mleft="left" mright="up" row="1" col="2" tileIndex="4"></tile>
 
-        <GridLayout class="button-right" row="1" col="3" (tap)="onRight(thegrid)">
+        <GridLayout class="button-right" row="1" col="3" (tap)="onRight(thegrid)" rows="50,50,50" columns="50,50,50">
+            <GridLayout class="button-position" row="2" col="0" rows="*,*,*" columns="*,*,*">
+                <Label class="fa" [text]="'fa-arrow-right' | fonticon" row="1" col="1" style="color:white;"></Label>
+            </GridLayout>
         </GridLayout>
 
         <!-- row 2 start -->
@@ -30,22 +34,16 @@
 
         <!-- row 3 start -->
         <tile mleft="left" mright="up" row="3" col="0" tileIndex="0"></tile>
-        <GridLayout class="button-left" row="3" col="1" (tap)="onLeft(thegrid)">
+        <GridLayout class="button-left" row="3" col="1" (tap)="onLeft(thegrid)" rows="50,50,50" columns="50,50,50">
+            <GridLayout class="button-position" row="0" col="2" rows="*,*,*" columns="*,*,*">
+                <Label class="fa" [text]="'fa-arrow-left' | fonticon" row="1" col="1" style="color:white;"></Label>
+            </GridLayout>
         </GridLayout>
 
-
         <!-- content start -->
-
         <detail detailIndex="3" mleft="down" mright="right" row="2" col="2" rowSpan="2" colSpan="2"></detail>
-
-
-
         <detail detailIndex="4" mleft="left" mright="" row="2" col="4" rowSpan="2" colSpan="2"></detail>
-
-
-
         <detail detailIndex="2" mleft="" mright="up" row="4" col="2" rowSpan="2" colSpan="2"></detail>
-
 
     </GridLayout>
 </AbsoluteLayout>
