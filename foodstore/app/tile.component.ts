@@ -7,19 +7,16 @@ import { Subject } from "rxjs/Subject";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Animation, AnimationDefinition } from "tns-core-modules/ui/animation";
 import { items } from './fake-data';
+import { MyItem } from "./model";
 
 const opacityLow = 0.5;
 
 @Component({
-    //moduleId: module.id,
+    moduleId: module.id,
     selector: 'tile',
     template: `
-
         <GridLayout #thetile [class]="tileClass" [row]="row" [col]="col">
-            <StackLayout>
-                <Label class="tile-idx" [text]="tileIndex"></Label>
-                <Label class="tile-text" [text]="tileText"></Label>
-            </StackLayout>
+            <Image class="tile-img" [src]="imgSrc"></Image>
         </GridLayout>
     `,
     styles: [
@@ -33,14 +30,9 @@ const opacityLow = 0.5;
             .tile-active {
                 opacity: 1;
             }
-            .tile-idx {
-                font-size: 50;
+            .tile-img {
                 transform: rotate(-45);
-            }
-            .tile-text {
-                font-size: 25;
-                transform: rotate(-45);
-                margin-left: 20;
+                width: 80;
             }
         `
     ]
@@ -56,10 +48,8 @@ export class TileComponent implements OnInit, OnDestroy {
 
     @ViewChild('thetile') theTileRef: ElementRef;
 
-    public tileClass = 'tile';
-    public tileText = 'text';
-
     public currentDataIndex: number;
+    public item: MyItem;
 
     private direction: string;
     private confirmed = false;
@@ -71,37 +61,35 @@ export class TileComponent implements OnInit, OnDestroy {
         return m;
     }
 
+    private get isActiveTile() {
+        return (this.row === '1' && this.col === '1');
+    }
+
+    private get tileClass() {
+        if (this.isActiveTile)
+            return 'tile tile-active';
+        else return 'tile';
+    }
+
+    private get imgSrc() {
+        if (this.item) {
+            return `~/images/${this.item.pictureSrc}`;
+        }
+    }
+
     constructor(private moveService: MoveService) {
         this.subscription = moveService.moveAnnounced$.subscribe(
             direction => {
                 this.direction = direction;
                 this.announced = true;
                 this.confirmed = false;
-                //this.onLeft();
                 this.onMove();
             });
-
-        /*
-    this.subscription = moveService.mRightAnnounced$.subscribe(
-        move => {
-            this.move = move;
-            this.announced = true;
-            this.confirmed = false;
-            this.onRight();
-        });
-        */
     }
 
     ngOnInit() {
-        if (this.row === '1' && this.col === '1') {
-            this.tileClass = 'tile tile-active';
-        }
-
-        if (this.tileIndex) {
-            this.tileText = items[parseInt(this.tileIndex)].title;
-        }
-
         this.currentDataIndex = parseInt(this.tileIndex);
+        this.item = items[this.currentDataIndex];
     }
 
     ngOnDestroy() {
@@ -109,7 +97,7 @@ export class TileComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    confirm() {
+    private confirm() {
         this.moveService.confirmMove(this.direction);
         this.direction = '';
         this.announced = false;
@@ -125,7 +113,7 @@ export class TileComponent implements OnInit, OnDestroy {
 
 
     public onMove() {
-        const aniDef = convertDirectionToAnimation(this.directionFromInput);
+        const aniDef = convertDirectionToAnimation(this.directionFromInput, 150);
         aniDef.opacity = this.getOpacityBasedOnDirectionAndPosition(this.direction);
 
         (<GridLayout>this.theTileRef.nativeElement)
@@ -133,48 +121,14 @@ export class TileComponent implements OnInit, OnDestroy {
             .then(() => {
                 const nIdx = this.getNextDataIndex(this.direction);
                 this.currentDataIndex = nIdx;
-                this.tileText = items[nIdx].title;
-                this.tileIndex = this.currentDataIndex.toString();
+                this.item = items[this.currentDataIndex];
                 this.toOriginalPosition();
                 this.confirm();
             });
     }
-
-    public onLeft() {
-        const aniDef = convertDirectionToAnimation(this.mleft);
-        aniDef.opacity = this.getOpacityBasedOnDirectionAndPosition('left');
-
-        (<GridLayout>this.theTileRef.nativeElement)
-            .animate(aniDef)
-            .then(() => {
-                const nIdx = this.getNextDataIndex('left');
-                this.currentDataIndex = nIdx;
-                this.tileText = items[nIdx].title;
-                this.tileIndex = this.currentDataIndex.toString();
-                this.toOriginalPosition();
-                this.confirm();
-            });
-    }
-
-    public onRight() {
-        const aniDef = convertDirectionToAnimation(this.mright);
-        aniDef.opacity = this.getOpacityBasedOnDirectionAndPosition('right');
-
-        (<GridLayout>this.theTileRef.nativeElement)
-            .animate(aniDef)
-            .then(() => {
-                const nIdx = this.getNextDataIndex('right');
-                this.currentDataIndex = nIdx;
-                this.tileText = items[nIdx].title;
-                this.tileIndex = this.currentDataIndex.toString();
-                this.toOriginalPosition();
-                this.confirm();
-            });
-    }
-
 
     private getOpacityBasedOnDirectionAndPosition(direction: string) {
-        if (this.movingToInactive()) {
+        if (this.isActiveTile) {
             return opacityLow;
         } else if (this.movingToActive(direction)) {
             return 1;
@@ -186,19 +140,15 @@ export class TileComponent implements OnInit, OnDestroy {
             (this.row === '1' && this.col === '2' && direction === 'left'));
     }
 
-    private movingToInactive() {
-        return this.row === '1' && this.col === '1';
-    }
 
     private toOriginalPosition() {
         const gl = <GridLayout>this.theTileRef.nativeElement;
         gl.style.translateX = 0;
         gl.style.translateY = 0;
-        if (this.row === '1' && this.col === '1') {
+        if (this.isActiveTile) {
             gl.style.opacity = 1;
         } else {
             gl.style.opacity = opacityLow;
         }
     }
-
 }

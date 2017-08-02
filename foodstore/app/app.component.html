@@ -11,6 +11,7 @@
         <Label class="tile-back-border-left" row="2" col="1"></Label>
         <Label class="tile-back-border-top" row="1" col="2"></Label>
         <Label class="tile-back" row="2" col="0"></Label>
+        <Label class="detail-back" row="2" col="2" rowSpan="4" colSpan="4"></Label>
 
         <!-- row 0 start -->
         <tile mleft="down" mright="right" row="0" col="2" tileIndex="5"></tile>
@@ -32,12 +33,19 @@
         <GridLayout class="button-left" row="3" col="1" (tap)="onLeft(thegrid)">
         </GridLayout>
 
-        <!-- row 4 start -->
 
-        <!-- row 5 start -->
-        <GridLayout class="content" row="2" col="2" rowSpan="4" colSpan="4">
-            <detail></detail>
-        </GridLayout>
+        <!-- content start -->
+
+        <detail detailIndex="3" mleft="down" mright="right" row="2" col="2" rowSpan="2" colSpan="2"></detail>
+
+
+
+        <detail detailIndex="4" mleft="left" mright="" row="2" col="4" rowSpan="2" colSpan="2"></detail>
+
+
+
+        <detail detailIndex="2" mleft="" mright="up" row="4" col="2" rowSpan="2" colSpan="2"></detail>
+
 
     </GridLayout>
 </AbsoluteLayout>

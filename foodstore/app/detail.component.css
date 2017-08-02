@@ -1,16 +1,20 @@
+
+
+
 .detail-container {
-    margin-top: -60;
-    margin-left: -50;
+    background-color: white;
+}
+
+.content {
+    margin-top: 0;
+    margin-left: 0;
     transform: rotate(-45);
     width: 250;
     text-align: center;
-    border-width: 1;
-    border-color: red;
 }
+
 .detail-stack {
     text-align: center;
-    border-width: 1;
-    border-color: blue;
 }
 .category {
     font-family: "Lora-Regular";

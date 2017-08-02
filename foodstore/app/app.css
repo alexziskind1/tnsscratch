@@ -29,6 +29,10 @@
     border-color: white;
 }
 
+.detail-back {
+    background-color: white;
+}
+
 .tile-cover {
     background-color: #ecc3cd;
     opacity: 0.7;
@@ -63,7 +67,4 @@
 }
 
 
-.content {
-    background-color: white;
-}
 

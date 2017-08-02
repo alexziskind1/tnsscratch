@@ -1,9 +1,7 @@
-
-
 import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 import { AnimationDefinition, CubicBezierAnimationCurve } from "tns-core-modules/ui/animation";
 
-export function convertDirectionToAnimation(direction: string): AnimationDefinition {
+export function convertDirectionToAnimation(direction: string, offset: number): AnimationDefinition {
     let def: AnimationDefinition = {
         duration: 500,
         translate: { x: 0, y: 0 },
@@ -11,16 +9,16 @@ export function convertDirectionToAnimation(direction: string): AnimationDefinit
     };
     switch (direction) {
         case 'down':
-            def.translate = { x: 0, y: 150 };
+            def.translate = { x: 0, y: offset };
             break;
         case 'up':
-            def.translate = { x: 0, y: -150 };
+            def.translate = { x: 0, y: -offset };
             break;
         case 'left':
-            def.translate = { x: -150, y: 0 };
+            def.translate = { x: -offset, y: 0 };
             break;
         case 'right':
-            def.translate = { x: 150, y: 0 };
+            def.translate = { x: offset, y: 0 };
             break;
         default:
             break;
