@@ -1,0 +1,31 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="My App" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout>
+        <!--GridLayout>
+            <ListView items="{{ items }}">
+                <ListView.itemTemplate>
+                    <StackLayout class="item-wrapper">
+                        <Label text="{{ title }}"></Label>
+                    </StackLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </GridLayout-->
+
+        <GridLayout>
+            <Repeater items="{{ items }}">
+                <Repeater.itemsLayout>
+                    <WrapLayout />
+                </Repeater.itemsLayout>
+                <Repeater.itemTemplate>
+                    <StackLayout class="item-wrapper">
+                        <Label text="{{ title }}"></Label>
+                    </StackLayout>
+                </Repeater.itemTemplate>
+            </Repeater>
+        </GridLayout>
+
+    </StackLayout>
+</Page>

@@ -1,0 +1,17 @@
+﻿
+.item-wrapper {
+    height: 200px;
+    margin-bottom: 20px;
+    border-color: red;
+    border-width: 1;
+    background-color: blue;
+    
+    animation-name: itemin;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+    
+}
+@keyframes itemin {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0px); }
+}
