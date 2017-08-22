@@ -1,0 +1,60 @@
+@import 'nativescript-theme-core/css/core.light.css';
+
+.swoosh-forward {
+    animation-name: swooshForward;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.36,.55,.35,.83);
+}   
+
+@keyframes swooshForward {
+    0% { transform: translateX(0), scale(1, 1); opacity: 1; }
+    100% { transform: translateX(-200), scale(2, 2); opacity: 0; }
+}
+
+.swoosh-back {
+    animation-name: swooshBack;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.36,.55,.35,.83);
+}   
+
+@keyframes swooshBack {
+    0% { transform: translateX(-200), scale(2, 2);opacity: 0; }
+    100% { transform: translateX(0), scale(1, 1);opacity: 1; }
+}
+
+.overlay {
+   /* background-color: green;*/
+}
+
+.list-item {
+    background-color: white;
+}
+
+.image {
+    /*clip-path: polygon(20 0, 80 0, 80 50, 20 50);*/
+    clip-path: inset(0 20 0 20);
+}
+
+.image-overlay {
+    /*clip-path: polygon(20 0, 80 0, 80 50, 20 50);*/
+    clip-path: inset(0 20 0 20);
+}
+
+.label {
+    font-size: 20;
+    color: #666666;
+}
+
+.detail-layout {
+    text-align: center;
+}
+
+.detail-image {
+
+}
+
+.detail-title {
+    font-size: 40;
+}

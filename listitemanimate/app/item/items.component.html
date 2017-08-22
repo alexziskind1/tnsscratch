@@ -1,0 +1,27 @@
+<GridLayout class="page">
+
+    <StackLayout #detailContainer class="detail-layout" (tap)="onCloseTap($event, overlay)">
+        <Image #detailImage src="~/images/cat1.jpeg" class="detail-image"></Image>
+        <Label #detailTitle text="selectedItem.name" class="detail-title" textWrap="true"></Label>
+
+        <Label text="sdf sd fsdf sdfsdf dfasdf adfadf ad fad fadf adfadf adsf adf adf adf asd ads adfadf sf a dsfadsf adsf adsfadfads fadsf adsf adfadfadf adsf ad ad fad fadsfads f"
+            textWrap="true"></Label>
+    </StackLayout>
+
+    <GridLayout #listContainer>
+        <ListView #itemList [items]="items" class="item-list">
+            <ng-template let-item="item">
+                <list-item [item]="item" (itemTap)="listItemTap($event, overlayImage)"></list-item>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+
+
+    <AbsoluteLayout #overlay class="overlay" [visibility]="overlayVisible" (tap)="onCloseTap($event, overlay)">
+        <!--GridLayout #listItemView columns="*, *" class="list-item" (tap)="onTap($event, overlay, listItemView)"-->
+        <Image #overlayImage [src]="'~/images/' + selectedItem.pic" class="image-overlay" col="0" [width]="imageWidth$ | async" [top]="overlayTop$ | async"
+            [left]="overlayLeft$ | async" [style.clipPath]="clipPath$ | async"></Image>
+        <!--Label [text]="selectedItem.name" class="label" col="1"></Label>
+        </GridLayout-->
+    </AbsoluteLayout>
+</GridLayout>
