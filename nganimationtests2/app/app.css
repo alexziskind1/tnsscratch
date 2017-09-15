@@ -1,0 +1,198 @@
+@import '~/css/core.light.css'; 
+
+
+
+button, label, stack-layout {
+    horizontal-align: center;    
+}
+
+button {
+    font-size: 36;
+}
+
+.heart-img-wrapper {
+    height: 100;
+    width: 100;
+    border-width: 1;
+    border-color: blue;
+}
+
+.heart-img-1 {
+    /*background-image: url('~/images/star_sprite.png');*/
+    background-image: url('~/images/web_heart_animation.png');
+    background-position: 0 0;
+    height: 100;
+    width: 100;
+}
+
+
+.google-logo {
+    transform: scale(0.2, 0.2); 
+}
+
+.title {
+    font-size: 30;
+    margin: 20;
+    transform-origin: left center;
+}
+
+.title-tapped {
+
+    animation-name: spinaround;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spinaround {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.message {
+    font-size: 40;
+    color: #284848;
+    text-align: center;
+    margin: 0 20;
+    transition: 0.5s;
+    transform: scale(0.5, 0.5); 
+} 
+
+.message-tapped {
+    animation-name: slidemessage;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0, 1, 0, 1);
+}
+
+.image-tapped {
+    /*transform: translate(100, 200) scale(0.5, 0.5) rotate(45deg);*/
+    animation-name: slide;
+    animation-duration: 3s;
+    animation-timing-function: cubic-bezier(.41, 0.07, 0.62, 0.91);
+    animation-direction: alternate;
+    animation-iteration-count: 4;
+}
+
+@keyframes slide {
+    0% { transform: translate(0, 0) scale(0.2,0.2);   }
+    20% { transform: translate(100, 0) scale(0.2,0.2);   }
+    35% { transform: translate(0, 0) scale(0.2,0.2);   }
+    90% { transform: translate(300, 0) scale(0.2,0.2);   }
+    100% { transform: translate(250, 0) scale(0.2,0.2); }   
+}
+
+@keyframes slidemessage {
+    from { transform: translate(0, 0);  }
+    to { transform: translate(100, 200) scale(1, 1) rotate(45deg); }
+}
+
+@keyframes fadein {
+    from { opacity: 1;  }
+    to { opacity: 1; }
+}
+
+
+.menu-button {
+
+}
+
+.menu-button-on {
+
+}
+
+.bar {
+    background-color: darkblue;
+    width: 22;
+    height: 4;
+    margin-bottom: 3;
+    border-radius: 2;
+}
+
+.bar1.menu-bar-on {
+    animation-name: bar1on;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+}
+
+.bar1.menu-bar-off {
+    animation-name: bar1on;
+    animation-duration: .5s;
+    animation-fill-mode: backwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-direction: reverse;
+}
+
+@keyframes bar1on {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(0, 7) rotate(45deg); }
+}
+
+.bar2.menu-bar-on {
+    animation-name: bar2on;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+}
+
+.bar2.menu-bar-off {
+    animation-name: bar2on;
+    animation-duration: .5s;
+    animation-fill-mode: backwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-direction: reverse;
+}
+
+@keyframes bar2on {
+    from { transform: translate(0, 0); opacity: 1; }
+    to { transform: translate(-10, 0); opacity: 0; }
+}
+
+.bar3.menu-bar-on {
+    animation-name: bar3on;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+}
+
+.bar3.menu-bar-off {
+    animation-name: bar3on;
+    animation-duration: .5s;
+    animation-fill-mode: backwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-direction: reverse;
+}
+
+@keyframes bar3on {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(0, -7) rotate(-45deg); }
+}
+
+.label-square {
+    background-color: red;
+    width: 10;
+    height: 10;
+    transform-origin: left;
+}
+
+.lbl-square-tapped {
+    animation: move1 2s linear;
+}
+
+@keyframes move1 {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(100,0); }
+    50% { transform: translate(100,100); }
+    75% { transform: translate(0,100); }
+    100% { transform: translate(0,0); }
+}

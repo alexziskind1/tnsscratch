@@ -1,0 +1,17 @@
+@import '../libs/animate.css'; 
+
+.list-item {
+    border-width: 1;
+    border-color: red;
+    height: 50;
+
+    animation-name: bounceInLeft;
+    animation-duration: 1s;
+
+}
+
+
+@keyframes itemani {
+  from { transform: translate(-100, 0); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
