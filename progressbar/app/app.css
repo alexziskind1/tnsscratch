@@ -1,0 +1,14 @@
+
+@import '~nativescript-theme-core/css/core.light.css';
+
+.progressbar {
+    height: 100;
+    margin: 10;
+    border-radius: 10;
+    background-color: #ECEFF1;
+  
+}
+.progressbar-value {
+    background-color: #51BC6B;
+    horizontal-align: left;
+}
