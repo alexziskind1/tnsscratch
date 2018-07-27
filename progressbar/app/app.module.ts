@@ -6,28 +6,22 @@ import { ProgressSimplerComponent } from "~/progress2-simpler/progress-simpler.c
 import { ProgressJsAnimatedComponent } from "~/progress3-js-animated/progress-js-animated.component";
 import { ProgressRxAnimatedComponent } from "~/progress4-rx-animated/progress-rx-animated.component";
 
-
 @NgModule({
-    bootstrap: [
-        ProgressOrigComponent,
-        //ProgressSimplerComponent,
-        //ProgressJsAnimatedComponent,
-        //ProgressRxAnimatedComponent
-    ],
-    imports: [
-        NativeScriptModule
-    ],
-    declarations: [
-        ProgressOrigComponent,
-        ProgressSimplerComponent,
-        ProgressJsAnimatedComponent,
-        ProgressRxAnimatedComponent,
-        TweenPipe
-    ],
-    providers: [
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA
-    ]
+  bootstrap: [
+    //ProgressOrigComponent,
+    //ProgressSimplerComponent,
+    //ProgressJsAnimatedComponent,
+    ProgressRxAnimatedComponent
+  ],
+  imports: [NativeScriptModule],
+  declarations: [
+    ProgressOrigComponent,
+    ProgressSimplerComponent,
+    ProgressJsAnimatedComponent,
+    ProgressRxAnimatedComponent,
+    TweenPipe
+  ],
+  providers: [],
+  schemas: [NO_ERRORS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}
